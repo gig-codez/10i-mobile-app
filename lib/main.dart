@@ -29,23 +29,23 @@ class WalletApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => ThemeController(),
-          ),
-        ],
-        builder: (context, widget) {
-          return MaterialApp(
-            navigatorKey: navigationKey,
-            theme: ThemeData(
-              // This is the theme of your application.
-              colorScheme: ColorScheme.fromSeed(
-                  seedColor: Color.fromARGB(255, 34, 89, 240)),
-              useMaterial3: true,
-            ),
-            initialRoute: Routes.splash,
-            routes: Routes.routes,
-          );
-        });
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ThemeController(),
+        ),
+      ],
+      builder: (context, widget) {
+        return MaterialApp(
+          navigatorKey: navigationKey,
+          title: '10i Wallet',
+          debugShowCheckedModeBanner: false,
+          themeMode: ThemeMode.system,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          initialRoute: Routes.splash,
+          routes: Routes.routes,
+        );
+      },
+    );
   }
 }

@@ -25,10 +25,20 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Text("splash screen."),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("10i wallet",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 30),),
+            ],
+          ),
         ),
       ),
     );

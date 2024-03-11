@@ -2,9 +2,12 @@
 export "package:flutter/material.dart";
 export "package:flutter/services.dart";
 export "package:provider/provider.dart";
+export "package:google_fonts/google_fonts.dart";
+export "package:shared_preferences/shared_preferences.dart";
 
 // themes
 export "/themes/themes.dart";
+
 // routes
 export "/routes/routes.dart";
 
