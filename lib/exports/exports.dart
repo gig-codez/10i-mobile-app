@@ -7,6 +7,7 @@ export "package:shared_preferences/shared_preferences.dart";
 export "package:flutter_spinkit/flutter_spinkit.dart";
 export "package:flutter_svg/flutter_svg.dart";
 export 'package:smooth_page_indicator/smooth_page_indicator.dart';
+export 'package:pinput/pinput.dart';
 // themes
 export "/themes/themes.dart";
 
@@ -24,7 +25,13 @@ export "/screens/intro/splash_screen.dart";
 export "/screens/intro/on_boarding.dart";
 export "/screens/auth/login_screen.dart";
 export "/screens/auth/create_account.dart";
-// export "/screens/auth/complete_profile.dart";
+export "/screens/auth/account/reasons_page.dart";
+export "/screens/auth/account/verify_page.dart";
+export "/screens/auth/account/verify_identity.dart";
+export "/screens/auth/account/scan_document.dart";
+export "/screens/auth/account/user_profile.dart";
+export "/screens/auth/account/create_pin.dart";
+
 // export "/screens/auth/verify_email.dart";
 // export "/screens/auth/forget_password.dart";
 // export "/screens/auth/reset_password.dart";
@@ -40,3 +47,4 @@ export "/widgets/tap_effect.dart";
 export "/widgets/onboard_slide.dart";
 export "/widgets/text_styles.dart";
 export "/widgets/custom_text_field.dart";
+export "/widgets/custom_radio_widget.dart";

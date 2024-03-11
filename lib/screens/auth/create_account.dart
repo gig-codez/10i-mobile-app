@@ -163,7 +163,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 textColor: Colors.white,
                 opacity: 1,
                 onPress: () {
-                  Routes.routeTo(Routes.completeProfile);
+                  Routes.routeTo(Routes.reasons);
                 },
               ),
             ],
