@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '/exports/exports.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,7 +14,16 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 4),
+    );
+    // after animating navigate to the next page
+    Future.delayed(const Duration(milliseconds: 1200), () {
+      if (mounted) {
+        Routes.replacePage(const OnBoarding());
+      }
+    });
   }
 
   @override
@@ -29,14 +38,23 @@ class _SplashScreenState extends State<SplashScreen>
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("10i wallet",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(fontSize: 30),),
+              Text(
+                "10i wallet",
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontSize: 30,
+                    ),
+              ),
+              // space widget
+              const SpaceWidget(space: 0.73),
+              SpinKitCircle(
+                color: Theme.of(context).primaryColor,
+                size: 80.0,
+                controller: _controller,
+              ),
+              const SpaceWidget(space: 0.093),
             ],
           ),
         ),
