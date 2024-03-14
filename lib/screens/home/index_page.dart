@@ -13,28 +13,34 @@ class _IndexPageState extends State<IndexPage> {
     super.initState();
   }
 
-  var _pageController = PageController();
-  int initialPage = 0;
-  final List<Widget> _pages = [HomeScreen(), MoreDetails()];
+  final _pageController = PageController(initialPage: 1);
+  int initialPage = 1;
+  final List<Widget> _pages = [
+    MoreDetails(),
+    HomeScreen(),
+    MoreDetails(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView.builder(
+        controller: _pageController,
         itemCount: _pages.length,
         itemBuilder: (context, index) {
           return _pages[index];
         },
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: FloatingActionButton(
-      //   shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.circular(50),
-      //   ),
-      //   onPressed: () {},
-      //   child: const Icon(
-      //     Icons.qr_code_2_rounded,
-      //   ),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
+        onPressed: () =>
+            Routes.pushPageWithRouteAndAnimation(const PaymentInfo()),
+        child: const Icon(
+          Icons.qr_code_2_rounded,
+        ),
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).brightness == Brightness.light

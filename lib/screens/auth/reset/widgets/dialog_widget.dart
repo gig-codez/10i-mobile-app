@@ -1,7 +1,10 @@
 import "/exports/exports.dart";
 
 class DialogWidget extends StatelessWidget {
-  const DialogWidget({super.key});
+  final VoidCallback? onPress;
+  final String? title;
+  final String? subtitle;
+  const DialogWidget({super.key, this.onPress, this.title, this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class DialogWidget extends StatelessWidget {
             TextSpan(
               children: [
                 TextSpan(
-                  text: "Password Reset\n",
+                  text: title ?? "Password Reset\n",
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.w900,
                         fontSize: 24,
@@ -23,7 +26,8 @@ class DialogWidget extends StatelessWidget {
                       ),
                 ),
                 TextSpan(
-                  text: "\nYour password has been reset successfully.\n",
+                  text: subtitle ??
+                      "\nYour password has been reset successfully.\n",
                   style: Theme.of(context).textTheme.bodyMedium!.apply(
                         fontSizeFactor: 1.2,
                       ),
@@ -40,7 +44,7 @@ class DialogWidget extends StatelessWidget {
             child: CustomButton(
               width: double.infinity,
               buttonHeight: 50,
-              onPress: () => Routes.replacePage(const LoginScreen()),
+              onPress: onPress ?? () => Routes.replacePage(const LoginScreen()),
               text: "Okay",
             ),
           ),

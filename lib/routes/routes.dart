@@ -17,6 +17,8 @@ class Routes {
   static String notifications = "/notifications";
   static String qrCode = "/qrCode";
   static String resultPage = "/resultPage";
+  static String sendMoney = "/sendMoney";
+  static String review = "/review";
   // function to pop off a page
   static void pop() {
     Navigator.of(context).pop();
@@ -25,6 +27,35 @@ class Routes {
   // navigate using routes
   static void routeTo(String route) {
     Navigator.of(context).pushNamed(route);
+  }
+
+  static void pushPageWithRouteAndAnimation(Widget route, {type = 'fade'}) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => type == 'scale'
+            ? ScaleTransition(
+                scale: animation,
+                child: route,
+              )
+            : FadeTransition(
+                opacity: animation,
+                child: route,
+              ),
+      ),
+    );
+  }
+
+  static void replaceRouteTo(String route) {
+    Navigator.of(context).pushReplacementNamed(route);
+  }
+
+  static void push(Widget page) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => page,
+        fullscreenDialog: true,
+      ),
+    );
   }
 
   // replace pages
@@ -49,8 +80,10 @@ class Routes {
     otp: (context) => const ResetPin(),
     newPass: (context) => const NewPassword(),
     homePage: (context) => const IndexPage(),
-    notifications:(context) => const Notifications(),
-    qrCode:(context) => const ScanQrCode(),
-    resultPage:(context) => ResultPage(),
+    notifications: (context) => const Notifications(),
+    qrCode: (context) => const ScanQrCode(),
+    resultPage: (context) => const ResultPage(),
+    sendMoney: (context) => const SendMoney(),
+    review: (context) => const ReviewSummary(),
   };
 }

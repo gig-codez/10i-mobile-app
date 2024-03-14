@@ -12,6 +12,7 @@ export 'package:lottie/lottie.dart';
 export 'package:google_nav_bar/google_nav_bar.dart';
 export 'package:qr_code_scanner/qr_code_scanner.dart';
 export 'package:flutter/foundation.dart';
+export 'package:pretty_qr_code/pretty_qr_code.dart';
 // themes
 export "/themes/themes.dart";
 
@@ -48,9 +49,18 @@ export "/screens/home/invoices.dart";
 // payments
 export "/screens/home/payments/scan_qrcode.dart";
 export "/screens/home/payments/result_page.dart";
-
+export "/screens/home/payments/send_money.dart";
+export "/screens/home/payments/payment_type.dart";
+export "/screens/home/payments/review_summary.dart";
+export "/screens/home/payments/payment_info.dart";
 // services
 export "/services/auth_service.dart";
+// more
+export "/screens/home/more/security.dart";
+export "/screens/home/more/privacy.dart";
+export "/screens/home/more/help_center.dart";
+export "/screens/home/more/about_page.dart";
+export "/screens/home/more/personal_info.dart";
 
 // widgets
 export "/widgets/space_widget.dart";
@@ -60,3 +70,4 @@ export "/widgets/onboard_slide.dart";
 export "/widgets/text_styles.dart";
 export "/widgets/custom_text_field.dart";
 export "/widgets/custom_radio_widget.dart";
+export "/widgets/profile_widget.dart";
