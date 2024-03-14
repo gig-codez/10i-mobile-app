@@ -104,15 +104,17 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox.square(
               dimension: 10,
             ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const SizedBox(),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => Routes.routeTo(Routes.forgotPass),
                   child: Text(
-                    "forgot password?",
-                    style: Theme.of(context).textTheme.bodyMedium!.apply(
+                    "Forgot Password?",
+                    style: Theme.of(context).textTheme.bodyLarge!.apply(
+                          fontWeightDelta: 5,
                           color: Theme.of(context).primaryColor,
                         ),
                   ),
@@ -126,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
               opacity: 1,
               textColor: Colors.white,
               text: "Sign In",
-              onPress: () => Routes.routeTo(""),
+              onPress: () => Routes.routeTo(Routes.homePage),
             ),
             const SizedBox.square(
               dimension: 20,

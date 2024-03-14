@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- app permissions -->
+<uses-permission android:name="android.permission.INTERNET"/>
+<!-- end of app permissions -->
     <application
         android:label="wallet_app"
         android:name="${applicationName}"

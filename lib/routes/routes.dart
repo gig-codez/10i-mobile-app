@@ -10,6 +10,13 @@ class Routes {
   static String verifyIdentity = "/verifyIdentity";
   static String scanDocs = "/scanDocs";
   static String createPin = "/createPin";
+  static String forgotPass = "/forgotPass";
+  static String otp = "/otp";
+  static String newPass = "/newPass";
+  static String homePage = "/home";
+  static String notifications = "/notifications";
+  static String qrCode = "/qrCode";
+  static String resultPage = "/resultPage";
   // function to pop off a page
   static void pop() {
     Navigator.of(context).pop();
@@ -38,5 +45,12 @@ class Routes {
     scanDocs: (context) => const ScanDocument(),
     completeProfile: (context) => const UserProfile(),
     createPin: (context) => const CreatePin(),
+    forgotPass: (context) => const ForgotPassword(),
+    otp: (context) => const ResetPin(),
+    newPass: (context) => const NewPassword(),
+    homePage: (context) => const IndexPage(),
+    notifications:(context) => const Notifications(),
+    qrCode:(context) => const ScanQrCode(),
+    resultPage:(context) => ResultPage(),
   };
 }
