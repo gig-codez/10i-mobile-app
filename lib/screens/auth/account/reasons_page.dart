@@ -8,6 +8,7 @@ class ReasonsPage extends StatefulWidget {
 }
 
 class _ReasonsPageState extends State<ReasonsPage> {
+  List<String> reasons = [""];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +43,7 @@ class _ReasonsPageState extends State<ReasonsPage> {
             const SpaceWidget(),
             Expanded(
               child: ListView.builder(
-                // itemCount: reasons.length,
+                itemCount: reasons.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -68,7 +69,7 @@ class _ReasonsPageState extends State<ReasonsPage> {
                               dense: true,
                               onChanged: (value) {},
                               title: Text(
-                                "reasons[index]",
+                                reasons[index],
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!

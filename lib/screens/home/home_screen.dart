@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         toolbarHeight: 0,
         backgroundColor: Theme.of(context).primaryColor.withAlpha(230),
@@ -36,9 +37,14 @@ class _HomeScreenState extends State<HomeScreen>
           Column(
             children: [
               Expanded(
+                flex: 2,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor.withAlpha(230),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(60),
+                      bottomRight: Radius.circular(60),
+                    ),
                   ),
                   child: Column(
                     children: [
@@ -48,7 +54,38 @@ class _HomeScreenState extends State<HomeScreen>
                         children: [
                           const Padding(
                             padding: EdgeInsets.all(18.0),
-                            child: FlutterLogo(),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage("assets/pngs/dp.png"),
+                                  radius: 34,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text.rich(TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "Hi",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: "\nJenny Wilson",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                              ],
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(18.0),
@@ -78,6 +115,9 @@ class _HomeScreenState extends State<HomeScreen>
                       )
                       //  text view for rendering user's account balance
                       ,
+                      const SpaceWidget(
+                        space: 0.07,
+                      ),
                       Text.rich(
                           TextSpan(
                             children: [
@@ -88,8 +128,8 @@ class _HomeScreenState extends State<HomeScreen>
                                     .titleLarge!
                                     .apply(
                                       color: Colors.white,
-                                      fontSizeDelta: 12,
-                                      fontSizeFactor: 1.35,
+                                      fontSizeDelta: 30,
+                                      fontSizeFactor: 1.5,
                                       fontWeightDelta: 850,
                                     ),
                               ),
@@ -100,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen>
                                     .bodyLarge!
                                     .apply(color: Colors.white),
                               ),
-                              TextSpan(text: "\n")
+                              // const TextSpan(text: "\n")
                             ],
                           ),
                           textAlign: TextAlign.center)
@@ -108,39 +148,19 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
               ),
-              Expanded(
+              const Expanded(
                 flex: 3,
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ServicesWidget(),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(8, 15, 8, 15),
-                        child: Divider(),
+                      Card(
+                        elevation: 0,
+                        color: Colors.white,
+                        child: ServicesWidget(),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 8, 10, 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Recent Transactions",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .apply(
-                                      color: Colors.black, fontWeightDelta: 5),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.arrow_forward,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
+                      SpaceWidget(space: 0.2),
                     ],
                   ),
                   //

@@ -59,7 +59,7 @@ class _OnBoardingState extends State<OnBoarding> {
       description: "Secure Transactions & Reliable Anytime.",
     ),
     Slide(
-      image: "assets/pngs/manage_finance.png",
+      image: "assets/pngs/finance.png",
       description: "Let's Manage Your Financials Now!",
     )
   ];

@@ -10,6 +10,14 @@ class Invoices extends StatefulWidget {
 class _InvoicesState extends State<Invoices> {
   @override
   Widget build(BuildContext context) {
-    return const Column(children:[],);
+    return Column(
+      children: [
+        Text(
+          "Invoices",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ],
+    );
   }
 }
+// A1rq0@2022

@@ -17,8 +17,16 @@ class Routes {
   static String notifications = "/notifications";
   static String qrCode = "/qrCode";
   static String resultPage = "/resultPage";
+  // 10i services routes
   static String sendMoney = "/sendMoney";
+  static String deposit = "/deposit";
+  static String utility = "/utility";
+  static String family = "/family";
+  static String credit = "/credit";
   static String review = "/review";
+  static String reward = "/reward";
+  static String electricity = "/electricity";
+  static String water = "/water";
   // function to pop off a page
   static void pop() {
     Navigator.of(context).pop();
@@ -83,7 +91,15 @@ class Routes {
     notifications: (context) => const Notifications(),
     qrCode: (context) => const ScanQrCode(),
     resultPage: (context) => const ResultPage(),
-    sendMoney: (context) => const SendMoney(),
     review: (context) => const ReviewSummary(),
+    // services
+    deposit: (context) => const Deposit(),
+    sendMoney: (context) => const SendMoney(),
+    utility: (context) => const Utilities(),
+    reward: (context) => const Rewards(),
+    family: (context) => const Family(),
+    credit: (context) => const CreditLife(),
+    electricity: (context) => const Electricity(),
+    water: (context) => const Water(),
   };
 }

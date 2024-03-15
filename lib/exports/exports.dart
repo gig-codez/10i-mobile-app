@@ -25,9 +25,10 @@ export "/controllers/theme_controller.dart";
 // main
 export "/main.dart";
 
-// screens
+// intro screens
 export "/screens/intro/splash_screen.dart";
 export "/screens/intro/on_boarding.dart";
+// auth pages
 export "/screens/auth/login_screen.dart";
 export "/screens/auth/create_account.dart";
 export "/screens/auth/account/reasons_page.dart";
@@ -39,6 +40,8 @@ export "/screens/auth/account/create_pin.dart";
 export "/screens/auth/reset/forgot_password.dart";
 export "/screens/auth/reset/reset_pin.dart";
 export "/screens/auth/reset/new_password.dart";
+// auth widgets
+export "/screens/auth/reset/widgets/dialog_widget.dart";
 
 // home
 export "/screens/home/home_screen.dart";
@@ -46,6 +49,7 @@ export "/screens/home/index_page.dart";
 export "/screens/home/more_details.dart";
 export "/screens/home/notifications.dart";
 export "/screens/home/invoices.dart";
+
 // payments
 export "/screens/home/payments/scan_qrcode.dart";
 export "/screens/home/payments/result_page.dart";
@@ -53,8 +57,25 @@ export "/screens/home/payments/send_money.dart";
 export "/screens/home/payments/payment_type.dart";
 export "/screens/home/payments/review_summary.dart";
 export "/screens/home/payments/payment_info.dart";
+
+// screen => services
+export "/screens/home/services/credit_life.dart";
+export "/screens/home/services/deposit.dart";
+export "/screens/home/services/family.dart";
+export "/screens/home/services/utilities.dart";
+export "/screens/home/services/reward.dart";
+export "/screens/home/services/electricity.dart";
+export "/screens/home/services/water.dart";
+export "/screens/home/services/confirm_payment_water.dart";
+export "/screens/home/services/confirm_payment_power.dart";
+// widgets
+export "/screens/home/services/widget/payment_sumary.dart";
+// export "/screens/home/services/confirm_payment_family.dart";
+// export "/screens/home/services/confirm_payment_reward.dart";
+
 // services
 export "/services/auth_service.dart";
+// export "";
 // more
 export "/screens/home/more/security.dart";
 export "/screens/home/more/privacy.dart";

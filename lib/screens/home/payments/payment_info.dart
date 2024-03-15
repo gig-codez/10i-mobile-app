@@ -41,104 +41,55 @@ class _PaymentInfoState extends State<PaymentInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Share Your Payment Info',
-          style: Theme.of(context).textTheme.titleLarge!.apply(
-                fontWeightDelta: 5,
+        backgroundColor: Colors.grey.shade200,
+        appBar: AppBar(
+          forceMaterialTransparency: true,
+          title: Text(
+            'Share Your Payment Info',
+            style: Theme.of(context).textTheme.titleLarge!.apply(
+                  fontWeightDelta: 5,
+                ),
+          ),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Card(
+              elevation: 0,
+              color: Colors.white,
+              margin: EdgeInsets.fromLTRB(25, 8, 25, 8),
+              child: _PrettyQrAnimatedView(
+                qrImage: qrImage,
+                decoration: decoration,
               ),
-        ),
-      ),
-      body: Align(
-        alignment: Alignment.center,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 1024,
-          ),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final safePadding = MediaQuery.of(context).padding;
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (constraints.maxWidth >= 720)
-                    Flexible(
-                      flex: 3,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          left: safePadding.left + 24,
-                          right: safePadding.right + 24,
-                          bottom: 24,
-                        ),
-                        child: _PrettyQrAnimatedView(
-                          qrImage: qrImage,
-                          decoration: decoration,
-                        ),
-                      ),
-                    ),
-                  Flexible(
-                    flex: 2,
-                    child: Column(
-                      children: [
-                        if (constraints.maxWidth < 720)
-                          Padding(
-                            padding: safePadding.copyWith(
-                              top: 0,
-                              bottom: 0,
-                            ),
-                            child: _PrettyQrAnimatedView(
-                              qrImage: qrImage,
-                              decoration: decoration,
-                            ),
-                          ),
-                        // Expanded(
-                        //   child: SingleChildScrollView(
-                        //     padding: safePadding.copyWith(top: 0),
-                        //     child: _PrettyQrSettings(
-                        //       decoration: decoration,
-                        //       onChanged: (value) => setState(() {
-                        //         decoration = value;
-                        //       }),
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text("More Options"),
-        icon: Icon(Icons.more),
-        onPressed: () {
-          showBottomSheet(
-              context: context,
-              builder: (context) {
-                return BottomSheet(
-                    onClosing: () {},
-                    builder: (context) {
-                      return SizedBox(
-                        height: MediaQuery.of(context).size.height/2,
-                        child: SingleChildScrollView(
-                          // padding: safePadding.copyWith(top: 0),
-                          child: _PrettyQrSettings(
-                            decoration: decoration,
-                            onChanged: (value) => setState(() {
-                              decoration = value;
-                            }),
-                          ),
-                        ),
-                      );
-                    });
-              });
-        },
-      ),
-    );
+            ),
+          ],
+        )
+        // floatingActionButton: FloatingActionButton.extended(
+        //   label: const Text("More Options"),
+        //   // icon: ,
+        //   onPressed: () {
+        //     showAdaptiveDialog(
+        //         context: context,
+        //         builder: (context) {
+        //           return Dialog(
+        //             child: SizedBox(
+        //               height: MediaQuery.of(context).size.height / 2,
+        //               child: SingleChildScrollView(
+        //                 // padding: safePadding.copyWith(top: 0),
+        //                 child: _PrettyQrSettings(
+        //                   decoration: decoration,
+        //                   onChanged: (value) => setState(() {
+        //                     decoration = value;
+        //                   }),
+        //                 ),
+        //               ),
+        //             ),
+        //           );
+        //         });
+        //   },
+        // ),
+        );
   }
 }
 
