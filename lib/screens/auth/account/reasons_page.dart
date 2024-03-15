@@ -8,7 +8,13 @@ class ReasonsPage extends StatefulWidget {
 }
 
 class _ReasonsPageState extends State<ReasonsPage> {
-  List<String> reasons = [""];
+  List<String> reasons = [
+    "Make Online Payments",
+    "Spend or save daily",
+    "Send and manage money",
+    "Spend while travelling",
+    "Other reasons."
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
