@@ -13,18 +13,29 @@ class _IndexPageState extends State<IndexPage> {
     super.initState();
   }
 
-  final _pageController = PageController(initialPage: 1);
-  int initialPage = 1;
+  final pageController = PageController(initialPage: 1);
+  // selected nav item
+  int selected = 0;
   final List<Widget> _pages = const [
     Invoices(),
     HomeScreen(),
     MoreDetails(),
+    MoreDetails(),
+    MoreDetails(),
+  ];
+  final String ext = "assets/svgs/";
+  List<Map<String, dynamic>> bottomNavs = [
+    {"label": "Home", "icon": "home.svg", "un": "home_un.svg"},
+    {"label": "Activity", "icon": "activity.svg", "un": "activity.svg"},
+    {"label": "Analytics", "icon": "analytics_un.svg", "un": "analytics.svg"},
+    {"label": "Invoicing", "icon": "page.svg", "un": "page_un.svg"},
+    {"label": "More", "icon": "more_un.svg", "un": "more.svg"},
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView.builder(
-        controller: _pageController,
+        controller: pageController,
         itemCount: _pages.length,
         itemBuilder: (context, index) {
           return _pages[index];
@@ -41,56 +52,31 @@ class _IndexPageState extends State<IndexPage> {
           Icons.qr_code_2_rounded,
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-          child: GNav(
-            gap: 8,
-            activeColor: const Color.fromARGB(255, 0, 0, 0),
-            iconSize: 28,
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 7),
-            duration: const Duration(milliseconds: 100),
-            tabBackgroundColor: Theme.of(context).brightness == Brightness.light
-                ? Theme.of(context).primaryColor.withAlpha(30)
-                : Colors.white70.withAlpha(400),
-            color: Colors.grey[400]!,
-            textStyle: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .apply(color: Theme.of(context).primaryColor),
-            tabActiveBorder: Border.all(
-              color: Theme.of(context).primaryColor.withAlpha(20),
-              width: 1,
-            ), // tab button border
-            // tabBorder:
-            // Border.all(color: Colors.grey, width: 1), // t/ tab button shadow
-            curve: Curves.easeOutExpo, // tab animation curves
-            tabs: [
-              GButton(
-                icon: Icons.file_open_rounded,
-                text: 'Invoices',
-                iconActiveColor: Theme.of(context).primaryColor,
-              ),
-              GButton(
-                icon: Icons.home_outlined,
-                text: 'Home',
-                iconActiveColor: Theme.of(context).primaryColor,
-              ),
-              GButton(
-                icon: Icons.more_horiz_rounded,
-                text: 'More',
-                iconActiveColor: Theme.of(context).primaryColor,
-              ),
-            ],
-            selectedIndex: initialPage,
-            onTabChange: (index) {
-              setState(() {
-                initialPage = index;
-              });
-              _pageController.animateToPage(index,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.decelerate);
-            },
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            selected = index;
+          });
+          pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 700),
+            curve: Curves.ease,
+          );
+        },
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Theme.of(context).primaryColor,
+        selectedIconTheme: const IconThemeData(size: 30),
+        currentIndex: selected,
+        items: List.generate(
+          bottomNavs.length,
+          (index) => BottomNavigationBarItem(
+            label: bottomNavs[index]['label'],
+            icon: SvgPicture.asset(
+              "$ext${selected == index ? bottomNavs[index]['icon'] : bottomNavs[index]['un']}",
+              color: selected == index
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey.shade400,
+            ),
           ),
         ),
       ),
