@@ -14,11 +14,13 @@ class OnboardSlide extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           image.endsWith(".png")
-              ? Image.asset(
-                  image,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.width,
-                  fit: BoxFit.cover,
+              ? FittedBox(
+                  child: Image.asset(
+                    image,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width,
+                    fit: BoxFit.cover,
+                  ),
                 )
               : SvgPicture.asset(image),
           Text(

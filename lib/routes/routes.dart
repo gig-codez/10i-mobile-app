@@ -21,12 +21,21 @@ class Routes {
   static String sendMoney = "/sendMoney";
   static String deposit = "/deposit";
   static String utility = "/utility";
-  static String family = "/family";
-  static String credit = "/credit";
+  static String splitBill = "/family";
   static String review = "/review";
-  static String reward = "/reward";
+  static String invoice = "/reward";
   static String electricity = "/electricity";
   static String water = "/water";
+  static String paymentInfo = "/paymentInfo";
+  // transfers
+  static String transfers = "/transfers";
+  static String transferMoney = "/transferMoney";
+  static String transferReview = "/transferReview";
+  static String transferSuccess = "/transferSuccess";
+  // quick link
+  static String quickLink = "/quickLink";
+  static String quickInvoice = "/quickInvoice";
+
   // function to pop off a page
   static void pop() {
     Navigator.of(context).pop();
@@ -96,10 +105,18 @@ class Routes {
     deposit: (context) => const Deposit(),
     sendMoney: (context) => const SendMoney(),
     utility: (context) => const Utilities(),
-    reward: (context) => const Rewards(),
-    family: (context) => const Family(),
-    credit: (context) => const CreditLife(),
+    invoice: (context) => const Rewards(),
+    splitBill: (context) => const Family(),
     electricity: (context) => const Electricity(),
     water: (context) => const Water(),
+    paymentInfo: (context) => const PaymentInfo(),
+    // transfers
+    transfers: (context) => const TransfersPage(),
+    transferMoney: (context) => const TransferMoney(),
+    transferReview: (context) => const TransferReview(),
+    transferSuccess: (context) => const TransferSuccess(),
+    // quick invoice
+    quickLink: (context) => const QuickLink(),
+    quickInvoice: (context) => const QuickInvoice(),
   };
 }

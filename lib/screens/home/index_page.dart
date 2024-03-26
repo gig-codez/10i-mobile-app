@@ -13,12 +13,12 @@ class _IndexPageState extends State<IndexPage> {
     super.initState();
   }
 
-  final pageController = PageController(initialPage: 1);
+  final pageController = PageController(initialPage: 0);
   // selected nav item
   int selected = 0;
   final List<Widget> _pages = const [
-    Invoices(),
     HomeScreen(),
+    Invoices(),
     MoreDetails(),
     MoreDetails(),
     MoreDetails(),
@@ -41,17 +41,6 @@ class _IndexPageState extends State<IndexPage> {
           return _pages[index];
         },
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-        onPressed: () =>
-            Routes.pushPageWithRouteAndAnimation(const PaymentInfo()),
-        child: const Icon(
-          Icons.qr_code_2_rounded,
-        ),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
@@ -60,7 +49,7 @@ class _IndexPageState extends State<IndexPage> {
           pageController.animateToPage(
             index,
             duration: const Duration(milliseconds: 700),
-            curve: Curves.ease,
+            curve: Curves.decelerate,
           );
         },
         type: BottomNavigationBarType.fixed,

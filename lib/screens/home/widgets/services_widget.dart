@@ -1,5 +1,3 @@
-import "package:wallet_app/widgets/tap_effect.dart";
-
 import "/exports/exports.dart";
 
 class ServicesWidget extends StatefulWidget {
@@ -18,39 +16,49 @@ class _ServicesWidgetState extends State<ServicesWidget> {
       icon: "send.svg",
     ),
     ServicesModel(
-      label: "Deposit",
+      label: "Request",
       route: Routes.deposit,
-      icon: "deposite.svg",
+      icon: "request.svg",
     ),
     ServicesModel(
-      label: "Utilities",
-      route: Routes.utility,
-      icon: "utility.svg",
+      label: "Transfer",
+      route: Routes.transfers,
+      icon: "transfer.svg",
     ),
     ServicesModel(
-      label: "Family",
-      route: Routes.family,
-      icon: "family.svg",
+      label: "Create Invoice",
+      route: Routes.invoice,
+      icon: "doc.svg",
     ),
     ServicesModel(
-      label: "Credit Life",
-      route: Routes.credit,
+      label: "Send a Quick Invoice",
+      route: Routes.quickLink,
       icon: "credit.svg",
     ),
     ServicesModel(
-      label: "Reward",
-      route: Routes.reward,
-      icon: "reward.svg",
+      label: "Pay Bills",
+      route: Routes.utility,
+      icon: "bills.svg",
+    ),
+    ServicesModel(
+      label: "Split Bill",
+      route: Routes.splitBill,
+      icon: "split.svg",
+    ),
+    ServicesModel(
+      label: "Share Payment Info",
+      route: Routes.paymentInfo,
+      icon: "share.svg",
     ),
   ];
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 280,
+      height: MediaQuery.of(context).size.height * 0.05,
       child: GridView.builder(
         itemCount: services.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
+          crossAxisCount: 4,
           mainAxisSpacing: 2,
         ),
         itemBuilder: (context, index) {
@@ -59,13 +67,13 @@ class _ServicesWidgetState extends State<ServicesWidget> {
               TapEffect(
                 onClick: () => Routes.routeTo(services[index].route),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: CircleAvatar(
-                    radius: 30,
+                    radius: 20,
                     child: SvgPicture.asset(
                       "assets/svgs/${services[index].icon}",
-                      width: 30,
-                      height: 30,
+                      width: 20,
+                      height: 20,
                       color: Theme.of(context).primaryColor,
                     ),
                   ),
@@ -73,9 +81,10 @@ class _ServicesWidgetState extends State<ServicesWidget> {
               ),
               Text(
                 services[index].label,
+                textAlign:TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyMedium!
+                    .labelSmall!
                     .copyWith(fontWeight: FontWeight.w600),
               ),
             ],

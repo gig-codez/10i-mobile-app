@@ -49,7 +49,10 @@ export "/screens/home/index_page.dart";
 export "/screens/home/more_details.dart";
 export "/screens/home/notifications.dart";
 export "/screens/home/invoices.dart";
-
+// home - widgets
+export "/screens/home/widgets/dash_card.dart";
+export "/screens/home/widgets/services_widget.dart";
+export "/screens/home/widgets/recent_activities.dart";
 // payments
 export "/screens/home/payments/scan_qrcode.dart";
 export "/screens/home/payments/result_page.dart";
@@ -57,9 +60,15 @@ export "/screens/home/payments/send_money.dart";
 export "/screens/home/payments/payment_type.dart";
 export "/screens/home/payments/review_summary.dart";
 export "/screens/home/payments/payment_info.dart";
-
+// transfers
+export "/screens/home/transfers/index_page.dart";
+export "../screens/home/transfers/transfer_money.dart";
+export "/screens/home/transfers/transfer__review.dart";
+export "/screens/home/transfers/transfer_success.dart";
+// quick link
+export "/screens/home/quick_link/quick_invoice.dart";
+export "/screens/home/quick_link/quick_link.dart";
 // screen => services
-export "/screens/home/services/credit_life.dart";
 export "/screens/home/services/deposit.dart";
 export "/screens/home/services/family.dart";
 export "/screens/home/services/utilities.dart";
@@ -70,6 +79,7 @@ export "/screens/home/services/confirm_payment_water.dart";
 export "/screens/home/services/confirm_payment_power.dart";
 // widgets
 export "/screens/home/services/widget/payment_sumary.dart";
+
 // export "/screens/home/services/confirm_payment_family.dart";
 // export "/screens/home/services/confirm_payment_reward.dart";
 

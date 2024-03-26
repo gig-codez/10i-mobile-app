@@ -22,8 +22,8 @@ void main() {
   );
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.black12,
-    ),
+        // systemNavigationBarColor: Colors.black12,
+        ),
   );
 }
 
@@ -46,7 +46,7 @@ class WalletApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.system,
           theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
+          // darkTheme: AppTheme.darkTheme,
           initialRoute: Routes.splash,
           routes: Routes.routes,
         );
