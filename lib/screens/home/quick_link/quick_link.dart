@@ -39,7 +39,7 @@ class _QuickLinkState extends State<QuickLink> {
             ),
           ),
           const SpaceWidget(space: 0.05),
-          Text("Add a note (optional)"),
+          const Text("Add a note (optional)"),
           TextField(
             autofocus: true,
             style: Theme.of(context).textTheme.bodyMedium!,
@@ -52,9 +52,11 @@ class _QuickLinkState extends State<QuickLink> {
               ),
             ),
           ),
-          const SpaceWidget(space: 1.06),
+          const SpaceWidget(space: .6),
           CustomButton(
             text: "Create and Share Link.",
+            buttonColor: Theme.of(context).primaryColor,
+            textColor: Colors.white,
             onPress: () => Routes.routeTo(Routes.quickInvoice),
           ),
         ],

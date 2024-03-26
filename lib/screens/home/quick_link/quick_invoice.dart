@@ -14,36 +14,43 @@ class _QuickInvoiceState extends State<QuickInvoice> {
       appBar: AppBar(
         title: const Text("Send a Quick Invoice."),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 0.0),
-        child: Column(
-          children: [
-            SvgPicture.asset("assets/svgs/share_link.svg"),
-            const SpaceWidget(),
-            Text(
-              "Your invoice link is ready to share.",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .apply(fontWeightDelta: 25),
-            ),
-            const Text("Share your link via the share link button below."),
-            //
-            SpaceWidget(space: 0.09),
+        children: [
+          const SpaceWidget(),
+          SvgPicture.asset(
+            "assets/svgs/share_link.svg",
+            width: 400,
+            height: 400,
+          ),
+          const SpaceWidget(),
+          Text(
+            "Your invoice link is ready to share.",
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .apply(fontWeightDelta: 25),
+          ),
+          const Text(
+            "Share your link via the share link button below.",
+            textAlign: TextAlign.center,
+          ),
+          //
+          const SpaceWidget(space: 0.09),
 
-            CustomButton(
-              text: "Share Link",
-              buttonColor: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              onPress: () {},
-            ),
-            const SpaceWidget(),
-            CustomButton(
-              text: "Done",
-              onPress: () => Routes.replacePage(const IndexPage()),
-            )
-          ],
-        ),
+          CustomButton(
+            text: "Share Link",
+            buttonColor: Theme.of(context).primaryColor,
+            textColor: Colors.white,
+            onPress: () {},
+          ),
+          const SpaceWidget(),
+          CustomButton(
+            text: "Done",
+            onPress: () => Routes.replacePage(const IndexPage()),
+          )
+        ],
       ),
     );
   }

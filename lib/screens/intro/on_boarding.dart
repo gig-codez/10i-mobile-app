@@ -73,6 +73,10 @@ class _OnBoardingState extends State<OnBoarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        elevation: 0.0,
+      ),
       body: Padding(
         padding: const EdgeInsets.only(left: 18.0, right: 18.0),
         child: Column(

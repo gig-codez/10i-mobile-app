@@ -9,10 +9,10 @@ export "package:flutter_svg/flutter_svg.dart";
 export 'package:smooth_page_indicator/smooth_page_indicator.dart';
 export 'package:pinput/pinput.dart';
 export 'package:lottie/lottie.dart';
-export 'package:google_nav_bar/google_nav_bar.dart';
 export 'package:qr_code_scanner/qr_code_scanner.dart';
 export 'package:flutter/foundation.dart';
 export 'package:pretty_qr_code/pretty_qr_code.dart';
+export 'package:share_plus/share_plus.dart';
 // themes
 export "/themes/themes.dart";
 
@@ -71,12 +71,8 @@ export "/screens/home/quick_link/quick_link.dart";
 // screen => services
 export "/screens/home/services/deposit.dart";
 export "/screens/home/services/family.dart";
-export "/screens/home/services/utilities.dart";
+export "../screens/home/bills/utilities.dart";
 export "/screens/home/services/reward.dart";
-export "/screens/home/services/electricity.dart";
-export "/screens/home/services/water.dart";
-export "/screens/home/services/confirm_payment_water.dart";
-export "/screens/home/services/confirm_payment_power.dart";
 // widgets
 export "/screens/home/services/widget/payment_sumary.dart";
 
@@ -85,7 +81,12 @@ export "/screens/home/services/widget/payment_sumary.dart";
 
 // services
 export "/services/auth_service.dart";
-// export "";
+// bills
+export "/screens/home/bills/electricity.dart";
+export "/screens/home/bills/water.dart";
+export "/screens/home/bills/internet.dart";
+export "/screens/home/bills/confirm_payment_water.dart";
+export "/screens/home/bills/confirm_payment_power.dart";
 // more
 export "/screens/home/more/security.dart";
 export "/screens/home/more/privacy.dart";

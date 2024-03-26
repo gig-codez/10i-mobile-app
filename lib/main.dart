@@ -1,30 +1,30 @@
+import 'dart:io';
+
 import 'exports/exports.dart';
 
-// global definitions of buildcontext from navigation global key.
+// global definitions of build context from navigation global key.
 var navigationKey = GlobalKey<NavigatorState>();
+
 BuildContext context = navigationKey.currentContext!;
+// ---------------------------------------------------------------
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const WalletApp());
-  // define system chrome features for the app to fit the device screen.
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   const SystemUiOverlayStyle(
-  //     statusBarColor: Colors.transparent,
-  //     systemNavigationBarColor: Colors.transparent,
-  //   ),
-  // );
   // device stays in portrait.
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  // app fits screen pxiels
-  SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.edgeToEdge,
-    overlays: [],
-  );
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-        // systemNavigationBarColor: Colors.black12,
-        ),
-  );
+  // layout settings for android
+  if (Platform.isAndroid) {
+    // app fits screen pxiels
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.edgeToEdge,
+      overlays: [],
+    );
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black12,
+      ),
+    );
+  }
 }
 
 class WalletApp extends StatelessWidget {

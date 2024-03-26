@@ -35,6 +35,9 @@ class Routes {
   // quick link
   static String quickLink = "/quickLink";
   static String quickInvoice = "/quickInvoice";
+  // bills
+  static String internet = "/internet";
+  static String confirmPayment = "/confirmPayment";
 
   // function to pop off a page
   static void pop() {
@@ -107,8 +110,7 @@ class Routes {
     utility: (context) => const Utilities(),
     invoice: (context) => const Rewards(),
     splitBill: (context) => const Family(),
-    electricity: (context) => const Electricity(),
-    water: (context) => const Water(),
+
     paymentInfo: (context) => const PaymentInfo(),
     // transfers
     transfers: (context) => const TransfersPage(),
@@ -118,5 +120,10 @@ class Routes {
     // quick invoice
     quickLink: (context) => const QuickLink(),
     quickInvoice: (context) => const QuickInvoice(),
+    // bills
+    electricity: (context) => const Electricity(),
+    water: (context) => const Water(),
+    internet: (context) => const InternetPay(),
+    confirmPayment: (context) => const ConfirmPaymentPower(),
   };
 }

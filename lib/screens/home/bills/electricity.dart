@@ -50,6 +50,7 @@ class _ElectricityState extends State<Electricity> {
             ),
             textAlign: TextAlign.center,
           ),
+          
           // const SpaceWidget(space: 0.25),
           const Padding(
             padding: EdgeInsets.fromLTRB(3, 18, 3, 10),

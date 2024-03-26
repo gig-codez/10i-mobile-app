@@ -1,7 +1,10 @@
 import "/exports/exports.dart";
 
 class ConfirmPaymentPower extends StatefulWidget {
-  const ConfirmPaymentPower({super.key});
+  final String? title;
+  final String? icon;
+  final Color? color;
+  const ConfirmPaymentPower({super.key, this.title, this.icon , this.color});
 
   @override
   State<ConfirmPaymentPower> createState() => _ConfirmPaymentPowerState();

@@ -35,6 +35,10 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        elevation: 0.0,
+      ),
       body: SafeArea(
         child: Center(
           child: Column(

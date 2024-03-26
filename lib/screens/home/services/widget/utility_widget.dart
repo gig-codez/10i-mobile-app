@@ -18,7 +18,7 @@ class UtilityWidget extends StatelessWidget {
     return Column(
       children: [
         TapEffect(
-          onClick: () => Routes.routeTo(route),
+          onClick: () => route.isEmpty ? null : Routes.routeTo(route),
           child: CircleAvatar(
             backgroundColor: color.withAlpha(40),
             radius: 25,
@@ -32,6 +32,9 @@ class UtilityWidget extends StatelessWidget {
         ),
         Text(
           label,
+          style: Theme.of(context).textTheme.titleSmall!.apply(
+                fontWeightDelta: 5,
+              ),
         ),
       ],
     );
