@@ -1,64 +1,30 @@
 import "/exports/exports.dart";
+import "widgets/IconWrapper.dart";
 
-class ConfirmPaymentPower extends StatefulWidget {
+class ConfirmPayment extends StatefulWidget {
   final String? title;
   final String? icon;
-  final Color? color;
-  const ConfirmPaymentPower({super.key, this.title, this.icon , this.color});
+  final Color color;
+  const ConfirmPayment({super.key, this.title, this.icon, required this.color});
 
   @override
-  State<ConfirmPaymentPower> createState() => _ConfirmPaymentPowerState();
+  State<ConfirmPayment> createState() => _ConfirmPaymentState();
 }
 
-class _ConfirmPaymentPowerState extends State<ConfirmPaymentPower> {
+class _ConfirmPaymentState extends State<ConfirmPayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(),
-        forceMaterialTransparency: true,
-        title: const Text("Electricity"),
+        title: Text("${widget.title}"),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(14, 5, 14, 5),
         children: [
-          const SpaceWidget(space: 0.08),
-          Center(
-            child: CircleAvatar(
-              backgroundColor: Colors.orange.withAlpha(40),
-              radius: 50,
-              child: SvgPicture.asset(
-                "assets/svgs/electricity.svg",
-                width: 50,
-                height: 50,
-                color: Colors.orange,
-              ),
-            ),
-          ),
-          const SpaceWidget(space: 0.05),
-          Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: "Pay Water Bill",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .apply(fontWeightDelta: 25),
-                ),
-                TextSpan(
-                  text:
-                      "\n Pay water bills safely, conveniently & easily. You pay anytime and anywhere",
-                  style: Theme.of(context).textTheme.bodyLarge!,
-                ),
-              ],
-            ),
-            textAlign: TextAlign.center,
-          ),
-          // const SpaceWidget(space: 0.25),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(3, 18, 3, 10),
-            child: Divider(),
+          IconWrapper(
+            icon: widget.icon ?? "",
+            color: widget.color,
+            keyText: widget.title ?? "",
           ),
           const PaymentSummary(),
           const SpaceWidget(),

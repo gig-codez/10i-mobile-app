@@ -37,7 +37,6 @@ class Routes {
   static String quickInvoice = "/quickInvoice";
   // bills
   static String internet = "/internet";
-  static String confirmPayment = "/confirmPayment";
 
   // function to pop off a page
   static void pop() {
@@ -124,6 +123,5 @@ class Routes {
     electricity: (context) => const Electricity(),
     water: (context) => const Water(),
     internet: (context) => const InternetPay(),
-    confirmPayment: (context) => const ConfirmPaymentPower(),
   };
 }

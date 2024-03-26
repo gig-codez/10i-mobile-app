@@ -69,9 +69,7 @@ class _WaterState extends State<Water> {
           const SpaceWidget(),
           CustomButton(
             text: "Continue",
-            onPress: () {
-              Routes.push(const ConfrimPaymentWater());
-            },
+            onPress: () {},
           ),
           const SpaceWidget(space: 0.25),
         ],

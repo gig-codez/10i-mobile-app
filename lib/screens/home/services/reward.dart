@@ -11,10 +11,11 @@ class _RewardsState extends State<Rewards> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Rewards"),
-        ),
-        body: Column(children: [
+      appBar: AppBar(
+        title: const Text("Rewards"),
+      ),
+      body: Column(
+        children: [
           Image.asset("assets/pngs/unavailable.png"),
           const SpaceWidget(),
           Text(
@@ -24,6 +25,8 @@ class _RewardsState extends State<Rewards> {
                 .titleLarge!
                 .apply(fontWeightDelta: 25),
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }

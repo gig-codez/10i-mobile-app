@@ -39,7 +39,13 @@ class _InternetPayState extends State<InternetPay> {
             text: "Continue",
             buttonColor: Theme.of(context).primaryColor,
             textColor: Colors.white,
-            onPress: () => Routes.routeTo(Routes.confirmPayment),
+            onPress: () => Routes.pushPageWithRouteAndAnimation(
+              const ConfirmPayment(
+                title: "Internet",
+                icon: "internet",
+                color: Colors.deepOrange,
+              ),
+            ),
           ),
           const SpaceWidget(space: 0.25),
         ],
