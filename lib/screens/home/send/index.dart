@@ -77,7 +77,7 @@ class _IndexSendState extends State<IndexSend> with TickerProviderStateMixin {
                   controller: controller,
                   children: const [
                     Center(
-                      child: AllContacts(),
+                      child: AllContactsSend(),
                     ),
                     Center(
                       child: Favourites(),

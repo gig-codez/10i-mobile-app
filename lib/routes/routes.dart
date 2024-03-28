@@ -37,6 +37,8 @@ class Routes {
   static String quickInvoice = "/quickInvoice";
   // bills
   static String internet = "/internet";
+  static String send = "/send";
+  static String requestMoney = "/requestMoney";
 
   // function to pop off a page
   static void pop() {
@@ -124,5 +126,8 @@ class Routes {
     internet: (context) => const InternetPay(),
     // send momney
     sendMoney: (context) => const IndexSend(),
+    send: (context) => const SendMoney(),
+    // request money
+    requestMoney: (context) => const IndexRequest(),
   };
 }

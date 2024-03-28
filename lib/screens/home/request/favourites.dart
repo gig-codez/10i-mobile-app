@@ -1,13 +1,13 @@
 import "/exports/exports.dart";
 
-class AllContactsSend extends StatefulWidget {
-  const AllContactsSend({super.key});
+class FavouritesReq extends StatefulWidget {
+  const FavouritesReq({super.key});
 
   @override
-  State<AllContactsSend> createState() => _AllContactsSendState();
+  State<FavouritesReq> createState() => _FavouritesReqState();
 }
 
-class _AllContactsSendState extends State<AllContactsSend> {
+class _FavouritesReqState extends State<FavouritesReq> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

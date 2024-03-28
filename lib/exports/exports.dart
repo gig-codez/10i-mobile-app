@@ -93,6 +93,13 @@ export "/screens/home/split/split_success.dart";
 // send money
 export '/screens/home/send/index.dart';
 export '/screens/home/send/send_money.dart';
+// request money
+export "/screens/home/request/index.dart";
+export "/screens/home/request/request_money.dart";
+export "/screens/home/request/favourites.dart";
+export "/screens/home/request/allcontacts.dart";
+export "/screens/home/request/confirm_prompt.dart";
+export "/screens/home/request/request_success.dart";
 // more
 export "/screens/home/more/security.dart";
 export "/screens/home/more/privacy.dart";

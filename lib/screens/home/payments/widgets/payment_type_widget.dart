@@ -5,13 +5,13 @@ class PaymentTypeWidget extends StatelessWidget {
   final String title;
   final String subtitle;
   final Color? color;
-  const PaymentTypeWidget(
-      {super.key,
-      required this.icon,
-      required this.title,
-      this.color,
-      required this.subtitle,
-      });
+  const PaymentTypeWidget({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.color,
+    required this.subtitle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class PaymentTypeWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
         side: BorderSide(
-          width: 3,
+          width: 1,
           color: color ?? Theme.of(context).primaryColor,
         ),
       ),

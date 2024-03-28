@@ -17,7 +17,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
     ),
     ServicesModel(
       label: "Request",
-      route: Routes.deposit,
+      route: Routes.requestMoney,
       icon: "request.svg",
     ),
     ServicesModel(
@@ -81,7 +81,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
               ),
               Text(
                 services[index].label,
-                textAlign:TextAlign.center,
+                textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
                     .labelSmall!

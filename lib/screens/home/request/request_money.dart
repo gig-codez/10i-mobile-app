@@ -1,25 +1,38 @@
 import "/exports/exports.dart";
+import "confirm_prompt.dart";
 
-class SendMoney extends StatefulWidget {
-  const SendMoney({super.key});
+class RequestMoney extends StatefulWidget {
+  const RequestMoney({super.key});
 
   @override
-  State<SendMoney> createState() => _SendMoneyState();
+  State<RequestMoney> createState() => _RequestMoneyState();
 }
 
-class _SendMoneyState extends State<SendMoney> {
+class _RequestMoneyState extends State<RequestMoney>
+    with TickerProviderStateMixin {
+  AnimationController? animationController;
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 902),
+    );
+    // animationController!.repeat();
+  }
+  // dispose off animation controller after using it
+
+  @override
+  void dispose() {
+    animationController!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        forceMaterialTransparency: true,
-        title: Text(
-          "Send Money to",
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                fontWeight: FontWeight.w800,
-                fontSize: 20,
-              ),
-        ),
+        title: const Text("Request Money from John Doe"),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
@@ -60,46 +73,18 @@ class _SendMoneyState extends State<SendMoney> {
                       ),
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: TextField(
-              //     keyboardType: TextInputType.number,
-              //     textInputAction: TextInputAction.done,
-              //     decoration: InputDecoration(
-              //       hintText: "0.00",
-              //       hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              //             color: Colors.grey,
-              //             fontSize: 20,
-              //             fontWeight: FontWeight.w400,
-              //           ),
-              //       focusedBorder: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(20),
-              //         borderSide: BorderSide(
-              //           color: Theme.of(context).primaryColor,
-              //         ),
-              //       ),
-              //       enabledBorder: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(20),
-              //         borderSide: BorderSide(
-              //           color: Colors.grey.shade300,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               const CommonTextField(
                 hintText: "0.00",
                 enableBorder: true,
                 contentPadding: EdgeInsets.fromLTRB(5, 9, 5, 2),
                 radius: 15,
-                // textInputType: TextInputType.number,
-                // textInputAction: TextInputAction.done,
-                // onSubmitted: (value) => print(value),
               ),
-              Text("\n\t\tAdd a note (optional)\n",
-                  style: Theme.of(context).textTheme.bodyLarge!.apply(
-                        fontWeightDelta: 5,
-                      )),
+              Text(
+                "\n\t\tAdd a note (optional)\n",
+                style: Theme.of(context).textTheme.bodyLarge!.apply(
+                      fontWeightDelta: 5,
+                    ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -132,8 +117,13 @@ class _SendMoneyState extends State<SendMoney> {
               const SpaceWidget(),
               CustomButton(
                 text: "Continue",
-                onPress: () => Routes.push(
-                  const PaymentType(),
+                onPress: () => showModalBottomSheet(
+                  showDragHandle: true,
+                  context: context,
+                  builder: (context) {
+                    return const ConfirmPrompt();
+                  },
+                  transitionAnimationController: animationController,
                 ),
                 buttonColor: Theme.of(context).primaryColor,
                 textColor: Colors.white,

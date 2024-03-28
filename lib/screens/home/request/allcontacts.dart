@@ -1,18 +1,18 @@
 import "/exports/exports.dart";
 
-class AllContactsSend extends StatefulWidget {
-  const AllContactsSend({super.key});
+class AllContacts extends StatefulWidget {
+  const AllContacts({super.key});
 
   @override
-  State<AllContactsSend> createState() => _AllContactsSendState();
+  State<AllContacts> createState() => _AllContactsState();
 }
 
-class _AllContactsSendState extends State<AllContactsSend> {
+class _AllContactsState extends State<AllContacts> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
-        onTap: () => Routes.routeTo(Routes.send),
+        onTap: () => Routes.pushPageWithRouteAndAnimation(const RequestMoney()),
         leading: const CircleAvatar(
           backgroundImage: AssetImage("assets/pngs/dp.jpeg"),
           radius: 40,
