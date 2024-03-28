@@ -4,4 +4,6 @@ class Apis {
   static String login = "$devURL/login";
   static String signUp = "$devURL/signup";
   static String logout = "$devURL/logout";
+
+  static String forgotPassword = "$devURL/forgot-password";
 }

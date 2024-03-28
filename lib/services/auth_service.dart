@@ -112,4 +112,38 @@ class AuthService {
       debugPrint("Error: $e");
     }
   }
+
+  // funcion to handle forgot password
+  void forgotPassword(Map<String, dynamic> data) async {
+    var controller = Provider.of<LoaderController>(context, listen: false);
+    try {
+      // start the loader
+      controller.isLoading = true;
+
+      Response response = await client.post(
+        Uri.parse(Apis.forgotPassword),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(data),
+      );
+
+      if (response.statusCode == 200) {
+        // remove loader
+        controller.isLoading = false;
+        showMessage(
+            message: "Password reset link sent to your email", type: 'success');
+        // route to login screen
+        Routes.replacePage(
+          const LoginScreen(),
+        );
+      } else {
+        controller.isLoading = false;
+        // error
+        showMessage(message: "Invalid Details", type: 'error');
+      }
+    } on Exception catch (e, _) {
+      debugPrint("Error: $e");
+    }
+  }
 }
