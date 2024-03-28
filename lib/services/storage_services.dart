@@ -32,4 +32,8 @@ class StorageService {
     final SharedPreferences prefs = await sharedPreferences;
     return prefs.get(key);
   }
+
+  void removeData(String field) async {
+    await _sharedPreferences!.remove(field);
+  }
 }
