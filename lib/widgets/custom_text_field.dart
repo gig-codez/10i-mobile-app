@@ -8,6 +8,7 @@ class CommonTextField extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final Function(String)? onChanged;
   final TextInputType keyboardType;
+  final double radius;
   final TextEditingController? controller;
   final Color? fieldColor;
   final IconData? icon;
@@ -22,6 +23,7 @@ class CommonTextField extends StatelessWidget {
     Key? key,
     this.hintText = '',
     this.isObscureText = false,
+    this.radius = 5,
     this.padding = const EdgeInsets.only(),
     this.onChanged,
     this.keyboardType = TextInputType.text,
@@ -60,7 +62,7 @@ class CommonTextField extends StatelessWidget {
             elevation: 0,
             color: fieldColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(radius),
               side: enableBorder
                   ? BorderSide(
                       color: Theme.of(context).brightness == Brightness.dark

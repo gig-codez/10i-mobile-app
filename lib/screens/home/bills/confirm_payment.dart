@@ -30,19 +30,12 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
           const SpaceWidget(),
           Center(
             child: CustomButton(
-              onPress: () {
-                showAdaptiveDialog(
-                  context: context,
-                  builder: (_) => Dialog(
-                    child: DialogWidget(
-                      title: "Payment",
-                      subtitle: "\nPayment Successful",
-                      onPress: () => Routes.replacePage(const IndexPage()),
-                    ),
-                  ),
-                );
-              },
-              text: "Confrim & Pay",
+              buttonColor: Theme.of(context).primaryColor,
+              textColor: Colors.white,
+              onPress: () => Routes.pushPageWithRouteAndAnimation(
+                const SuccessPayment(),
+              ),
+              text: "Confirm & Pay",
             ),
           )
         ],

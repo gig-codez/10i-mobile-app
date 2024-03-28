@@ -1,3 +1,5 @@
+// ignore_for_file: non_const_call_to_literal_constructor
+
 import '/exports/exports.dart';
 
 class PaymentInfo extends StatefulWidget {
@@ -32,64 +34,109 @@ class _PaymentInfoState extends State<PaymentInfo> {
 
     decoration = PrettyQrDecoration(
       shape: PrettyQrSmoothSymbol(
-        color: Theme.of(context).primaryColor,
+        color: Colors.black,
+        roundFactor: 1,
       ),
-      image: _PrettyQrSettings.kDefaultQrDecorationImage,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey.shade200,
-        appBar: AppBar(
-          forceMaterialTransparency: true,
-          title: Text(
-            'Share Your Payment Info',
-            style: Theme.of(context).textTheme.titleLarge!.apply(
-                  fontWeightDelta: 5,
-                ),
-          ),
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        title: Text(
+          'Share Your Payment Info',
+          style: Theme.of(context).textTheme.titleLarge!.apply(
+                fontWeightDelta: 3,
+              ),
         ),
-        body: Column(
+      ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(25, 8, 25, 8),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Card(
               elevation: 0,
               color: Colors.white,
-              margin: EdgeInsets.fromLTRB(25, 8, 25, 8),
+              margin: const EdgeInsets.fromLTRB(25, 8, 25, 8),
               child: _PrettyQrAnimatedView(
                 qrImage: qrImage,
                 decoration: decoration,
               ),
             ),
+            const Divider(),
+            const SpaceWidget(space: 0.06),
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: "http://example.com/10i-wallet",
+                    style: Theme.of(context).textTheme.bodyLarge!.apply(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                  ),
+                  TextSpan(
+                    text: "\nexample@yourdomain.com",
+                    style: Theme.of(context).textTheme.bodyMedium!.apply(),
+                  ),
+                  TextSpan(
+                    text: "\n@andrew_airsely",
+                    style: Theme.of(context).textTheme.bodyMedium!,
+                  )
+                ],
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SpaceWidget(space: 0.06),
+            const Divider(),
+            const SpaceWidget(),
+            const Row(
+              children: [
+                Icon(Icons.info),
+                Text(" Scan this QR code with your wallet to pay")
+              ],
+            ),
+            const SpaceWidget(space: 0.06),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 160,
+                  child: CustomButton(
+                    text: "Copy",
+                    onPress: () {
+                      Clipboard.setData(
+                          const ClipboardData(text: '10i-wallet'));
+                      showMessage(message: 'Copied to clipboard!');
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 160,
+                  child: CustomButton(
+                    text: "Share",
+                    buttonColor: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    onPress: () async {
+                      final result = await Share.shareWithResult(
+                          'check out my website https://example.com');
+
+                      if (result.status == ShareResultStatus.success) {
+                        showMessage(
+                            message: 'Thank you for sharing my website!');
+                      }
+                    },
+                  ),
+                ),
+                // Text(" Scan this QR code with your wallet to pay")
+              ],
+            ),
           ],
-        )
-        // floatingActionButton: FloatingActionButton.extended(
-        //   label: const Text("More Options"),
-        //   // icon: ,
-        //   onPressed: () {
-        //     showAdaptiveDialog(
-        //         context: context,
-        //         builder: (context) {
-        //           return Dialog(
-        //             child: SizedBox(
-        //               height: MediaQuery.of(context).size.height / 2,
-        //               child: SingleChildScrollView(
-        //                 // padding: safePadding.copyWith(top: 0),
-        //                 child: _PrettyQrSettings(
-        //                   decoration: decoration,
-        //                   onChanged: (value) => setState(() {
-        //                     decoration = value;
-        //                   }),
-        //                 ),
-        //               ),
-        //             ),
-        //           );
-        //         });
-        //   },
-        // ),
-        );
+        ),
+      ),
+    );
   }
 }
 
@@ -165,11 +212,11 @@ class _PrettyQrSettings extends StatefulWidget {
   @protected
   final ValueChanged<PrettyQrDecoration>? onChanged;
 
-  @visibleForTesting
-  static const kDefaultQrDecorationImage = PrettyQrDecorationImage(
-    image: AssetImage('assets/pngs/dp.jpeg'),
-    position: PrettyQrDecorationImagePosition.embedded,
-  );
+  // @visibleForTesting
+  // static const kDefaultQrDecorationImage = PrettyQrDecorationImage(
+  //   image: AssetImage('assets/pngs/dp.jpeg'),
+  //   position: PrettyQrDecorationImagePosition.embedded,
+  // );
 
   @visibleForTesting
   static const kDefaultQrDecorationBrush = Color(0xFF74565F);
@@ -476,11 +523,11 @@ class _PrettyQrSettingsState extends State<_PrettyQrSettings> {
 
   @protected
   void toggleImage() {
-    const defaultImage = _PrettyQrSettings.kDefaultQrDecorationImage;
-    final image = widget.decoration.image != null ? null : defaultImage;
+    // const defaultImage = _PrettyQrSettings.kDefaultQrDecorationImage;
+    // final image = widget.decoration.image != null ? null : defaultImage;
 
     widget.onChanged?.call(PrettyQrDecoration(
-      image: image,
+      // image: image,
       shape: widget.decoration.shape,
       background: widget.decoration.background,
     ));

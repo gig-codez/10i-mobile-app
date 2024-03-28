@@ -28,7 +28,7 @@ class _SendMoneyState extends State<SendMoney> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
-                leading: CircleAvatar(
+                leading: const CircleAvatar(
                   backgroundImage: AssetImage(
                     "assets/pngs/dp.jpeg",
                   ),
@@ -124,7 +124,7 @@ class _SendMoneyState extends State<SendMoney> {
               CustomButton(
                 text: "Continue",
                 onPress: () => Routes.push(
-                 const PaymentType(),
+                  const PaymentType(),
                 ),
                 buttonColor: Theme.of(context).primaryColor,
                 textColor: Colors.white,

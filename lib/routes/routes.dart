@@ -105,10 +105,9 @@ class Routes {
     review: (context) => const ReviewSummary(),
     // services
     deposit: (context) => const Deposit(),
-    sendMoney: (context) => const SendMoney(),
     utility: (context) => const Utilities(),
     invoice: (context) => const Rewards(),
-    splitBill: (context) => const Family(),
+    splitBill: (context) => const Split(),
 
     paymentInfo: (context) => const PaymentInfo(),
     // transfers
@@ -123,5 +122,7 @@ class Routes {
     electricity: (context) => const Electricity(),
     water: (context) => const Water(),
     internet: (context) => const InternetPay(),
+    // send momney
+    sendMoney: (context) => const IndexSend(),
   };
 }

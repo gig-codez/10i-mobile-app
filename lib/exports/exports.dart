@@ -56,7 +56,6 @@ export "/screens/home/widgets/recent_activities.dart";
 // payments
 export "/screens/home/payments/scan_qrcode.dart";
 export "/screens/home/payments/result_page.dart";
-export "/screens/home/payments/send_money.dart";
 export "/screens/home/payments/payment_type.dart";
 export "/screens/home/payments/review_summary.dart";
 export "/screens/home/payments/payment_info.dart";
@@ -70,14 +69,10 @@ export "/screens/home/quick_link/quick_invoice.dart";
 export "/screens/home/quick_link/quick_link.dart";
 // screen => services
 export "/screens/home/services/deposit.dart";
-export "/screens/home/services/family.dart";
 export "../screens/home/bills/utilities.dart";
 export "/screens/home/services/reward.dart";
 // widgets
 export "/screens/home/services/widget/payment_sumary.dart";
-
-// export "/screens/home/services/confirm_payment_family.dart";
-// export "/screens/home/services/confirm_payment_reward.dart";
 
 // services
 export "/services/auth_service.dart";
@@ -85,8 +80,19 @@ export "/services/auth_service.dart";
 export "/screens/home/bills/electricity.dart";
 export "/screens/home/bills/water.dart";
 export "/screens/home/bills/internet.dart";
-export "/screens/home/bills/confirm_payment_water.dart";
-export "/screens/home/bills/confirm_payment_power.dart";
+export "../screens/home/bills/confirm_payment.dart";
+export "/screens/home/bills/success_payment.dart";
+
+// split bills
+export "/screens/home/split/split_bill.dart";
+export "/screens/home/split/split.dart";
+export "/screens/home/split/split_money.dart";
+export "/screens/home/split/review_split.dart";
+export "/screens/home/split/split_success.dart";
+
+// send money
+export '/screens/home/send/index.dart';
+export '/screens/home/send/send_money.dart';
 // more
 export "/screens/home/more/security.dart";
 export "/screens/home/more/privacy.dart";
@@ -103,3 +109,6 @@ export "/widgets/text_styles.dart";
 export "/widgets/custom_text_field.dart";
 export "/widgets/custom_radio_widget.dart";
 export "/widgets/profile_widget.dart";
+
+// helpers
+export "/helpers/helpers.dart";
