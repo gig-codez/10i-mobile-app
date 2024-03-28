@@ -38,6 +38,9 @@ class WalletApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => ThemeController(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => LoaderController(),
+        ),
       ],
       builder: (context, widget) {
         return MaterialApp(
