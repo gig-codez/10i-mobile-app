@@ -22,7 +22,12 @@ class OnboardSlide extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 )
-              : SvgPicture.asset(image),
+              : SvgPicture.asset(
+                  image,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width,
+                  // fit: BoxFit.cover,
+                ),
           Text(
             description,
             textAlign: TextAlign.center,

@@ -31,6 +31,7 @@ export "/main.dart";
 // intro screens
 export "/screens/intro/splash_screen.dart";
 export "/screens/intro/on_boarding.dart";
+export "/screens/intro/let_you_in.dart";
 // auth pages
 export "/screens/auth/login_screen.dart";
 export "/screens/auth/create_account.dart";
@@ -121,6 +122,7 @@ export "/widgets/text_styles.dart";
 export "/widgets/custom_text_field.dart";
 export "/widgets/custom_radio_widget.dart";
 export "/widgets/profile_widget.dart";
+export "/widgets/divider_widget.dart";
 
 // helpers
 export "/helpers/helpers.dart";

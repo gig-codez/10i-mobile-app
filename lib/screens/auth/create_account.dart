@@ -1,3 +1,6 @@
+import 'package:flutter/gestures.dart';
+
+import '../intro/widgets/social_widget.dart';
 import '/exports/exports.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -20,6 +23,10 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        elevation: 0,
+      ),
       body: Padding(
         padding: const EdgeInsets.only(left: 19.0, right: 19.0, top: 12.0),
         child: Form(
@@ -27,21 +34,6 @@ class _CreateAccountState extends State<CreateAccount> {
           child: ListView(
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox.square(
-                dimension: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Routes.pop();
-                    },
-                    icon: const Icon(Icons.arrow_back),
-                  ),
-                  const SizedBox()
-                ],
-              ),
               const SizedBox.square(
                 dimension: 20,
               ),
@@ -75,7 +67,9 @@ class _CreateAccountState extends State<CreateAccount> {
                 enableBorder: true,
                 icon: Icons.mail,
                 titleText: "Email",
+                controller: emailController,
                 keyboardType: TextInputType.emailAddress,
+                radius: 15,
                 contentPadding: const EdgeInsets.only(
                   left: 16,
                   right: 16,
@@ -105,6 +99,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   top: 16,
                   bottom: 10,
                 ),
+                radius: 15,
                 suffixIcon:
                     passShowHide ? Icons.visibility_off : Icons.remove_red_eye,
                 keyboardType: TextInputType.visiblePassword,
@@ -127,6 +122,7 @@ class _CreateAccountState extends State<CreateAccount> {
               CommonTextField(
                 enableBorder: true,
                 hintText: "******************",
+                radius: 15,
                 icon: Icons.lock,
                 isObscureText: confirmPassShowHide,
                 controller: confirmPasswordController,
@@ -166,6 +162,41 @@ class _CreateAccountState extends State<CreateAccount> {
                   Routes.routeTo(Routes.reasons);
                 },
               ),
+              const SpaceWidget(),
+              const DividerWidget(
+                text: "or continue with",
+              ),
+              const SpaceWidget(),
+              const SocialWidget(
+                image: "assets/svgs/google.svg",
+                text: "Continue with Google",
+              ),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "\nAlready have an account?",
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.w100,
+                          ),
+                    ),
+                    TextSpan(
+                      text: "  Sign In",
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Routes.replacePage(
+                            const LoginScreen(),
+                          );
+                        },
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.center,
+              )
             ],
           ),
         ),

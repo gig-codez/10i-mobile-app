@@ -1,3 +1,5 @@
+import 'package:flutter/gestures.dart';
+
 import '/exports/exports.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -49,7 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
               bottom: 10,
             ),
             keyboardType: TextInputType.emailAddress,
-            radius: 15,
             controller: emailController,
             validate: (value) {
               if (value!.isEmpty) {
@@ -93,35 +94,58 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox.square(
             dimension: 10,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(),
-              TextButton(
-                onPressed: () => Routes.routeTo(Routes.forgotPass),
-                child: Text(
-                  "Forgot Password?",
-                  style: Theme.of(context).textTheme.bodyLarge!.apply(
-                        fontWeightDelta: 5,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                ),
-              )
-            ],
+
+          const SizedBox.square(
+            dimension: 20,
           ),
           CustomButton(
             opacity: 1,
             textColor: Colors.white,
             text: "Sign In",
-            onPress: () => Routes.routeTo(Routes.homePage),
+            onPress: () {
+              // Routes.routeTo(Routes.homePage)
+            },
           ),
           const SizedBox.square(
             dimension: 20,
           ),
-          CustomButton(
-            text: "Don't Have an Account",
-            onPress: () => Routes.routeTo(Routes.createAccount),
-          )
+          TextButton(
+            onPressed: () => Routes.routeTo(Routes.forgotPass),
+            child: Text(
+              "Forgot Password?",
+              style: Theme.of(context).textTheme.bodyLarge!.apply(
+                    fontWeightDelta: 5,
+                    color: Theme.of(context).primaryColor,
+                  ),
+            ),
+          ),
+          // const DividerWidget(
+          //   text: "or continue with",
+          // ),
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: "\nDon't have an account?",
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.w100,
+                      ),
+                ),
+                TextSpan(
+                  text: " Sign Up",
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Routes.replacePage(const CreateAccount());
+                    },
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );

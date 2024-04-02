@@ -70,15 +70,15 @@ class _OnBoardingState extends State<OnBoarding> {
 // slides
   final List<Slide> _slides = [
     Slide(
-      image: "assets/pngs/online_payment.png",
+      image: "assets/svgs/mobile_pay.svg",
       description: "Now Easier to Make Online Payments.",
     ),
     Slide(
-      image: "assets/pngs/mobile_transactions.png",
+      image: "assets/svgs/secure_transactions.svg",
       description: "Secure Transactions & Reliable Anytime.",
     ),
     Slide(
-      image: "assets/pngs/finance.png",
+      image: "assets/svgs/manage_financials.svg",
       description: "Let's Manage Your Financials Now!",
     )
   ];
@@ -134,7 +134,7 @@ class _OnBoardingState extends State<OnBoarding> {
               textColor: Colors.white,
               opacity: 1,
               onPress: page >= 2
-                  ? () => Routes.routeTo(Routes.login)
+                  ? () => Routes.replacePage(const LetYouIn())
                   : handleNextSlide,
             ),
             const SizedBox.square(
