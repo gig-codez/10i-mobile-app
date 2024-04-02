@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 4),
+      duration: const Duration(milliseconds: 700),
     );
     // after animating navigate to the next page
     Future.delayed(const Duration(milliseconds: 1200), () {
@@ -48,11 +48,12 @@ class _SplashScreenState extends State<SplashScreen>
               Text(
                 "10i wallet",
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontSize: 30,
+                      fontSize: 35,
+                      fontWeight: FontWeight.w700,
                     ),
               ),
               // space widget
-              const SpaceWidget(space: 0.73),
+              const SpaceWidget(space: 0.63),
               SpinKitCircle(
                 color: Theme.of(context).primaryColor,
                 size: 80.0,

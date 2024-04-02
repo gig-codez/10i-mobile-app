@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
+// import 'package:wallet_app';
 
 import 'firebase_options.dart';
 import 'exports/exports.dart';
@@ -50,15 +51,21 @@ class WalletApp extends StatelessWidget {
         ),
       ],
       builder: (context, widget) {
-        return MaterialApp(
-          navigatorKey: navigationKey,
-          title: '10i Wallet',
-          debugShowCheckedModeBanner: false,
-          themeMode: ThemeMode.system,
-          theme: AppTheme.lightTheme,
-          // darkTheme: AppTheme.darkTheme,
-          initialRoute: Routes.splash,
-          routes: Routes.routes,
+        return FutureBuilder(
+          future: AppConnectivity.isConnected(),
+          builder: (context, snapshot) {
+            return MaterialApp(
+              navigatorKey: navigationKey,
+              title: '10i Wallet',
+              debugShowCheckedModeBanner: false,
+              themeMode: ThemeMode.system,
+              theme: AppTheme.lightTheme,
+              // darkTheme: AppTheme.darkTheme,
+              initialRoute:Routes.splash,
+                  //snapshot.data! == true ? Routes.splash : Routes.offline,
+              routes: Routes.routes,
+            );
+          }
         );
       },
     );

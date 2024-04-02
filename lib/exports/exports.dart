@@ -14,6 +14,7 @@ export 'package:flutter/foundation.dart';
 export 'package:pretty_qr_code/pretty_qr_code.dart';
 export 'package:share_plus/share_plus.dart';
 export "package:http/http.dart";
+export 'package:connectivity_plus/connectivity_plus.dart';
 // themes
 export "/themes/themes.dart";
 
@@ -127,3 +128,4 @@ export "/helpers/helpers.dart";
 // apis
 export "/apis/apis.dart";
 export "/apis/network.dart";
+export '/apis/connectivity.dart';

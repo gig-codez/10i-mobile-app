@@ -48,10 +48,9 @@ class _LoginScreenState extends State<LoginScreen> {
               top: 16,
               bottom: 10,
             ),
-            suffixIcon:
-                passShowHide ? Icons.visibility_off : Icons.remove_red_eye,
             keyboardType: TextInputType.emailAddress,
-            controller: passwordController,
+            radius: 15,
+            controller: emailController,
             validate: (value) {
               if (value!.isEmpty) {
                 return "Please enter email";
@@ -66,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
             enableBorder: true,
             hintText: "******************",
             icon: Icons.lock,
+            radius: 15,
             isObscureText: passShowHide,
             controller: passwordController,
             contentPadding: const EdgeInsets.only(
