@@ -26,26 +26,45 @@ class _OnBoardingState extends State<OnBoarding> {
   void initState() {
     super.initState();
 // controlling the sliding animation
-    _timer = Timer.periodic(const Duration(milliseconds: 2600), (timer) {
-      if (mounted) {
+    // _timer = Timer.periodic(const Duration(milliseconds: 2600), (timer) {
+    //   if (mounted) {
+    //     setState(() {
+    //       page += 1;
+    //     });
+    //     if (page >= 3) {
+    //       setState(() {
+    //         page = -1;
+    //       });
+    //     } else {
+    //       pageController.animateToPage(
+    //         page,
+    //         duration: const Duration(milliseconds: 800),
+    //         curve: Curves.decelerate,
+    //       );
+    //     }
+    //   } else {
+    //     timer.cancel();
+    //   }
+    // });
+  }
+
+  void handleNextSlide() {
+    if (mounted) {
+      setState(() {
+        page += 1;
+      });
+      if (page >= 3) {
         setState(() {
-          page += 1;
+          page = -1;
         });
-        if (page >= 3) {
-          setState(() {
-            page = -1;
-          });
-        } else {
-          pageController.animateToPage(
-            page,
-            duration: const Duration(milliseconds: 800),
-            curve: Curves.decelerate,
-          );
-        }
       } else {
-        timer.cancel();
+        pageController.animateToPage(
+          page,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.decelerate,
+        );
       }
-    });
+    }
   }
 
 // slides
@@ -111,10 +130,12 @@ class _OnBoardingState extends State<OnBoarding> {
             ),
             const SizedBox.square(dimension: 20),
             CustomButton(
-              text: "Get Started",
+              text: page >= 2 ? "Get Started" : "Next",
               textColor: Colors.white,
               opacity: 1,
-              onPress: () => Routes.routeTo(Routes.login),
+              onPress: page >= 2
+                  ? () => Routes.routeTo(Routes.login)
+                  : handleNextSlide,
             ),
             const SizedBox.square(
               dimension: 10,
