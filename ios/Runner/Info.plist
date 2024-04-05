@@ -26,6 +26,16 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<!-- permission to access the phone gallery -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow 10i access to photo library</string>
+	<!-- persimission for accessing the camera -->
+	<key>NSCameraUsageDescription</key>
+	<string>Allow 10i access to camera</string>
+	<!-- permission to access the phone's microphone when recording a video -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow 10i access to microphone</string>
+	<!-- end of custom permissions -->
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>

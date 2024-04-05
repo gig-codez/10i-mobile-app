@@ -1,4 +1,5 @@
 import "/exports/exports.dart";
+import "widgets/contact_detail.dart";
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -8,6 +9,7 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  String _selected = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           children: [
             Image.asset("assets/pngs/forgot-password.png"),
             Text(
-              "A short code is going to be sent to your email to reset your password.",
+              "Select which contact detail we should use to reset your password.",
               style: Theme.of(context).textTheme.bodyMedium!.apply(
                     fontSizeFactor: 1.2,
                   ),
@@ -35,35 +37,23 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             const SizedBox.square(
               dimension: 20,
             ),
-            Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-                side: BorderSide(
-                  color: Theme.of(context).primaryColor,
-                  width: 1.75,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: ListTile(
-                  title: Text(
-                    "via Email",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  subtitle: Text(
-                    "ex***@gmail.com",
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: Icon(
-                      Icons.email,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ),
-              ),
+            ContactDetail(
+              titleText: "via SMS",
+              subText: "+256**********89",
+              selected: _selected == "via SMS",
+              icon: Icons.chat_bubble_outline_rounded,
+              onPress: () => setState(() {
+                _selected = "via SMS";
+              }),
+            ),
+            ContactDetail(
+              titleText: "via Email",
+              selected: _selected == "via Email",
+              subText: "ex...@mail.com",
+              icon: Icons.mail,
+              onPress: () => setState(() {
+                _selected = "via Email";
+              }),
             ),
             // button to handle next
             const SizedBox.square(

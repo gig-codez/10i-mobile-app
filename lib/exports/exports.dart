@@ -15,6 +15,7 @@ export 'package:pretty_qr_code/pretty_qr_code.dart';
 export 'package:share_plus/share_plus.dart';
 export "package:http/http.dart";
 export 'package:connectivity_plus/connectivity_plus.dart';
+export 'package:google_sign_in/google_sign_in.dart';
 // themes
 export "/themes/themes.dart";
 

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+
 import '/exports/exports.dart';
 
 class AuthService {
@@ -32,10 +34,13 @@ class AuthService {
       } else {
         controller.isLoading = false;
         // error
-        showMessage(message: "Invalid Details", type: 'error');
+        showMessage(
+            message: json.decode(response.body)['auth'][0], type: 'error');
       }
-    } on Exception catch (e, _) {
+    } on ClientException catch (e, _) {
       debugPrint("Error: $e");
+    } on SocketException catch (e, _) {
+      debugPrint("Network error!");
     }
   }
 
@@ -57,6 +62,7 @@ class AuthService {
       if (response.statusCode == 200) {
         // remove loader
         controller.isLoading = false;
+        print(response.body);
         // store session id
         SessionService().storeToken(json.decode(response.body)['token']);
         // store user data
@@ -64,7 +70,7 @@ class AuthService {
         showMessage(message: "Account created successfully", type: 'success');
         // route to home screen
         Routes.replacePage(
-          const IndexPage(),
+          const ReasonsPage(),
         );
       } else {
         controller.isLoading = false;
@@ -79,6 +85,7 @@ class AuthService {
   // function to handle logout
   void logout() async {
     var controller = Provider.of<LoaderController>(context, listen: false);
+    String? token = await SessionService().getToken();
     try {
       // start the loader
       controller.isLoading = true;
@@ -87,7 +94,7 @@ class AuthService {
         Uri.parse(Apis.logout),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${SessionService().getToken()}',
+          'Authorization': 'Token $token',
         },
       );
 
@@ -137,6 +144,59 @@ class AuthService {
         Routes.replacePage(
           const LoginScreen(),
         );
+      } else {
+        controller.isLoading = false;
+        // error
+        showMessage(message: "Invalid Details", type: 'error');
+      }
+    } on Exception catch (e, _) {
+      debugPrint("Error: $e");
+    }
+  }
+
+  // function to handle response from signing in with google
+  void handleGoogleAuth({required Widget child}) async {
+    var controller = Provider.of<LoaderController>(context, listen: false);
+    try {
+      GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      // start the loader
+      controller.isLoading = true;
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      if (googleAuth != null) {
+        // remove loader
+        // save data to database
+        Response response = await client.post(Uri.parse(Apis.googleAuth),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: json.encode({
+              // "token": googleAuth.accessToken,
+              "email": googleUser!.email,
+              "google_id": googleUser.id,
+              "server_auth_code": googleUser.serverAuthCode,
+              // "first_name": googleUser.displayName!.split(" ")[0],
+              // "last_name": googleUser.displayName!.split(" ")[1],
+              "photo_url": googleUser.photoUrl
+            }));
+
+        // if status is okay
+        if (response.statusCode == 200) {
+          // remove loader
+          controller.isLoading = false;
+          // store session id
+          SessionService().storeToken(json.decode(response.body)['token']);
+          // store user data
+          StorageService().setData('user', json.decode(response.body));
+          showMessage(
+              message: "Authenticated by google successfully", type: 'success');
+          // route to home screen
+          Routes.replacePage(
+            child,
+          );
+        }
       } else {
         controller.isLoading = false;
         // error

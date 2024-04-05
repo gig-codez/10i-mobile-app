@@ -33,12 +33,12 @@ class _MoreDetailsState extends State<MoreDetails> {
                 color: Colors.grey.shade300,
               ),
             ),
-             ProfileWidget(
+            ProfileWidget(
               titleText: "Personal Info",
               prefixIcon: "profile.svg",
               color: Colors.deepOrangeAccent,
               size: 20,
-              onPress: (){
+              onPress: () {
                 Routes.pushPageWithRouteAndAnimation(const PersonalInfo(),
                     type: 'slide');
               },
@@ -103,38 +103,39 @@ class _MoreDetailsState extends State<MoreDetails> {
               titleText: "Close Account",
               prefixIcon: "close_account.svg",
               onPress: () {
-                showAdaptiveDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog.adaptive(
-                        icon: const Icon(
-                          Icons.warning,
-                          size: 50,
-                        ),
-                        content: const Text(
-                          "Are you sure you want close your account?",
-                          textAlign: TextAlign.center,
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Routes.pop();
-                              Routes.replaceRouteTo(Routes.login);
-                            },
-                            child: const Text(
-                              "Close Account",
-                              style: TextStyle(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () => Routes.pop(),
-                            child: const Text("Cancel"),
-                          )
-                        ],
-                      );
-                    });
+                showLoader(text: "Closing account....");
+                // showAdaptiveDialog(
+                //     context: context,
+                //     builder: (BuildContext context) {
+                //       return AlertDialog.adaptive(
+                //         icon: const Icon(
+                //           Icons.warning,
+                //           size: 50,
+                //         ),
+                //         content: const Text(
+                //           "Are you sure you want close your account?",
+                //           textAlign: TextAlign.center,
+                //         ),
+                //         actions: [
+                //           TextButton(
+                //             onPressed: () {
+                //               Routes.pop();
+                //               Routes.replaceRouteTo(Routes.login);
+                //             },
+                //             child: const Text(
+                //               "Close Account",
+                //               style: TextStyle(
+                //                 color: Colors.red,
+                //               ),
+                //             ),
+                //           ),
+                //           TextButton(
+                //             onPressed: () => Routes.pop(),
+                //             child: const Text("Cancel"),
+                //           )
+                //         ],
+                //       );
+                //     });
               },
               color: Colors.redAccent,
               size: 20,
@@ -144,27 +145,28 @@ class _MoreDetailsState extends State<MoreDetails> {
               titleText: "Logout",
               prefixIcon: "logout.svg",
               onPress: () {
-                showAdaptiveDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog.adaptive(
-                        icon: const Icon(
-                          Icons.warning,
-                          size: 50,
-                        ),
-                        content: const Text("Are you sure you want logout?"),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Routes.routeTo(Routes.login),
-                            child: const Text("Logout"),
-                          ),
-                          TextButton(
-                            onPressed: () => Routes.pop(),
-                            child: const Text("Cancel"),
-                          )
-                        ],
-                      );
-                    });
+                showLoader(text: "Closing account....");
+                // showAdaptiveDialog(
+                //     context: context,
+                //     builder: (BuildContext context) {
+                //       return AlertDialog.adaptive(
+                //         icon: const Icon(
+                //           Icons.warning,
+                //           size: 50,
+                //         ),
+                //         content: const Text("Are you sure you want logout?"),
+                //         actions: [
+                //           TextButton(
+                //             onPressed: () => Routes.routeTo(Routes.login),
+                //             child: const Text("Logout"),
+                //           ),
+                //           TextButton(
+                //             onPressed: () => Routes.pop(),
+                //             child: const Text("Cancel"),
+                //           )
+                //         ],
+                //       );
+                //     });
               },
               color: Colors.redAccent,
               size: 20,
