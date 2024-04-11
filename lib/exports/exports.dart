@@ -36,6 +36,7 @@ export "/screens/intro/let_you_in.dart";
 // auth pages
 export "/screens/auth/login_screen.dart";
 export "/screens/auth/create_account.dart";
+export "/screens/auth/verify_email_screen.dart";
 export "/screens/auth/account/reasons_page.dart";
 export "/screens/auth/account/verify_page.dart";
 export "/screens/auth/account/verify_identity.dart";
@@ -132,3 +133,7 @@ export "/helpers/helpers.dart";
 export "/apis/apis.dart";
 export "/apis/network.dart";
 export '/apis/connectivity.dart';
+
+// models
+export "/models/reasons_model.dart";
+export "/models/user_model.dart";

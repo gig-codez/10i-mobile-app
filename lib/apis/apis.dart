@@ -6,4 +6,8 @@ class Apis {
   static String logout = "$devURL/logout";
   static String forgotPassword = "$devURL/forgot-password";
   static String googleAuth = "$devURL/google-auth";
+  static String verifyEmail = "$devURL/verify-email";
+  static String resetPin = "$devURL/reset-pin";
+  static String newPassword = "$devURL/new-password";
+  static String reasons = "$devURL/reasons";
 }

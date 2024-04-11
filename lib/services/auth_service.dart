@@ -70,7 +70,7 @@ class AuthService {
         showMessage(message: "Account created successfully", type: 'success');
         // route to home screen
         Routes.replacePage(
-          const ReasonsPage(),
+          const VerifyEmailScreen(),
         );
       } else {
         controller.isLoading = false;
@@ -153,6 +153,44 @@ class AuthService {
       debugPrint("Error: $e");
     }
   }
+  // function to handle email verification.
+
+  // function to handle email verification
+  void verifyEmail(Map<String, dynamic> data) async {
+    var controller = Provider.of<LoaderController>(context, listen: false);
+    String? token = await SessionService().getToken();
+    try {
+      // start the loader
+      controller.isLoading = true;
+
+      Response response = await client.post(
+        Uri.parse(Apis.verifyEmail),
+        headers: {
+          'Authorization': 'Token $token',
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(data),
+      );
+
+      if (response.statusCode == 200) {
+        // remove loader
+        controller.isLoading = false;
+        showMessage(message: "Email verified successfully", type: 'success');
+        // print rsponse
+        print(response.body);
+        // route to login screen
+        Routes.replacePage(
+          const ReasonsPage(),
+        );
+      } else {
+        controller.isLoading = false;
+        // error
+        showMessage(message: "Invalid Details", type: 'error');
+      }
+    } on Exception catch (e, _) {
+      debugPrint("Error: $e");
+    }
+  }
 
   // function to handle response from signing in with google
   void handleGoogleAuth({required Widget child}) async {
@@ -191,7 +229,9 @@ class AuthService {
           // store user data
           StorageService().setData('user', json.decode(response.body));
           showMessage(
-              message: "Authenticated by google successfully", type: 'success');
+            message: "Authenticated by google successfully",
+            type: 'success',
+          );
           // route to home screen
           Routes.replacePage(
             child,
@@ -203,6 +243,58 @@ class AuthService {
         showMessage(message: "Invalid Details", type: 'error');
       }
     } on Exception catch (e, _) {
+      debugPrint("Error: $e");
+    }
+  }
+
+// function to handle fetching reasons
+
+  Future<ReasonsModel> getReasons() async {
+    String? token = await SessionService().getToken();
+    try {
+      Response response = await client.get(
+        Uri.parse(Apis.reasons),
+        headers: {
+          'Authorization': 'Token $token',
+        },
+      );
+      if (response.statusCode == 200) {
+        return reasonsModelFromJson(response.body);
+      } else {
+        showMessage(message: 'Failed to load reasons', type: 'error');
+        throw Exception('Failed to load reasons');
+      }
+    } on Exception catch (e) {
+      debugPrint("Error: $e");
+      throw e;
+    }
+  }
+
+// function to post user selected reasons to the database.
+
+  Future<void> postReasons(List<int> reasons) async {
+    String? token = await SessionService().getToken();
+    try {
+      Response response = await client.post(
+        Uri.parse(Apis.reasons),
+        headers: {
+          'Authorization': 'Token $token',
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({'reasons': reasons}),
+      );
+      if (response.statusCode == 200) {
+        showMessage(message: "Reasons saved successfully", type: 'success');
+        // response.
+        print(response.body);
+        // redirect to indentity verification
+        Routes.replacePage(
+          const VerifyIdentity(),
+        );
+      } else {
+        showMessage(message: "Failed to save reasons", type: 'error');
+      }
+    } on Exception catch (e) {
       debugPrint("Error: $e");
     }
   }

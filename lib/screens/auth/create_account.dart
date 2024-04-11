@@ -196,9 +196,12 @@ class _CreateAccountState extends State<CreateAccount> {
                   text: "or continue with",
                 ),
                 const SpaceWidget(),
-                const SocialWidget(
+                SocialWidget(
                   image: "assets/svgs/google.svg",
                   text: "Continue with Google",
+                  onTap: () => AuthService().handleGoogleAuth(
+                    child: const ReasonsPage(),
+                  ),
                 ),
                 Text.rich(
                   TextSpan(

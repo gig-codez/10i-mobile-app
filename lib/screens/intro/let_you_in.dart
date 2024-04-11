@@ -43,9 +43,12 @@ class _LetYouInState extends State<LetYouIn> {
                     ),
               ),
             ),
-            const SocialWidget(
+            SocialWidget(
               image: "assets/svgs/google.svg",
               text: "Continue with Google",
+              onTap: () => AuthService().handleGoogleAuth(
+                child: const VerifyEmailScreen(),
+              ),
             ),
             const SpaceWidget(space: 0.053),
             const DividerWidget(),
