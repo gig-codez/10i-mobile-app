@@ -19,12 +19,13 @@ class _CreatePinState extends State<CreatePin> {
     super.dispose();
   }
 
+  bool showHide = false;
+
   @override
   Widget build(BuildContext context) {
     const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
     const fillColor = Color.fromRGBO(243, 246, 249, 0);
     const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
-
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
@@ -41,9 +42,9 @@ class _CreatePinState extends State<CreatePin> {
       appBar: AppBar(
         forceMaterialTransparency: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-        child: ListView(
+      body: Consumer<LoaderController>(builder: (context, controller, c) {
+        return ListView(
+          padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
           children: [
             Center(
               child: Text.rich(
@@ -75,18 +76,19 @@ class _CreatePinState extends State<CreatePin> {
               child: Pinput(
                 controller: pinController,
                 focusNode: focusNode,
+                obscureText: !showHide,
                 androidSmsAutofillMethod:
                     AndroidSmsAutofillMethod.smsUserConsentApi,
                 listenForMultipleSmsOnAndroid: true,
                 defaultPinTheme: defaultPinTheme,
                 separatorBuilder: (index) => const SizedBox(width: 8),
-                validator: (value) {
-                  return value == '2222' ? null : 'Pin is incorrect';
-                },
-                // onClipboardFound: (value) {
-                //   debugPrint('onClipboardFound: $value');
-                //   pinController.setText(value);
+                // validator: (value) {
+                //   return value == '2222' ? null : 'Pin is incorrect';
                 // },
+                onClipboardFound: (value) {
+                  debugPrint('onClipboardFound: $value');
+                  pinController.setText(value);
+                },
                 hapticFeedbackType: HapticFeedbackType.lightImpact,
                 onCompleted: (pin) {
                   debugPrint('onCompleted: $pin');
@@ -123,19 +125,43 @@ class _CreatePinState extends State<CreatePin> {
                 ),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: Icon(
+                    showHide == false
+                        ? Icons.visibility_off_rounded
+                        : Icons.remove_red_eye_rounded,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      showHide = !showHide;
+                    });
+                    print(showHide);
+                  },
+                ),
+                const Text("Show Password "),
+              ],
+            ),
             // space widget
             const SpaceWidget(space: 0.23),
             CustomButton(
               text: "Continue",
               buttonColor: Theme.of(context).primaryColor,
               textColor: Colors.white,
-              onPress: () {
-                Routes.routeTo("");
-              },
+              loading: controller.isLoading,
+              onPress: controller.isLoading
+                  ? () {}
+                  : () {
+                      AuthService().setWalletPin({
+                        "pin": pinController.text.trim(),
+                      });
+                    },
             ),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

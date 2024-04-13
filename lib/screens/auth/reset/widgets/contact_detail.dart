@@ -21,33 +21,32 @@ class ContactDetail extends StatelessWidget {
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(20.0),
           side: BorderSide(
-            color:
-                selected ? Theme.of(context).primaryColor : Colors.grey.shade300,
+            color: selected
+                ? Theme.of(context).primaryColor
+                : Colors.grey.shade300,
             width: 1.75,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: ListTile(
-            title: Text(
-              titleText,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            subtitle: Text(
-              subText,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall!
-                  .apply(fontWeightDelta: 8),
-            ),
-            leading: CircleAvatar(
-              radius: 30,
-              child: Icon(
-                icon,
-                color: Theme.of(context).primaryColor,
-              ),
+        child: ListTile(
+          title: Text(
+            titleText,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          subtitle: Text(
+            subText,
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .apply(fontWeightDelta: 8),
+          ),
+          leading: CircleAvatar(
+            radius: 20,
+            child: Icon(
+              icon,
+              color: Theme.of(context).primaryColor,
+              size: 20,
             ),
           ),
         ),

@@ -1,3 +1,5 @@
+import "package:flutter/gestures.dart";
+import "dart:async";
 import "/exports/exports.dart";
 
 class ResetPin extends StatefulWidget {
@@ -19,6 +21,33 @@ class _ResetPinState extends State<ResetPin> {
     super.dispose();
   }
 
+// function to implement timer logic for resending an otp
+  int sec = 0;
+  int min = 0;
+  String time = "";
+  void startTimer() {
+    const duration = Duration(seconds: 60);
+    Timer.periodic(duration, (timer) {
+      setState(() {
+        sec += 1;
+        time = "$min : $sec";
+      });
+
+      if (sec >= 59) {
+        timer.cancel();
+        setState(() {
+          min += 1;
+          time = "$min : $sec";
+          Future.delayed(const Duration(seconds: 1), () {
+            setState(() {
+              time = "";
+            });
+          });
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
@@ -37,6 +66,7 @@ class _ResetPinState extends State<ResetPin> {
         border: Border.all(color: borderColor),
       ),
     );
+    var t_controller = context.read<TextController>();
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
@@ -48,19 +78,29 @@ class _ResetPinState extends State<ResetPin> {
               ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-        child: ListView(
+      body: Consumer<LoaderController>(builder: (context, controller, c) {
+        return ListView(
+          padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
           children: [
-            Image.asset("assets/pngs/otp.webp", scale: 1.52),
+            AspectRatio(
+                aspectRatio: 1.42, child: Image.asset("assets/pngs/otp.webp")),
             Center(
               child: Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: "\nCode has been sent to your email.\n",
+                      text: "Code has been sent to\n",
                       style: Theme.of(context).textTheme.bodyMedium!.apply(
                             fontSizeFactor: 1.2,
+                            color: Colors.grey.shade600,
+                          ),
+                    ),
+                    TextSpan(
+                      text: "${t_controller.text['value']}\n",
+                      style: Theme.of(context).textTheme.titleSmall!.apply(
+                            fontSizeFactor: 1.0,
+                            fontWeightDelta: 1,
+                            // color: Colors.grey.shade600,
                           ),
                     ),
                   ],
@@ -74,6 +114,7 @@ class _ResetPinState extends State<ResetPin> {
               // Specify direction if desired
               textDirection: TextDirection.ltr,
               child: Pinput(
+                length: 6,
                 controller: pinController,
                 focusNode: focusNode,
                 androidSmsAutofillMethod:
@@ -81,9 +122,9 @@ class _ResetPinState extends State<ResetPin> {
                 listenForMultipleSmsOnAndroid: true,
                 defaultPinTheme: defaultPinTheme,
                 separatorBuilder: (index) => const SizedBox(width: 8),
-                validator: (value) {
-                  return value == '2222' ? null : 'Pin is incorrect';
-                },
+                // validator: (value) {
+                //   return value == '2222' ? null : 'Pin is incorrect';
+                // },
                 onClipboardFound: (value) {
                   debugPrint('onClipboardFound: $value');
                   pinController.setText(value);
@@ -125,18 +166,69 @@ class _ResetPinState extends State<ResetPin> {
               ),
             ),
             // space widget
-            const SpaceWidget(space: 0.13),
+            const SpaceWidget(space: 0.043),
+            Text.rich(
+              TextSpan(
+                children: time.isNotEmpty
+                    ? [
+                        TextSpan(
+                          text: time,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ]
+                    : [
+                        TextSpan(
+                          text: "Didn't receive code? ",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        TextSpan(
+                          text: "Resend",
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              startTimer();
+                              if (t_controller.text['key'] == 'via Email') {
+                                AuthService().requestRecoverEmail(
+                                    {"email": t_controller.text['value']},
+                                    resend: true);
+                              } else {
+                                AuthService().requestRecoverPhone(
+                                    {"tel": t_controller.text['value']},
+                                    resend: true);
+                              }
+                            },
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: Theme.of(context).primaryColor),
+                        ),
+                      ],
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SpaceWidget(space: 0.043),
             CustomButton(
-              text: "Confirm",
+              text: "Verify OTP",
+              loading: controller.isLoading,
               buttonColor: Theme.of(context).primaryColor,
               textColor: Colors.white,
               onPress: () {
-                Routes.routeTo(Routes.newPass);
+                if (t_controller.text['key'] == 'via Email') {
+                  // Routes.routeTo(Routes.newPass);
+                  AuthService().recoverEmail({
+                    "otp_number": pinController.text.trim(),
+                    "email": t_controller.text['value']
+                  });
+                } else {
+                  AuthService().recoverPhone({
+                    "otp_number": pinController.text.trim(),
+                    "tel": t_controller.text['value']
+                  });
+                }
               },
             ),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

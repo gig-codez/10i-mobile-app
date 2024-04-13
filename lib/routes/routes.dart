@@ -94,7 +94,7 @@ class Routes {
     reasons: (context) => const ReasonsPage(),
     verify: (context) => const VerifyPage(),
     verifyIdentity: (context) => const VerifyIdentity(),
-    scanDocs: (context) => const ScanDocument(),
+    // scanDocs: (context) => const ScanDocument(),
     completeProfile: (context) => const UserProfile(),
     createPin: (context) => const CreatePin(),
     forgotPass: (context) => const ForgotPassword(),

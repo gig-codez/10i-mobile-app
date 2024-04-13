@@ -49,24 +49,26 @@ class WalletApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => LoaderController(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => TextController(),
+        ),
       ],
       builder: (context, widget) {
         return FutureBuilder(
-          future: AppConnectivity.isConnected(),
-          builder: (context, snapshot) {
-            return MaterialApp(
-              navigatorKey: navigationKey,
-              title: '10i Wallet',
-              debugShowCheckedModeBanner: false,
-              themeMode: ThemeMode.system,
-              theme: AppTheme.lightTheme,
-              // darkTheme: AppTheme.darkTheme,
-              initialRoute:Routes.splash,
-                  //snapshot.data! == true ? Routes.splash : Routes.offline,
-              routes: Routes.routes,
-            );
-          }
-        );
+            future: AppConnectivity.isConnected(),
+            builder: (context, snapshot) {
+              return MaterialApp(
+                navigatorKey: navigationKey,
+                title: '10i Wallet',
+                debugShowCheckedModeBanner: false,
+                themeMode: ThemeMode.system,
+                theme: AppTheme.lightTheme,
+                // darkTheme: AppTheme.darkTheme,
+                initialRoute: Routes.splash,
+                //snapshot.data! == true ? Routes.splash : Routes.offline,
+                routes: Routes.routes,
+              );
+            });
       },
     );
   }

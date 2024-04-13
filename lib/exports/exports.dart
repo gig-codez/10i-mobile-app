@@ -25,6 +25,7 @@ export "/routes/routes.dart";
 // controllers
 export "/controllers/theme_controller.dart";
 export "/controllers/loader_controller.dart";
+export "/controllers/text_controller.dart";
 
 // main
 export "/main.dart";
@@ -38,7 +39,9 @@ export "/screens/auth/login_screen.dart";
 export "/screens/auth/create_account.dart";
 export "/screens/auth/verify_email_screen.dart";
 export "/screens/auth/account/reasons_page.dart";
+export "/screens/auth/account/verify_phone.dart";
 export "/screens/auth/account/verify_page.dart";
+export "/screens/auth/account/finger_print.dart";
 export "/screens/auth/account/verify_identity.dart";
 export "/screens/auth/account/scan_document.dart";
 export "/screens/auth/account/user_profile.dart";
@@ -84,6 +87,7 @@ export "/screens/home/services/widget/payment_sumary.dart";
 export "/services/auth_service.dart";
 export '/services/session_service.dart';
 export '/services/storage_services.dart';
+export '/services/fingerprint_service.dart';
 // bills
 export "/screens/home/bills/electricity.dart";
 export "/screens/home/bills/water.dart";

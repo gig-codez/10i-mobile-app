@@ -35,7 +35,31 @@
 	<!-- permission to access the phone's microphone when recording a video -->
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow 10i access to microphone</string>
+	<!-- accessing face id -->
+	<key>NSFaceIDUsageDescription</key>
+    <string>Why is my app authenticating using face id?</string>
 	<!-- end of custom permissions -->
+	<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
+<!-- Google Sign-in Section -->
+<key>GIDClientID</key>
+<!-- Copied from GoogleService-Info.plist key CLIENT_ID -->
+<string>440314809623-nd46u14bt4amcn1eotulc0tb3cuqopmq.apps.googleusercontent.com</string>
+
+<!-- <key>GIDServerClientID</key>
+<string>[YOUR SERVER CLIENT ID]</string> -->
+
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>com.googleusercontent.apps.440314809623-nd46u14bt4amcn1eotulc0tb3cuqopmq</string>
+		</array>
+	</dict>
+</array>
+<!-- End of the Google Sign-in Section -->
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>

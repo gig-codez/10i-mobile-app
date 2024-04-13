@@ -1,4 +1,6 @@
 import '/exports/exports.dart';
+import "./widgets/avatar_widget.dart";
+import 'package:intl/intl.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -8,27 +10,27 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  // form  controllers
+  final _nameController = TextEditingController();
+  final _genderController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _dobController = TextEditingController();
+  final _addressController = TextEditingController();
+// gender
+  int male = 0, female = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        forceMaterialTransparency: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 19.0, right: 19.0, top: 12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          forceMaterialTransparency: true,
+          title: const Text("Fill Your Profile")),
+      body: Consumer<LoaderController>(builder: (context, controller, c) {
+        return ListView(
+          padding: const EdgeInsets.only(left: 19.0, right: 19.0, top: 12.0),
           children: [
             Text.rich(
               TextSpan(
                 children: [
-                  TextSpan(
-                    text: "Fill Your Profile\n ",
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 24,
-                        ),
-                  ),
                   TextSpan(
                     text:
                         "We want to provide the best experience according to the your needs.",
@@ -39,45 +41,17 @@ class _UserProfileState extends State<UserProfile> {
                 ],
               ),
             ),
+            const AvatarWidget(),
             const SizedBox.square(
               dimension: 20,
             ),
-            Center(
-              child: Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundColor:
-                        Theme.of(context).brightness == Brightness.light
-                            ? Colors.grey.shade300
-                            : Colors.white12,
-                    child: Icon(
-                      Icons.person,
-                      size: 50,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: CircleAvatar(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+
             CommonTextField(
               hintText: "John Doe",
               enableBorder: true,
               icon: Icons.person,
+              readOnly: controller.isLoading,
+              controller: _nameController,
               titleText: "Full Name",
               keyboardType: TextInputType.name,
               contentPadding: const EdgeInsets.only(
@@ -100,6 +74,8 @@ class _UserProfileState extends State<UserProfile> {
               hintText: "+256-7XX-XXXX",
               enableBorder: true,
               icon: Icons.phone,
+              readOnly: controller.isLoading,
+              controller: _phoneController,
               titleText: "Phone Number",
               keyboardType: TextInputType.phone,
               contentPadding: const EdgeInsets.only(
@@ -118,33 +94,51 @@ class _UserProfileState extends State<UserProfile> {
             const SizedBox.square(
               dimension: 20,
             ),
-            CommonTextField(
-              hintText: "XX/XX/XXXX",
-              enableBorder: true,
-              icon: Icons.calendar_month,
-              titleText: "Date Of Birth",
-              keyboardType: TextInputType.streetAddress,
-              contentPadding: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-                top: 16,
-                bottom: 10,
-              ),
-              validate: (value) {
-                if (value!.isEmpty) {
-                  return "Please enter location";
-                }
-                return null;
+            TapEffect(
+              onClick: () async {
+                var result = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(4000),
+                );
+                result != null
+                    ? _dobController.text =
+                        DateFormat("yyy-MM-dd").format(result)
+                    : null;
               },
+              child: CommonTextField(
+                hintText: "XX/XX/XXXX",
+                enableBorder: true,
+                icon: Icons.calendar_month,
+                titleText: "Date Of Birth",
+                readOnly: true,
+                controller: _dobController,
+                keyboardType: TextInputType.streetAddress,
+                contentPadding: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 16,
+                  bottom: 10,
+                ),
+                validate: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your date of birth";
+                  }
+                  return null;
+                },
+              ),
             ),
             const SizedBox.square(
               dimension: 20,
             ),
             CommonTextField(
-              hintText: "your location",
+              hintText: "Enter your address",
               enableBorder: true,
               icon: Icons.location_on_rounded,
+              readOnly: controller.isLoading,
               titleText: "Address",
+              controller: _addressController,
               keyboardType: TextInputType.streetAddress,
               contentPadding: const EdgeInsets.only(
                 left: 16,
@@ -169,17 +163,29 @@ class _UserProfileState extends State<UserProfile> {
                 Expanded(
                   child: RadioListTile(
                     title: const Text("Male"),
-                    value: "male",
-                    groupValue: "",
-                    onChanged: (value) {},
+                    value: male,
+                    groupValue: 9,
+                    onChanged: (value) {
+                      setState(() {
+                        female = 0;
+                        male = 9;
+                        _genderController.text = "Male";
+                      });
+                    },
                   ),
                 ),
                 Expanded(
                   child: RadioListTile(
                     title: const Text("Female"),
-                    value: "female",
-                    groupValue: "gender",
-                    onChanged: (value) {},
+                    value: female,
+                    groupValue: 9,
+                    onChanged: (value) {
+                      setState(() {
+                        female = 9;
+                        male = 0;
+                        _genderController.text = "Female";
+                      });
+                    },
                   ),
                 ),
               ],
@@ -188,16 +194,32 @@ class _UserProfileState extends State<UserProfile> {
               dimension: 20,
             ),
             CustomButton(
+              loading: controller.isLoading,
               // width: MediaQuery.of(context).size.width / 2.5,
-              onPress: () => Routes.routeTo(Routes.createPin),
+              onPress: () {
+                AuthService().completeProfile({
+                  "first_name":
+                      _nameController.text.trim().split(" ").first.trim(),
+                  "last_name":
+                      _nameController.text.trim().split(" ").last.trim(),
+                  "phone": _phoneController.text,
+                  "date_of_birth": _dobController.text,
+                  "address": _addressController.text,
+                  "gender": _genderController.text,
+                  "tel": _phoneController.text,
+                });
+              },
               opacity: 1,
               textColor: Colors.white,
               text: "Save & Continue",
               buttonRadius: 50,
             ),
+            const SpaceWidget(
+              space: 0.1,
+            )
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

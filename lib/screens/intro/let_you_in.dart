@@ -47,7 +47,7 @@ class _LetYouInState extends State<LetYouIn> {
               image: "assets/svgs/google.svg",
               text: "Continue with Google",
               onTap: () => AuthService().handleGoogleAuth(
-                child: const VerifyEmailScreen(),
+                child: const ReasonsPage(),
               ),
             ),
             const SpaceWidget(space: 0.053),

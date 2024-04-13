@@ -33,7 +33,7 @@ class CustomButton extends StatelessWidget {
         height: buttonHeight,
         decoration: BoxDecoration(
           color: loading
-              ? Theme.of(context).disabledColor
+              ? Colors.grey.shade200
               : buttonColor ??
                   Theme.of(context).primaryColor.withOpacity(opacity),
           borderRadius: BorderRadius.circular(buttonRadius),

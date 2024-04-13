@@ -1,18 +1,15 @@
-import "dart:io";
-
 import "package:image_picker/image_picker.dart";
 import "./widgets/image_add_card.dart";
 import "/exports/exports.dart";
 
-class ScanDocument extends StatefulWidget {
-  final String selectedOption;
-  const ScanDocument({super.key, this.selectedOption = ""});
+class ScanSelfie extends StatefulWidget {
+  const ScanSelfie({super.key});
 
   @override
-  State<ScanDocument> createState() => _ScanDocumentState();
+  State<ScanSelfie> createState() => _ScanSelfieState();
 }
 
-class _ScanDocumentState extends State<ScanDocument> {
+class _ScanSelfieState extends State<ScanSelfie> {
   String imagePath = "";
   Map<String, dynamic> d = {};
   // helper methods
@@ -54,35 +51,33 @@ class _ScanDocumentState extends State<ScanDocument> {
             ImageAddCard(
               option: option,
               imageUrl: imagePath,
-              side: "Front Side",
+              side: "Selfie",
+              clickable: imagePath.isEmpty,
               onTap: () {
                 takePhoto();
               },
             ),
             // if (imagePath.isNotEmpty) const SpaceWidget(space: 0.2),
             CustomButton(
-              text: "Upload Font Image",
-              loading: controller.isLoading,
-              onPress: controller.isLoading
-                  ? () {}
-                  : () {
-                      if (imagePath.isEmpty) {
-                        showMessage(
-                            message: "Please select an image first",
-                            type: 'error');
-                        return;
-                      } else {
-                        controller.isLoading = true;
-                        AuthService().uploadFront(d).then((value) {
-                          setState(() {
-                            imagePath = "";
-                            d = {};
-                          });
-                          // navigate to next screen
-                          // Routes.replacePage()
-                        });
-                      }
-                    },
+              text: "Upload Selfie Image",
+              loading:controller.isLoading,
+              onPress: controller.isLoading ? (){}:  () {
+                if (imagePath.isEmpty) {
+                  showMessage(
+                      message: "Please select an image first", type: 'error');
+                  return;
+                } else {
+                  controller.isLoading = true;
+                  AuthService().uploadSelfie(d).then((value) {
+                    setState(() {
+                      imagePath = "";
+                      d = {};
+                    });
+                    // navigate to next screen
+                    // Routes.replacePage()
+                  });
+                }
+              },
             ),
           ],
         );

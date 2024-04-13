@@ -125,6 +125,7 @@ class CommonTextField extends StatelessWidget {
                       ),
                     ),
                     keyboardType: keyboardType,
+                    textInputAction: TextInputAction.next,
                   ),
                 ),
               ),

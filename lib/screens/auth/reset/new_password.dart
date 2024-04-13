@@ -1,5 +1,5 @@
 import "/exports/exports.dart";
-import "widgets/dialog_widget.dart";
+// import "widgets/dialog_widget.dart";
 
 class NewPassword extends StatefulWidget {
   const NewPassword({super.key});
@@ -27,9 +27,9 @@ class _NewPasswordState extends State<NewPassword> {
               ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(13, 5, 13, 5),
-        child: Column(
+      body: Consumer<LoaderController>(builder: (context, controller, c) {
+        return ListView(
+          padding: const EdgeInsets.fromLTRB(13, 5, 13, 5),
           children: [
             Image.asset("assets/pngs/verified.png"),
             const SizedBox.square(
@@ -48,6 +48,8 @@ class _NewPasswordState extends State<NewPassword> {
                 bottom: 10,
               ),
               enableSuffix: true,
+              radius: 15,
+              readOnly: controller.isLoading,
               suffixIcon:
                   passShowHide ? Icons.visibility_off : Icons.remove_red_eye,
               onTapSuffix: () {
@@ -71,6 +73,8 @@ class _NewPasswordState extends State<NewPassword> {
               hintText: "******************",
               icon: Icons.lock,
               isObscureText: cpassShowHide,
+              radius: 15,
+              readOnly: controller.isLoading,
               controller: confirmPasswordController,
               contentPadding: const EdgeInsets.only(
                 left: 16,
@@ -103,19 +107,16 @@ class _NewPasswordState extends State<NewPassword> {
               textColor: Colors.white,
               onPress: () {
                 // Routes.routeTo("");
-                showAdaptiveDialog(
-                    context: context,
-                    builder: (context) {
-                      return const Dialog(
-                        backgroundColor: Colors.white,
-                        child: DialogWidget(),
-                      );
-                    });
+                AuthService().changePassword({
+                  "password": passwordController.text.trim(),
+                  "password_confirmation":
+                      confirmPasswordController.text.trim(),
+                });
               },
             ),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

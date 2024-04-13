@@ -4,15 +4,15 @@ import "package:image_picker/image_picker.dart";
 import "./widgets/image_add_card.dart";
 import "/exports/exports.dart";
 
-class ScanDocument extends StatefulWidget {
-  final String selectedOption;
-  const ScanDocument({super.key, this.selectedOption = ""});
+class ScanBackSide extends StatefulWidget {
+
+  const ScanBackSide({super.key});
 
   @override
-  State<ScanDocument> createState() => _ScanDocumentState();
+  State<ScanBackSide> createState() => _ScanBackSideState();
 }
 
-class _ScanDocumentState extends State<ScanDocument> {
+class _ScanBackSideState extends State<ScanBackSide> {
   String imagePath = "";
   Map<String, dynamic> d = {};
   // helper methods
@@ -26,7 +26,7 @@ class _ScanDocumentState extends State<ScanDocument> {
         d = {
           "fileName": file.name,
           "imageData": file.readAsBytes().asStream(),
-          "size": size,
+          "size": size
         };
       });
     }
@@ -34,7 +34,7 @@ class _ScanDocumentState extends State<ScanDocument> {
 
   @override
   Widget build(BuildContext context) {
-    String option =
+       String option =
         Provider.of<TextController>(context, listen: false).text['key'];
     return Scaffold(
       appBar: AppBar(
@@ -54,35 +54,33 @@ class _ScanDocumentState extends State<ScanDocument> {
             ImageAddCard(
               option: option,
               imageUrl: imagePath,
-              side: "Front Side",
+              side: "Back Side",
+              clickable: imagePath.isEmpty,
               onTap: () {
                 takePhoto();
               },
             ),
             // if (imagePath.isNotEmpty) const SpaceWidget(space: 0.2),
             CustomButton(
-              text: "Upload Font Image",
+              text: "Upload Back Image",
               loading: controller.isLoading,
-              onPress: controller.isLoading
-                  ? () {}
-                  : () {
-                      if (imagePath.isEmpty) {
-                        showMessage(
-                            message: "Please select an image first",
-                            type: 'error');
-                        return;
-                      } else {
-                        controller.isLoading = true;
-                        AuthService().uploadFront(d).then((value) {
-                          setState(() {
-                            imagePath = "";
-                            d = {};
-                          });
-                          // navigate to next screen
-                          // Routes.replacePage()
-                        });
-                      }
-                    },
+              onPress: () {
+                if (imagePath.isEmpty) {
+                  showMessage(
+                      message: "Please select an image first", type: 'error');
+                  return;
+                } else {
+                  controller.isLoading = true;
+                  AuthService().uploadBack(d).then((value) {
+                    setState(() {
+                      imagePath = "";
+                      d = {};
+                    });
+                    // navigate to next screen
+                    // Routes.replacePage()
+                  });
+                }
+              },
             ),
           ],
         );
