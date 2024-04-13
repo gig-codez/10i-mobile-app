@@ -39,7 +39,7 @@ class _NewPasswordState extends State<NewPassword> {
               enableBorder: true,
               hintText: "******************",
               icon: Icons.lock,
-              isObscureText: passShowHide,
+              isObscureText: !passShowHide,
               controller: passwordController,
               contentPadding: const EdgeInsets.only(
                 left: 16,
@@ -53,7 +53,9 @@ class _NewPasswordState extends State<NewPassword> {
               suffixIcon:
                   passShowHide ? Icons.visibility_off : Icons.remove_red_eye,
               onTapSuffix: () {
-                setState(() {});
+                setState(() {
+                  passShowHide = !passShowHide;
+                });
               },
               titleText: "New Password *",
               keyboardType: TextInputType.visiblePassword,
@@ -72,7 +74,7 @@ class _NewPasswordState extends State<NewPassword> {
               enableBorder: true,
               hintText: "******************",
               icon: Icons.lock,
-              isObscureText: cpassShowHide,
+              isObscureText: !cpassShowHide,
               radius: 15,
               readOnly: controller.isLoading,
               controller: confirmPasswordController,
@@ -86,7 +88,9 @@ class _NewPasswordState extends State<NewPassword> {
               suffixIcon:
                   cpassShowHide ? Icons.visibility_off : Icons.remove_red_eye,
               onTapSuffix: () {
-                setState(() {});
+                setState(() {
+                  cpassShowHide = !cpassShowHide;
+                });
               },
               titleText: "Confirm Password *",
               keyboardType: TextInputType.visiblePassword,
@@ -103,16 +107,27 @@ class _NewPasswordState extends State<NewPassword> {
             ),
             CustomButton(
               text: "Submit",
+              loading: controller.isLoading,
               buttonColor: Theme.of(context).primaryColor,
               textColor: Colors.white,
-              onPress: () {
-                // Routes.routeTo("");
-                AuthService().changePassword({
-                  "password": passwordController.text.trim(),
-                  "password_confirmation":
-                      confirmPasswordController.text.trim(),
-                });
-              },
+              onPress: controller.isLoading
+                  ? () {}
+                  : () {
+                      // Routes.routeTo("");
+                      if (passwordController.text.trim().isEmpty ||
+                          confirmPasswordController.text.trim().isEmpty) {
+                        showMessage(message: "Please enter your password");
+                      } else if (passwordController.text.trim() !=
+                          confirmPasswordController.text.trim()) {
+                        showMessage(message: "Password does not match");
+                      } else {
+                        AuthService().changePassword({
+                          "password": passwordController.text.trim(),
+                          "password_confirmation":
+                              confirmPasswordController.text.trim(),
+                        });
+                      }
+                    },
             ),
           ],
         );

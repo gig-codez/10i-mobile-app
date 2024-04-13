@@ -1,7 +1,7 @@
 import "/exports/exports.dart";
 
 // global messages
-void showMessage({String message = "", String type = "info"}) {
+void showMessage({String message = "", String type = "default"}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(message),
@@ -13,7 +13,7 @@ void showMessage({String message = "", String type = "info"}) {
                   ? Colors.green
                   : type == "warning"
                       ? Colors.orange
-                      : Colors.grey.shade300,
+                      : Colors.grey.shade600,
     ),
   );
 }

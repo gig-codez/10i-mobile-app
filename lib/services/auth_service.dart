@@ -92,13 +92,16 @@ class AuthService {
 
     try {
       String? token = await SessionService().getToken();
+      debugPrint(token);
       controller.isLoading = true;
-      Response response = await client.post(Uri.parse(Apis.changePass),
-          body: json.encode(data),
-          headers: {
-            "Content-Type": "application/json",
-            "Authentication": "Token $token"
-          });
+      Response response = await client.post(
+        Uri.parse(Apis.changePass),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token $token',
+        },
+        body: json.encode(data),
+      );
       if (response.statusCode == 200) {
         controller.isLoading = false;
 // success message
@@ -111,10 +114,13 @@ class AuthService {
               );
             });
       } else {
-        showMessage(message: "Invalid data provided", type: "error");
+        controller.isLoading = false;
+        var d = json.decode(response.body);
+        showMessage(message: d['detail'], type: "error");
       }
     } on ClientException catch (_, e) {
       controller.isLoading = false;
+      debugPrint("Error $e");
     }
   }
 
@@ -222,8 +228,8 @@ class AuthService {
       } else {
         controller.isLoading = false;
         // error
-        print(await response.stream.bytesToString());
-        showMessage(message: "Invalid Details", type: 'error');
+        var d = json.decode(await response.stream.bytesToString());
+        showMessage(message: d['invalid_user'][0], type: 'error');
       }
     } on Exception catch (e, _) {
       debugPrint("Error: $e");
