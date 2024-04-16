@@ -19,9 +19,21 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(milliseconds: 700),
     );
     // after animating navigate to the next page
-    Future.delayed(const Duration(milliseconds: 1200), () {
+    Future.delayed(const Duration(milliseconds: 1500), () async {
       if (mounted) {
-        Routes.replacePage(const OnBoarding());
+        // logic that checks if the session is successfully registered.
+        SessionService session = SessionService();
+        String? token = await session.getToken();
+        if (token != null) {
+          bool isTokenExpired = await session.isTokenExpired();
+          if (isTokenExpired) {
+            Routes.replacePage(const LoginScreen());
+          } else {
+            Routes.replacePage(const HomeScreen());
+          }
+        } else {
+          Routes.replacePage(const OnBoarding());
+        }
       }
     });
   }

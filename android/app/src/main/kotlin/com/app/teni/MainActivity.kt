@@ -1,4 +1,4 @@
-package com.example.wallet_app
+package com.app.teni
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

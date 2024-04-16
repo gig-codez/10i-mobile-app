@@ -1,4 +1,4 @@
-import 'package:wallet_app/screens/auth/account/face_capture.dart';
+import '/screens/auth/account/face_capture.dart';
 
 import "/exports/exports.dart";
 // import 'package:local_auth/error_codes.dart' as auth_error;
