@@ -25,6 +25,7 @@ class _OnBoardingState extends State<OnBoarding> {
   @override
   void initState() {
     super.initState();
+    AppConnectivity.getNetworkType().then((value) => null);
 // controlling the sliding animation
     // _timer = Timer.periodic(const Duration(milliseconds: 2600), (timer) {
     //   if (mounted) {

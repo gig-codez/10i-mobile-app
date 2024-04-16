@@ -14,7 +14,7 @@ class AuthService {
     try {
       // start the loader
       controller.isLoading = true;
-
+// handle login route
       Response response = await client.post(
         Uri.parse(Apis.login),
         headers: {
@@ -162,6 +162,7 @@ class AuthService {
     }
   }
 
+// function to recover email
   void requestRecoverEmail(Map<String, dynamic> data,
       {bool resend = false}) async {
     var controller = Provider.of<LoaderController>(context, listen: false);
@@ -199,6 +200,7 @@ class AuthService {
     }
   }
 
+// function to recover phone
   void requestRecoverPhone(Map<String, dynamic> data,
       {bool resend = false}) async {
     var controller = Provider.of<LoaderController>(context, listen: false);
@@ -236,7 +238,7 @@ class AuthService {
     }
   }
 
-  // funcion to handle forgot password
+  // function to handle forgot password
   void recoverEmail(Map<String, dynamic> data) async {
     var controller = Provider.of<LoaderController>(context, listen: false);
     String? token = await SessionService().getToken();
