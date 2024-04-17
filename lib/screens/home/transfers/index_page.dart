@@ -35,6 +35,13 @@ class _TransfersPageState extends State<TransfersPage> {
               ListTile(
                 leading: SvgPicture.asset("assets/svgs/master_card.svg",
                     width: 40, height: 40),
+                title: const Text("Visa Card"),
+                subtitle: const Text(""),
+              ),
+              const Divider(),
+              ListTile(
+                leading: SvgPicture.asset("assets/svgs/master_card.svg",
+                    width: 40, height: 40),
                 title: const Text("Master Card"),
                 subtitle: const Text("Checking..."),
               ),

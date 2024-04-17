@@ -18,9 +18,9 @@ class _IndexPageState extends State<IndexPage> {
   int selected = 0;
   final List<Widget> _pages = const [
     HomeScreen(),
+    ActivityPage(),
+    AnalyticsPage(),
     Invoices(),
-    MoreDetails(),
-    MoreDetails(),
     MoreDetails(),
   ];
   final String ext = "assets/svgs/";
@@ -34,6 +34,10 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        backgroundColor: Theme.of(context).primaryColor.withAlpha(230),
+      ),
       body: PageView.builder(
         controller: pageController,
         itemCount: _pages.length,

@@ -11,6 +11,7 @@ class _InvoicesState extends State<Invoices> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           "Invoices",

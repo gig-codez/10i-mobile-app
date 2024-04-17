@@ -13,7 +13,7 @@ class _RecentActivitiesState extends State<RecentActivities> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
+          padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 4.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -46,13 +46,13 @@ class _RecentActivitiesState extends State<RecentActivities> {
                         .textTheme
                         .titleSmall!
                         .apply(fontWeightDelta: 80)),
-                subtitle: const Text("Preapproved Payment - Completed"),
+                subtitle: const Text("Preapprove Payment - Completed"),
                 trailing: Text(
-                  "₦ 500",
+                  "UGX 500",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).primaryColor,
-                    fontSize: 16,
+                    fontSize: 12,
                   ),
                 ),
               );

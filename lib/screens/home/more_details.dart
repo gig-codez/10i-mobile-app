@@ -145,28 +145,28 @@ class _MoreDetailsState extends State<MoreDetails> {
               titleText: "Logout",
               prefixIcon: "logout.svg",
               onPress: () {
-                showLoader(text: "Closing account....");
-                // showAdaptiveDialog(
-                //     context: context,
-                //     builder: (BuildContext context) {
-                //       return AlertDialog.adaptive(
-                //         icon: const Icon(
-                //           Icons.warning,
-                //           size: 50,
-                //         ),
-                //         content: const Text("Are you sure you want logout?"),
-                //         actions: [
-                //           TextButton(
-                //             onPressed: () => Routes.routeTo(Routes.login),
-                //             child: const Text("Logout"),
-                //           ),
-                //           TextButton(
-                //             onPressed: () => Routes.pop(),
-                //             child: const Text("Cancel"),
-                //           )
-                //         ],
-                //       );
-                //     });
+                // showLoader(text: "Closing account....");
+                showAdaptiveDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog.adaptive(
+                        icon: const Icon(
+                          Icons.warning,
+                          size: 50,
+                        ),
+                        content: const Text("Are you sure you want logout?"),
+                        actions: [
+                          TextButton(
+                            onPressed: () => AuthService().logout(),
+                            child: const Text("Logout"),
+                          ),
+                          TextButton(
+                            onPressed: () => Routes.pop(),
+                            child: const Text("Cancel"),
+                          )
+                        ],
+                      );
+                    });
               },
               color: Colors.redAccent,
               size: 20,

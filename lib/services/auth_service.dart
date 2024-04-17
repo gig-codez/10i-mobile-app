@@ -29,7 +29,7 @@ class AuthService {
         // store session id
         SessionService().storeToken(json.decode(response.body)['token']);
         // store user data
-        StorageService().setData('user', json.decode(response.body));
+        StorageService().setData('user', response.body);
         showMessage(message: "Logged in successfully", type: 'success');
         // route to home screen
         Routes.replacePage(
@@ -130,7 +130,7 @@ class AuthService {
     String? token = await SessionService().getToken();
     try {
       // start the loader
-      controller.isLoading = true;
+      showLoader(text: "Logging out....");
 
       Response response = await client.post(
         Uri.parse(Apis.logout),
@@ -142,7 +142,7 @@ class AuthService {
 
       if (response.statusCode == 200) {
         // remove loader
-        controller.isLoading = false;
+        Routes.pop();
         // remove session id
         SessionService().clearToken();
         // remove user data

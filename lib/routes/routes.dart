@@ -39,7 +39,8 @@ class Routes {
   static String internet = "/internet";
   static String send = "/send";
   static String requestMoney = "/requestMoney";
-
+// wallet
+  static String wallet = "/wallet";
   // function to pop off a page
   static void pop() {
     Navigator.of(context).pop();
@@ -110,7 +111,7 @@ class Routes {
     utility: (context) => const Utilities(),
     invoice: (context) => const Rewards(),
     splitBill: (context) => const Split(),
-
+    // payment
     paymentInfo: (context) => const PaymentInfo(),
     // transfers
     transfers: (context) => const TransfersPage(),
@@ -129,5 +130,7 @@ class Routes {
     send: (context) => const SendMoney(),
     // request money
     requestMoney: (context) => const IndexRequest(),
+    // wallet
+    wallet: (context) => const WalletPage(),
   };
 }

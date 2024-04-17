@@ -16,6 +16,8 @@ export 'package:share_plus/share_plus.dart';
 export "package:http/http.dart";
 export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:google_sign_in/google_sign_in.dart';
+export 'package:flutterwave_standard/flutterwave.dart';
+export 'package:uuid/uuid.dart';
 // themes
 export "/themes/themes.dart";
 
@@ -49,6 +51,7 @@ export "/screens/auth/account/create_pin.dart";
 export "/screens/auth/reset/forgot_password.dart";
 export "/screens/auth/reset/reset_pin.dart";
 export "/screens/auth/reset/new_password.dart";
+export "/screens/home/bills/wallet.dart";
 // auth widgets
 export "/screens/auth/reset/widgets/dialog_widget.dart";
 
@@ -58,6 +61,9 @@ export "/screens/home/index_page.dart";
 export "/screens/home/more_details.dart";
 export "/screens/home/notifications.dart";
 export "/screens/home/invoices.dart";
+export "/screens/home/activity_page.dart";
+export "/screens/home/analytics_page.dart";
+// export "/screens/home/.dart";
 // home - widgets
 export "/screens/home/widgets/dash_card.dart";
 export "/screens/home/widgets/services_widget.dart";
@@ -88,6 +94,7 @@ export "/services/auth_service.dart";
 export '/services/session_service.dart';
 export '/services/storage_services.dart';
 export '/services/fingerprint_service.dart';
+export '/services/payment_service.dart';
 // bills
 export "/screens/home/bills/electricity.dart";
 export "/screens/home/bills/water.dart";
@@ -141,3 +148,6 @@ export '/apis/connectivity.dart';
 // models
 export "/models/reasons_model.dart";
 export "/models/user_model.dart";
+
+// extension
+export "/extension/extension.dart";

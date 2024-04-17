@@ -1,4 +1,5 @@
 import "/exports/exports.dart";
+import "dart:convert";
 
 class StorageService {
   static final StorageService _storageService = StorageService._internal();
@@ -24,16 +25,20 @@ class StorageService {
       prefs.setDouble(key, value);
     } else if (value is List<String>) {
       prefs.setStringList(key, value);
+    } else if (value is Map) {
+      prefs.setString(key, json.encode(value));
     }
   }
 
   // function to retrieve saved data
   Future<dynamic> getData(String key) async {
     final SharedPreferences prefs = await sharedPreferences;
-    return prefs.get(key);
+    return json.decode(prefs.get(key) as String);
   }
 
   void removeData(String field) async {
-    await _sharedPreferences!.remove(field);
+    if (_sharedPreferences != null) {
+      await _sharedPreferences?.remove(field);
+    }
   }
 }

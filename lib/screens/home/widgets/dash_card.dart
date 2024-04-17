@@ -54,29 +54,42 @@ class DashCard extends StatelessWidget {
             )
             //  text view for rendering user's account balance
             ,
-            Text.rich(
-                TextSpan(
-                  children: [
+            Wrap(
+              children: [
+                Text.rich(
                     TextSpan(
-                      text: "\$4000 ",
-                      style: Theme.of(context).textTheme.titleLarge!.apply(
-                            color: Colors.white,
-                            fontSizeDelta: 4,
-                            fontSizeFactor: 1.5,
-                            fontWeightDelta: 800,
-                          ),
+                      children: [
+                        TextSpan(
+                          text: "UGX\t",
+                          style: Theme.of(context).textTheme.titleLarge!.apply(
+                                color: Colors.white,
+                                fontSizeDelta: 2,
+                                fontSizeFactor: 1.2,
+                                fontWeightDelta: 1900,
+                              ),
+                        ),
+                        TextSpan(
+                          text: "0 ",
+                          style: Theme.of(context).textTheme.titleLarge!.apply(
+                                color: Colors.white,
+                                fontSizeDelta: 2,
+                                fontSizeFactor: 1.25,
+                                fontWeightDelta: 800,
+                              ),
+                        ),
+                        TextSpan(
+                          text: "\nBalance Available",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .apply(color: Colors.white),
+                        ),
+                        // const TextSpan(text: "\n")
+                      ],
                     ),
-                    TextSpan(
-                      text: "\nBalance Available",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .apply(color: Colors.white),
-                    ),
-                    // const TextSpan(text: "\n")
-                  ],
-                ),
-                textAlign: TextAlign.center)
+                    textAlign: TextAlign.center),
+              ],
+            )
           ],
         ),
       ),

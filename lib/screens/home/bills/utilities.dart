@@ -31,7 +31,7 @@ class _UtilitiesState extends State<Utilities> {
     UtilityModel(
       label: "E-Wallet",
       icon: "wallet",
-      route: "",
+      route: "/wallet",
       color: Colors.purple.shade900,
     ),
     UtilityModel(
