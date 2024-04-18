@@ -25,5 +25,9 @@ class Apis {
   static String profilePic = "$devURL/profile-picture";
   static String captureFace = "$devURL/face";
   // payment routes
+  static String paymentTypes = "$devURL/payment-types/";
   static String loadWallet = "$devURL/verify-momo-deposit";
+  static String createWallet = "$devURL/wallets/create/";
+  static String getWallet = "$devURL/get-user-wallet-balance";
+  static String walletTransaction = "$devURL/wallettransactions/create/";
 }

@@ -1,15 +1,18 @@
 import "/exports/exports.dart";
 
 class PaymentTypeWidget extends StatelessWidget {
-  final String icon;
+  final ValueChanged<int?>? onSelected;
+  final int value;
   final String title;
+  final bool selected;
   final String subtitle;
-  final Color? color;
+
   const PaymentTypeWidget({
     super.key,
-    required this.icon,
+    required this.onSelected,
+    required this.value,
     required this.title,
-    this.color,
+    this.selected = false,
     required this.subtitle,
   });
 
@@ -22,31 +25,31 @@ class PaymentTypeWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(15.0),
         side: BorderSide(
           width: 1,
-          color: color ?? Theme.of(context).primaryColor,
+          color: selected
+              ? Theme.of(context).primaryColor
+              : const Color.fromARGB(118, 182, 182, 182),
         ),
       ),
-      child: ListTile(
-        leading: SvgPicture.asset(
-          "assets/svgs/$icon.svg",
-          width: 50,
-          height: 50,
-        ),
+      child: RadioListTile.adaptive(
+        selected: selected,
+        activeColor: selected
+            ? Theme.of(context).primaryColor
+            : const Color.fromARGB(118, 182, 182, 182),
+        value: value,
+        groupValue: 1,
+        onChanged: onSelected,
         subtitle: Text(
           subtitle,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: 18,
+                fontSize: 15,
               ),
         ),
         title: Text(
           title,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 fontWeight: FontWeight.w800,
-                fontSize: 20,
+                fontSize: 18,
               ),
-        ),
-        trailing: Checkbox(
-          value: false,
-          onChanged: (value) {},
         ),
       ),
     );

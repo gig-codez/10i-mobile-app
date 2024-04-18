@@ -148,6 +148,9 @@ export '/apis/connectivity.dart';
 // models
 export "/models/reasons_model.dart";
 export "/models/user_model.dart";
+export "/models/wallet_model.dart";
+export "/models/wallet_balance_model.dart";
+export "/models/payment_types.dart";
 
 // extension
 export "/extension/extension.dart";

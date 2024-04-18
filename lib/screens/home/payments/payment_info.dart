@@ -26,7 +26,7 @@ class _PaymentInfoState extends State<PaymentInfo> {
     super.initState();
 
     qrCode = QrCode.fromData(
-      data: 'https://pub.dev/packages/pretty_qr_code',
+      data: '19',
       errorCorrectLevel: QrErrorCorrectLevel.H,
     );
 
@@ -40,8 +40,17 @@ class _PaymentInfoState extends State<PaymentInfo> {
     );
   }
 
+  Map<String, dynamic> user = {};
   @override
   Widget build(BuildContext context) {
+    StorageService().getData('user').then((value) {
+      if (value is Map) {
+        print(value);
+        setState(() {
+          user = value['user'] as Map<String, dynamic>;
+        });
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
@@ -72,17 +81,11 @@ class _PaymentInfoState extends State<PaymentInfo> {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: "http://example.com/10i-wallet",
-                    style: Theme.of(context).textTheme.bodyLarge!.apply(
-                          color: Theme.of(context).primaryColor,
-                        ),
-                  ),
-                  TextSpan(
-                    text: "\nexample@yourdomain.com",
+                    text: "\n ${user['email']}",
                     style: Theme.of(context).textTheme.bodyMedium!.apply(),
                   ),
                   TextSpan(
-                    text: "\n@andrew_airsely",
+                    text: "\n@${user['first_name'].toLowerCase()}_${user['last_name'].toLowerCase()}",
                     style: Theme.of(context).textTheme.bodyMedium!,
                   )
                 ],

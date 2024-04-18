@@ -175,9 +175,12 @@ class _ScanQrCodeState extends State<ScanQrCode> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+      // setState(() {
+      //   result = scanData;
+      // });
+      // if(scanData.code == '19'){
+      Routes.routeTo(Routes.resultPage);
+      // }
     });
   }
 

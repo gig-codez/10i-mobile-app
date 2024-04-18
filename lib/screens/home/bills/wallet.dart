@@ -133,7 +133,7 @@ class _WalletPageState extends State<WalletPage> {
       customer: customer,
       paymentOptions: "card, payattitude, barter, bank transfer, ussd",
       customization: Customization(title: "10i Payment"),
-      isTestMode: isTestMode,
+      isTestMode: false,
     );
     final ChargeResponse response = await flutterwave.charge();
     if (response.status is String) {
@@ -150,11 +150,9 @@ class _WalletPageState extends State<WalletPage> {
       StorageService storage = StorageService();
       await storage.setData("transaction", transaction);
       Provider.of<LoaderController>(context, listen: false).isLoading = false;
-     var d = await storage.getData("user");
-      PaymentService().loadWallet({
-         "txRef": response.txRef,
-         "userId":d['user']['id']
-      });
+      var d = await storage.getData("user");
+      PaymentService()
+          .loadWallet({"txRef": response.txRef, "userId": d['user']['id']});
       showLoading(response.toString());
     } else {
       Provider.of<LoaderController>(context, listen: false).isLoading = false;
@@ -164,7 +162,7 @@ class _WalletPageState extends State<WalletPage> {
   }
 
   String getPublicKey() {
-    return "FLWPUBK_TEST-a739c60601336ac5fad34ed37137a9cc-X";
+    return "FLWPUBK-dae7c5ea075ebd6a8b674e87e9ccb1d5-X";
   }
 
   void _openBottomSheet() {
@@ -207,7 +205,7 @@ class _WalletPageState extends State<WalletPage> {
       selectedCurrency = currency;
       currencyController.text = currency;
     });
-   Routes.pop();
+    Routes.pop();
   }
 
   Future<void> showLoading(String message) {

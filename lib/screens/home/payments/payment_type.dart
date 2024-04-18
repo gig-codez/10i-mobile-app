@@ -2,13 +2,20 @@ import "/exports/exports.dart";
 import "widgets/payment_type_widget.dart";
 
 class PaymentType extends StatefulWidget {
-  const PaymentType({super.key});
+  final String amount;
+  final String note;
+  final int receiver;
+  const PaymentType(
+      {super.key, this.amount = "0", required this.receiver, this.note = ""});
 
   @override
   State<PaymentType> createState() => _PaymentTypeState();
 }
 
 class _PaymentTypeState extends State<PaymentType> {
+  int selected = -1;
+  List<int> selecteds = [];
+  Map<String, dynamic> selectedOption = {};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,28 +55,63 @@ class _PaymentTypeState extends State<PaymentType> {
               ),
               textAlign: TextAlign.center,
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(3, 18, 3, 10),
-              child: Divider(),
-            ),
-            const PaymentTypeWidget(
-              icon: "services",
-              title: "For goods and Services",
-              subtitle:
-                  "Get a full refund if an eligible item gets lost or damaged. Seller pays a small fee.",
-            ),
-            const PaymentTypeWidget(
-              icon: "friends",
-              color: Color.fromARGB(118, 182, 182, 182),
-              title: "For friends and Family",
-              subtitle: "Purchase protection doesn't apply for this payment.",
+            const SpaceWidget(space: 0.052),
+            Expanded(
+              child: FutureBuilder(
+                  future: PaymentService().paymentTypes(),
+                  builder: (context, snapshot) {
+                    var data = snapshot.data ?? [];
+                    selecteds = List.generate(
+                      data.length,
+                      (i) => -1,
+                    );
+                    return snapshot.hasData
+                        ? data.isEmpty
+                            ? const Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("No payment types recorded"),
+                                ],
+                              )
+                            : ListView.builder(
+                                itemCount: data.length,
+                                itemBuilder: (context, index) {
+                                  var type = data[index];
+                                  return PaymentTypeWidget(
+                                    value: selected,
+                                    title: type.name,
+                                    subtitle: type.description,
+                                    selected: selected == index,
+                                    onSelected: (x) {
+                                      setState(() {
+                                        selected = index;
+                                        selectedOption = {
+                                          "name": type.name,
+                                          "amount": widget.amount,
+                                          "receiver": widget.receiver,
+                                          "note": widget.note,
+                                          "description": type.description
+                                        };
+                                      });
+                                    },
+                                  );
+                                },
+                              )
+                        : const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                  }),
             ),
             CustomButton(
               text: "Continue",
               textColor: Colors.white,
               buttonColor: Theme.of(context).primaryColor,
-              onPress: () => Routes.routeTo(Routes.review),
+              onPress: () {
+                context.read<TextController>().setText(selectedOption);
+                Routes.routeTo(Routes.review);
+              },
             ),
+            const SpaceWidget(space: 0.2),
           ],
         ),
       ),

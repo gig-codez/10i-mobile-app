@@ -10,10 +10,8 @@ class ResultPage extends StatefulWidget {
 class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
+    var p = getScannedUser().user;
     return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-      ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(15, 8, 15, 8.0),
         child: Column(
@@ -22,23 +20,23 @@ class _ResultPageState extends State<ResultPage> {
             const SpaceWidget(space: 0.35),
             Center(
               child: Image.asset(
-                "assets/pngs/dp.png",
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: MediaQuery.of(context).size.width * 0.5,
+                "assets/pngs/default.jpeg",
+                width: MediaQuery.of(context).size.width * 0.65,
+                height: MediaQuery.of(context).size.width * 0.65,
               ),
             ),
             Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
-                    text: "Jenny Wilson",
+                    text: "${p.firstName} ${p.lastName}",
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),
                   ),
                   TextSpan(
-                    text: "\njennywilson255@gmail.com",
+                    text: "\n ${p.email}",
                     style: Theme.of(context).textTheme.bodyMedium!.apply(
                           fontSizeFactor: 1.2,
                         ),
@@ -52,7 +50,7 @@ class _ResultPageState extends State<ResultPage> {
               text: "Send Money",
               buttonColor: Theme.of(context).primaryColor,
               textColor: Colors.white,
-              onPress: () => Routes.routeTo(Routes.sendMoney),
+              onPress: () => Routes.routeTo(Routes.send),
             )
           ],
         ),

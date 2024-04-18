@@ -1,10 +1,31 @@
 import "/exports/exports.dart";
+import "dart:async";
 
-class DashCard extends StatelessWidget {
+class DashCard extends StatefulWidget {
   const DashCard({super.key});
 
   @override
+  State<DashCard> createState() => _DashCardState();
+}
+
+class _DashCardState extends State<DashCard> {
+  double balance = 0;
+  @override
+  void initState() {
+    super.initState();
+    PaymentService().getWalletBalance().then((value) {
+      setState(() {
+        balance = value.walletBalance;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Timer.periodic(const Duration(milliseconds: 900), (timer) {
+
+    // });
+
     return Expanded(
       flex: 2,
       child: Container(
@@ -69,7 +90,7 @@ class DashCard extends StatelessWidget {
                               ),
                         ),
                         TextSpan(
-                          text: "0 ",
+                          text: "$balance ",
                           style: Theme.of(context).textTheme.titleLarge!.apply(
                                 color: Colors.white,
                                 fontSizeDelta: 2,
