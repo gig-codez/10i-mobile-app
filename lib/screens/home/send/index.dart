@@ -11,10 +11,22 @@ class IndexSend extends StatefulWidget {
 
 class _IndexSendState extends State<IndexSend> with TickerProviderStateMixin {
   TabController? controller;
+  AnimationController? animationController;
   @override
   void initState() {
     super.initState();
     controller = TabController(length: 2, vsync: this);
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 902),
+    )..forward();
+  }
+
+  @override
+  void dispose() {
+    animationController?.dispose();
+    controller!.dispose();
+    super.dispose();
   }
 
   @override
@@ -28,6 +40,24 @@ class _IndexSendState extends State<IndexSend> with TickerProviderStateMixin {
                 fontSize: 20,
               ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () => showModalBottomSheet(
+              transitionAnimationController: animationController,
+              showDragHandle: true,
+              context: context,
+              builder: (context) => BottomSheet(
+                onClosing: () {},
+                builder: (context) => Container(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  width: MediaQuery.of(context).size.width,
+                  child: const Contacts(),
+                ),
+              ),
+            ),
+            icon: const Icon(Icons.person_add_alt_1_rounded),
+          )
+        ],
       ),
       body: SafeArea(
         child: Padding(

@@ -8,49 +8,72 @@ class TransfersPage extends StatefulWidget {
 }
 
 class _TransfersPageState extends State<TransfersPage> {
+  int selected = -1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Transfer to Your Bank"),
+        title: const Text("Transfers"),
       ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
           child: Column(
             children: [
-              ListTile(
-                leading: SvgPicture.asset(
-                  "assets/svgs/bank.svg",
-                  width: 40,
-                  height: 40,
-                  color: Theme.of(context).primaryColor,
-                ),
-                title: const Text("UBA"),
-                subtitle: const Text("Transfer to Bank"),
-                trailing:
-                    Icon(Icons.check, color: Theme.of(context).primaryColor),
+              Expanded(
+                child: FutureBuilder(
+                    future: PaymentService.getAllBanks(),
+                    builder: (context, snapshot) {
+                      var d = snapshot.data?.data ?? [];
+                      return snapshot.hasData
+                          ? ListView.builder(
+                              itemCount: d.length,
+                              itemBuilder: (context, index) {
+                                return RadioListTile.adaptive(
+                                  value: selected,
+                                  groupValue: index,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selected = index;
+                                    });
+                                    context.read<TextController>().setText({
+                                      "name": d[index].name,
+                                      "code": d[index].code
+                                    });
+                                  },
+                                  secondary: SvgPicture.asset(
+                                    "assets/svgs/bank.svg",
+                                    width: 30,
+                                    height: 30,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  title: Text(d[index].name,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium),
+                                  subtitle: const Text("Transfer to Bank"),
+                                );
+                              })
+                          : const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                    }),
               ),
-              const Divider(),
-              ListTile(
-                leading: SvgPicture.asset("assets/svgs/master_card.svg",
-                    width: 40, height: 40),
-                title: const Text("Visa Card"),
-                subtitle: const Text(""),
-              ),
-              const Divider(),
-              ListTile(
-                leading: SvgPicture.asset("assets/svgs/master_card.svg",
-                    width: 40, height: 40),
-                title: const Text("Master Card"),
-                subtitle: const Text("Checking..."),
-              ),
+              const SpaceWidget(space: 0.05),
               CustomButton(
                 text: "Continue",
                 buttonColor: Theme.of(context).primaryColor,
-                onPress: () => Routes.routeTo(Routes.transferMoney),
+                onPress: () {
+                  if (selected == -1) {
+                    showMessage(
+                        message: "Please select a bank first", type: 'warning');
+                  } else {
+                    Routes.routeTo(Routes.transferMoney);
+                  }
+                },
                 textColor: Colors.white,
-              )
+              ),
+              const SpaceWidget(),
             ],
           ),
         ),

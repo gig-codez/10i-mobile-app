@@ -1,3 +1,5 @@
+library exports;
+
 // flutter libraries
 export "package:flutter/material.dart";
 export "package:flutter/services.dart";
@@ -79,6 +81,7 @@ export "/screens/home/transfers/index_page.dart";
 export "../screens/home/transfers/transfer_money.dart";
 export "/screens/home/transfers/transfer__review.dart";
 export "/screens/home/transfers/transfer_success.dart";
+export "/screens/home/transfers/bank_branches.dart";
 // quick link
 export "/screens/home/quick_link/quick_invoice.dart";
 export "/screens/home/quick_link/quick_link.dart";
@@ -95,6 +98,7 @@ export '/services/session_service.dart';
 export '/services/storage_services.dart';
 export '/services/fingerprint_service.dart';
 export '/services/payment_service.dart';
+export '/services/user_service.dart';
 // bills
 export "/screens/home/bills/electricity.dart";
 export "/screens/home/bills/water.dart";
@@ -111,6 +115,7 @@ export "/screens/home/split/split_success.dart";
 
 // send money
 export '/screens/home/send/index.dart';
+export '/screens/home/send/contacts.dart';
 export '/screens/home/send/send_money.dart';
 // request money
 export "/screens/home/request/index.dart";

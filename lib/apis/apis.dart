@@ -30,4 +30,18 @@ class Apis {
   static String createWallet = "$devURL/wallets/create/";
   static String getWallet = "$devURL/get-user-wallet-balance";
   static String walletTransaction = "$devURL/wallettransactions/create/";
+  // ------- wallet details ---------------
+  static String walletDetails = "$devURL/wallets/user/";
+  // --------- withdraws
+  static String walletToBank = "$devURL/wallet-to-bank/";
+  // contacts
+  static String createContact = "$devURL/user-contacts/create/";
+  static String allContatcts = "$devURL/user-contacts/user/";
+  static String updateContact = "$devURL/user-contacts/update/";
+  static String deleteContact = "$devURL/user-contacts/delete/";
+  // transfers
+  static String ugBanks = "https://api.flutterwave.com/v3/banks/UG";
+  static String bankBranches =
+      "https://api.flutterwave.com/v3/banks/966/branches";
+  static String walletToMM = "$devURL/wallet-to-momo/";
 }
