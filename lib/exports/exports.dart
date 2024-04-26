@@ -156,6 +156,8 @@ export "/models/user_model.dart";
 export "/models/wallet_model.dart";
 export "/models/wallet_balance_model.dart";
 export "/models/payment_types.dart";
+export "/models/contacts_model.dart";
+export "/models/single_user.dart";
 
 // extension
 export "/extension/extension.dart";

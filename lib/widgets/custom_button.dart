@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '/exports/exports.dart';
 
 class CustomButton extends StatelessWidget {
@@ -8,6 +10,7 @@ class CustomButton extends StatelessWidget {
   final Color? textColor;
   final double opacity;
   final bool loading;
+  final IconData? icon;
   final double? width;
   final FontWeight? fontWeight;
   final VoidCallback onPress;
@@ -19,6 +22,7 @@ class CustomButton extends StatelessWidget {
       this.buttonHeight = 50,
       this.buttonRadius = 20,
       this.buttonColor,
+      this.icon,
       this.fontWeight,
       this.opacity = 0.12,
       this.textColor,
@@ -41,14 +45,36 @@ class CustomButton extends StatelessWidget {
         child: Center(
           child: loading
               ? const CircularProgressIndicator.adaptive()
-              : Text(
-                  text,
-                  style: Theme.of(context).textTheme.titleMedium!.apply(
-                        color: textColor ?? Theme.of(context).primaryColor,
-                        fontWeightDelta: 20,
-                      ),
-                  textAlign: TextAlign.center,
-                ),
+              : icon == null
+                  ? Text(
+                      text,
+                      style: Theme.of(context).textTheme.titleMedium!.apply(
+                            color: textColor ?? Theme.of(context).primaryColor,
+                            fontWeightDelta: 25,
+                          ),
+                      textAlign: TextAlign.center,
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                          Icon(
+                            icon,
+                            color: textColor ?? Theme.of(context).primaryColor,
+                            weight: 50,
+                          ),
+                          const SpaceWidget(space: 0.02),
+                          Text(
+                            text,
+                            style:
+                                Theme.of(context).textTheme.titleMedium!.apply(
+                                      color: textColor ??
+                                          Theme.of(context).primaryColor,
+                                      fontWeightDelta: 25,
+                                    ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ]),
         ),
       ),
     );

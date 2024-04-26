@@ -36,12 +36,16 @@ class Apis {
   static String walletToBank = "$devURL/wallet-to-bank/";
   // contacts
   static String createContact = "$devURL/user-contacts/create/";
-  static String allContatcts = "$devURL/user-contacts/user/";
+  static String allContacts = "$devURL/user-contacts/user/";
   static String updateContact = "$devURL/user-contacts/update/";
   static String deleteContact = "$devURL/user-contacts/delete/";
   // transfers
   static String ugBanks = "https://api.flutterwave.com/v3/banks/UG";
-  static String bankBranches =
-      "https://api.flutterwave.com/v3/banks/966/branches";
+  static String bankBranches = "https://api.flutterwave.com/v3/banks";
   static String walletToMM = "$devURL/wallet-to-momo/";
+
+  // contacts
+  static String contactList = "$devURL/search-users/";
+  static String contactListToMM = "$devURL/user-contacts/create/";
+  static String singleUser = "$devURL/user-details";
 }

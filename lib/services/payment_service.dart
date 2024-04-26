@@ -179,7 +179,7 @@ class PaymentService {
       };
       var request = Request(
         'GET',
-        Uri.parse(Apis.bankBranches),
+        Uri.parse("${Apis.bankBranches}/${context.read<TextController>().text.get('id')}/branches"),
       );
       request.headers.addAll(headers);
       StreamedResponse response = await request.send();
@@ -285,10 +285,10 @@ class PaymentService {
     var wallet = await getWalletDetails();
     var d = await storage.getData("user");
     try {
-      showLoader(text: "Transfer in process ............");
+      showLoader(text: "Transfer in process ..");
       var headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Basic c3dlZWRsZWdhbmdAZ21haWwuY29tOjEyMzQ1Ng=='
+        'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
       };
       var request = Request('POST', Uri.parse(Apis.walletToMM));
       request.body = json.encode({
@@ -296,7 +296,7 @@ class PaymentService {
         "withdrawer": wallet.user,
         "account_bank": context.read<TextController>().text.get('name'),
         "txt_ref": ref["txRef"],
-        "amount": context.read<TextController>().text.get('amount'),
+        "amount": int.parse(context.read<TextController>().text.get('amount')),
         "tax": 0,
         "currency": "UGX",
         "is_successful": true,
@@ -317,13 +317,13 @@ class PaymentService {
         Routes.replaceRouteTo(Routes.transferSuccess);
       } else {
         Routes.pop();
+        String msg =
+            json.decode(await response.stream.bytesToString())['message'];
 
         if (kDebugMode) {
           print(response.reasonPhrase);
         }
-        showMessage(
-            message: response.reasonPhrase ?? "Something went wrong",
-            type: "error");
+        showMessage(message: msg);
       }
     } on ClientException catch (_, e) {
       Routes.pop();

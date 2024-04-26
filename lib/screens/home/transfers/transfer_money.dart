@@ -20,6 +20,7 @@ class _TransferMoneyState extends State<TransferMoney> {
   }
 
   final amountController = TextEditingController();
+  final accountNameController = TextEditingController();
   final accountController = TextEditingController();
   final branchController = TextEditingController();
   @override
@@ -54,6 +55,19 @@ class _TransferMoneyState extends State<TransferMoney> {
                   : "Amount is required",
             ),
             if (controller.text.get('code') != 'MPS') ...[
+              CommonTextField(
+                controller: accountNameController,
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                hintText: "xxxxxxxx",
+                titleText: "Account Name",
+                radius: 15,
+                icon: Icons.person,
+                enableBorder: true,
+                keyboardType: TextInputType.text,
+                validate: (value) => value != null && value.isNotEmpty
+                    ? null
+                    : "Amount is required",
+              ),
               CommonTextField(
                 controller: accountController,
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),

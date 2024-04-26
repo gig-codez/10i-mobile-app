@@ -35,7 +35,12 @@ class _BankBranchesState extends State<BankBranches> {
                           onChanged: (x) {
                             setState(() {
                               selected = index;
-                            });
+                           
+                            context.read<TextController>().text.put(
+                                  "bank_branch_code",
+                                  d[index].id,
+                                );
+                                 });
                           },
                           secondary: SvgPicture.asset(
                             "assets/svgs/bank.svg",
@@ -59,12 +64,14 @@ class _BankBranchesState extends State<BankBranches> {
                       );
               }),
         ),
+        const SpaceWidget(),
         CustomButton(
-          onPress: () {},
+          onPress: () => Routes.pop(),
           text: "Continue",
           buttonColor: Theme.of(context).primaryColor,
           textColor: Colors.white,
-        )
+        ),
+        const SpaceWidget(space: 0.05)
       ],
     );
   }

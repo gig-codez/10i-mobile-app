@@ -38,7 +38,8 @@ class _TransfersPageState extends State<TransfersPage> {
                                     });
                                     context.read<TextController>().setText({
                                       "name": d[index].name,
-                                      "code": d[index].code
+                                      "code": d[index].code,
+                                      "id": d[index].id,
                                     });
                                   },
                                   secondary: SvgPicture.asset(
@@ -53,7 +54,7 @@ class _TransfersPageState extends State<TransfersPage> {
                                           .titleMedium),
                                   subtitle: const Text("Transfer to Bank"),
                                 );
-                              })
+                              },)
                           : const Center(
                               child: CircularProgressIndicator(),
                             );
