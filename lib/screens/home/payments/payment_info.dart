@@ -107,7 +107,7 @@ class _PaymentInfoState extends State<PaymentInfo> {
                     onPress: () {
                       Clipboard.setData(
                         ClipboardData(
-                            text: "https://swishpe.com/${user['id']}"),
+                            text: "https://10.online/${user['id']}"),
                       );
                       showMessage(message: 'Copied to clipboard!');
                     },
@@ -121,7 +121,7 @@ class _PaymentInfoState extends State<PaymentInfo> {
                     textColor: Colors.white,
                     onPress: () async {
                       final result = await Share.shareWithResult(
-                          'https://swishpe.com/${user['id']}');
+                          'https://10.online/${user['id']}');
 
                       if (result.status == ShareResultStatus.success) {
                         showMessage(message: 'Contact shared', type: 'success');

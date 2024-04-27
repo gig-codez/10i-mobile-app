@@ -1,7 +1,6 @@
 import "/exports/exports.dart";
 import "add_contact.dart";
-import "./widget/contact_widget.dart";
-
+import "dart:async";
 class AllContactsSend extends StatefulWidget {
   const AllContactsSend({super.key});
 
@@ -10,17 +9,38 @@ class AllContactsSend extends StatefulWidget {
 }
 
 class _AllContactsSendState extends State<AllContactsSend> {
-  // String userId = StorageService();
+  StreamController<List<dynamic>> _contactController = StreamController<List<dynamic>>();
+  Timer? _timer;
+   @override
+  void initState() {
+    super.initState();
+    fetchContacts();
+  }
+void fetchContacts() async {
+  var contacts = await UserService.getContactsList();
+  _contactController.sink.add(contacts);
+  _timer = Timer.periodic(const Duration(milliseconds:1000),(timer) async {
+    var contacts = await UserService.getContactsList();
+    _contactController.sink.add(contacts);
+  });
+}
 
+@override
+void dispose(){
+   if(_contactController.hasListener){
+    _contactController.close();
+  }
+  if(_timer != null){
+    _timer!.cancel();
+  }
+  super.dispose();
+}
   @override
   Widget build(BuildContext context) {
-    return 
-    FutureBuilder(
-      future: UserService.getContactsList(),
+    return StreamBuilder(
+      stream: _contactController.stream,
       builder: (context, snapshot) {
         var d = snapshot.data ?? [];
-        print(d.length);
-
         return snapshot.hasData
             ? d.isEmpty
                 ? Column(
@@ -43,7 +63,7 @@ class _AllContactsSendState extends State<AllContactsSend> {
                 : ListView.builder(
                     itemCount: d.length,
                     itemBuilder: (context, index) =>
-                        ContactWidget(id: d[index]['contact']),
+                        ContactWidget(id: d[index]['contact'],contactId:d[index]['id'],),
                   )
             : const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,6 +78,5 @@ class _AllContactsSendState extends State<AllContactsSend> {
               );
       },
     );
-  
   }
 }

@@ -25,6 +25,7 @@ class UserService {
 
   // function to delete a user from the contact
   Future<void> deleteUser(int id) async {
+    showLoader(text:"Deleting contact.. ");
     try {
       var headers = {
         'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
@@ -35,7 +36,10 @@ class UserService {
       StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var d = json.decode(await response.stream.bytesToString());
+        showMessage(message:"Contact deleted.",type:"success");
+        Routes.pop();
       } else {
+        Routes.pop();
         Routes.pop();
         showMessage(message: response.reasonPhrase ?? "", type: "error");
       }

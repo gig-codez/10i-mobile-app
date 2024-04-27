@@ -2,8 +2,9 @@ import "/exports/exports.dart";
 
 class ContactWidget extends StatelessWidget {
   final int id;
+  final int? contactId;
   final VoidCallback? onPress;
-  const ContactWidget({super.key, required this.id, this.onPress});
+  const ContactWidget({super.key, required this.id, this.onPress,this.contactId});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class ContactWidget extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  UserService().deleteUser(id);
+                                  UserService().deleteUser(contactId ?? 0);
                                 },
                                 child: const Text("Delete"),
                               ),
@@ -61,10 +62,6 @@ class ContactWidget extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             fontSize: 12,
                           ),
-                  // trailing: Icon(
-                  //   Icons.check,
-                  //   color: Theme.of(context).primaryColor,
-                  // ),
                 )
               : const LinearProgressIndicator();
         });
