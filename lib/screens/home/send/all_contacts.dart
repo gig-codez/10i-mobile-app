@@ -1,6 +1,7 @@
 import "/exports/exports.dart";
 import "add_contact.dart";
 import "./widget/contact_widget.dart";
+
 class AllContactsSend extends StatefulWidget {
   const AllContactsSend({super.key});
 
@@ -13,7 +14,8 @@ class _AllContactsSendState extends State<AllContactsSend> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return 
+    FutureBuilder(
       future: UserService.getContactsList(),
       builder: (context, snapshot) {
         var d = snapshot.data ?? [];
@@ -39,8 +41,9 @@ class _AllContactsSendState extends State<AllContactsSend> {
                     ],
                   )
                 : ListView.builder(
-                    itemBuilder: (context, index) => 
-                    ContactWidget(id:d[index]['contact']),
+                    itemCount: d.length,
+                    itemBuilder: (context, index) =>
+                        ContactWidget(id: d[index]['contact']),
                   )
             : const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,5 +58,6 @@ class _AllContactsSendState extends State<AllContactsSend> {
               );
       },
     );
+  
   }
 }

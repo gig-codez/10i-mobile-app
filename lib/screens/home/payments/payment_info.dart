@@ -24,14 +24,6 @@ class _PaymentInfoState extends State<PaymentInfo> {
   @override
   void initState() {
     super.initState();
-
-    qrCode = QrCode.fromData(
-      data: '19',
-      errorCorrectLevel: QrErrorCorrectLevel.H,
-    );
-
-    qrImage = QrImage(qrCode);
-
     decoration = PrettyQrDecoration(
       shape: PrettyQrSmoothSymbol(
         color: Colors.black,
@@ -71,7 +63,10 @@ class _PaymentInfoState extends State<PaymentInfo> {
               color: Colors.white,
               margin: const EdgeInsets.fromLTRB(25, 8, 25, 8),
               child: _PrettyQrAnimatedView(
-                qrImage: qrImage,
+                qrImage: QrImage(QrCode.fromData(
+                  data: "${user['id']}",
+                  errorCorrectLevel: QrErrorCorrectLevel.H,
+                )),
                 decoration: decoration,
               ),
             ),
@@ -85,7 +80,7 @@ class _PaymentInfoState extends State<PaymentInfo> {
                     style: Theme.of(context).textTheme.bodyMedium!.apply(),
                   ),
                   TextSpan(
-                    text: "\n@${user['first_name'].toLowerCase()}_${user['last_name'].toLowerCase()}",
+                    text: "\n@${user['first_name']}_${user['last_name']}",
                     style: Theme.of(context).textTheme.bodyMedium!,
                   )
                 ],
@@ -111,7 +106,9 @@ class _PaymentInfoState extends State<PaymentInfo> {
                     text: "Copy",
                     onPress: () {
                       Clipboard.setData(
-                          const ClipboardData(text: '10i-wallet'));
+                        ClipboardData(
+                            text: "https://swishpe.com/${user['id']}"),
+                      );
                       showMessage(message: 'Copied to clipboard!');
                     },
                   ),
@@ -124,11 +121,10 @@ class _PaymentInfoState extends State<PaymentInfo> {
                     textColor: Colors.white,
                     onPress: () async {
                       final result = await Share.shareWithResult(
-                          'check out my website https://example.com');
+                          'https://swishpe.com/${user['id']}');
 
                       if (result.status == ShareResultStatus.success) {
-                        showMessage(
-                            message: 'Thank you for sharing my website!');
+                        showMessage(message: 'Contact shared', type: 'success');
                       }
                     },
                   ),

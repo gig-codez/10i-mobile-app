@@ -38,7 +38,7 @@ class Apis {
   static String createContact = "$devURL/user-contacts/create/";
   static String allContacts = "$devURL/user-contacts/user/";
   static String updateContact = "$devURL/user-contacts/update/";
-  static String deleteContact = "$devURL/user-contacts/delete/";
+  static String deleteContact = "$devURL/user-contacts/delete";
   // transfers
   static String ugBanks = "https://api.flutterwave.com/v3/banks/UG";
   static String bankBranches = "https://api.flutterwave.com/v3/banks";

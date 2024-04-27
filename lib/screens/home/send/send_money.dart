@@ -2,7 +2,8 @@ import "/exports/exports.dart";
 
 class SendMoney extends StatefulWidget {
   final int receiverId;
-  const SendMoney({super.key, this.receiverId = 0});
+  final String? email;
+  const SendMoney({super.key, this.receiverId = 0, this.email});
 
   @override
   State<SendMoney> createState() => _SendMoneyState();
@@ -14,14 +15,20 @@ class _SendMoneyState extends State<SendMoney> {
   final noteController = TextEditingController();
   // amount
   double amount = 0.0;
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     PaymentService().getWalletBalance().then((value) {
       setState(() {
         amount = value.walletBalance;
       });
     });
-    var p = getScannedUser().user;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // var p = getScannedUser().user;
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
@@ -44,15 +51,15 @@ class _SendMoneyState extends State<SendMoney> {
                 ),
                 radius: 40,
               ),
-              title: Text(
-                "${p.firstName} ${p.lastName}",
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 19,
-                    ),
-              ),
+              // title: Text(
+              //   "${p.firstName} ${p.lastName}",
+              //   style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              //         fontWeight: FontWeight.w800,
+              //         fontSize: 19,
+              //       ),
+              // ),
               subtitle: Text(
-                p.email,
+                widget.email ?? "",
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontSize: 15,
                     ),
@@ -119,6 +126,7 @@ class _SendMoneyState extends State<SendMoney> {
                       receiver: widget.receiverId,
                       amount: amountController.text,
                       note: noteController.text,
+                      email: widget.email ??"",
                     ),
                   );
                 }

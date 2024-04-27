@@ -8,6 +8,7 @@ class Split extends StatefulWidget {
 }
 
 class _SplitState extends State<Split> {
+  final amountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +46,11 @@ class _SplitState extends State<Split> {
             textAlign: TextAlign.center,
           ),
           const SpaceWidget(space: 0.07),
-          TextField(
+          TextFormField(
             style: Theme.of(context).textTheme.titleMedium!.apply(
                   fontWeightDelta: 5,
                 ),
+            controller: amountController,
             textInputAction: TextInputAction.done,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
@@ -60,32 +62,32 @@ class _SplitState extends State<Split> {
             ),
           ),
           const SpaceWidget(space: 0.05),
-          Text(
-            "\t\tAdd a note (optional)\n",
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium!
-                .apply(fontWeightDelta: 5),
-          ),
-          TextField(
-            autofocus: true,
-            style: Theme.of(context).textTheme.bodyMedium!,
-            maxLines: 4,
-            decoration: InputDecoration(
-              hintText: "Provide a note",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(
-                  width: 1.0,
-                  color: Colors.grey.shade200,
-                ),
-              ),
-            ),
-          ),
+          // Text(
+          //   "\t\tAdd a note (optional)\n",
+          //   style: Theme.of(context)
+          //       .textTheme
+          //       .titleMedium!
+          //       .apply(fontWeightDelta: 5),
+          // ),
+          // TextField(
+
+          //   style: Theme.of(context).textTheme.bodyMedium!,
+          //   maxLines: 4,
+          //   decoration: InputDecoration(
+          //     hintText: "Provide a note",
+          //     border: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(15),
+          //       borderSide: BorderSide(
+          //         width: 1.0,
+          //         color: Colors.grey.shade200,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           const SpaceWidget(space: 0.76),
           CustomButton(
             onPress: () => Routes.pushPageWithRouteAndAnimation(
-              const SplitBill(),
+              SplitBill(amount: amountController.text),
             ),
             text: "Continue",
             textColor: Colors.white,

@@ -38,7 +38,7 @@ class _RecentActivitiesState extends State<RecentActivities> {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: 5,
+            itemCount: 0,
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text("John Doe",

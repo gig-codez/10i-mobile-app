@@ -17,7 +17,7 @@ class _ReviewSummaryState extends State<ReviewSummary> {
         d = v;
       });
     });
-    var p = getScannedUser().user;
+    // var p = getScannedUser().user;
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
@@ -42,15 +42,15 @@ class _ReviewSummaryState extends State<ReviewSummary> {
             child: Text.rich(
               TextSpan(
                 children: [
+                  // TextSpan(
+                  //   text: "${p.firstName} ${p.lastName}",
+                  //   style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  //         fontSize: 25,
+                  //         fontWeight: FontWeight.bold,
+                  //       ),
+                  // ),
                   TextSpan(
-                    text: "${p.firstName} ${p.lastName}",
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  TextSpan(
-                    text: "\n ${p.email}",
+                    text: "\n ${context.read<TextController>().text['email']}",
                     style: Theme.of(context).textTheme.bodyMedium!.apply(
                           fontSizeFactor: 1.2,
                         ),
@@ -200,11 +200,9 @@ class _ReviewSummaryState extends State<ReviewSummary> {
           ),
           const SpaceWidget(),
           CustomButton(
-            onPress: () {
+            onPress:context.read<LoaderController>().isLoading? (){}: () {
               var payment = {
-                "wallet": 3,
-                "sender": 20,
-                "receiver": 19,
+                "receiver": context.read<TextController>().text['receiver'],
                 "txt_ref": "${d['txRef']}",
                 "amount": context.read<TextController>().text['amount'],
                 "tax": 0,
@@ -220,6 +218,7 @@ class _ReviewSummaryState extends State<ReviewSummary> {
               PaymentService().executeTransaction(payment);
             },
             text: "Confirm & Send",
+            loading:context.read<LoaderController>().isLoading,
             buttonColor: Theme.of(context).primaryColor,
             textColor: Colors.white,
           ),

@@ -2,7 +2,8 @@ import "/exports/exports.dart";
 
 class ContactWidget extends StatelessWidget {
   final int id;
-  const ContactWidget({super.key, required this.id});
+  final VoidCallback? onPress;
+  const ContactWidget({super.key, required this.id, this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +13,34 @@ class ContactWidget extends StatelessWidget {
           var d = snap.data;
           return snap.hasData
               ? ListTile(
-                  onTap: () => Routes.routeTo(Routes.send),
-                  onLongPress: () {},
+                  onTap: onPress ??
+                      () => Routes.push(SendMoney(
+                            receiverId: d!.id,
+                            email: d.email,
+                          )),
+                  onLongPress: () {
+                    showAdaptiveDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog.adaptive(
+                            title: const Text("Delete Contact"),
+                            content: const Text(
+                                "Are you sure you want to delete this contact?"),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Routes.pop(),
+                                child: const Text("Cancel"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  UserService().deleteUser(id);
+                                },
+                                child: const Text("Delete"),
+                              ),
+                            ],
+                          );
+                        });
+                  },
                   leading: CircleAvatar(
                     radius: 40,
                     child: Icon(
@@ -28,7 +55,7 @@ class ContactWidget extends StatelessWidget {
                             fontWeight: FontWeight.w800,
                             fontSize: 16,
                           ),
-                  subtitle: const Text("example@yahoo.com"),
+                  subtitle: const Text("example"),
                   subtitleTextStyle:
                       Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w500,
@@ -39,7 +66,7 @@ class ContactWidget extends StatelessWidget {
                   //   color: Theme.of(context).primaryColor,
                   // ),
                 )
-              : CircularProgressIndicator.adaptive();
+              : const LinearProgressIndicator();
         });
   }
 }

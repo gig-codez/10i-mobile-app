@@ -34,7 +34,6 @@ class _AddContactState extends State<AddContact> {
                 },
                 radius: 10,
                 icon: Icons.search_rounded,
-                keyboardType: TextInputType.number,
                 contentPadding: const EdgeInsets.fromLTRB(5, 7, 0, 5),
                 readOnly: false,
               ),

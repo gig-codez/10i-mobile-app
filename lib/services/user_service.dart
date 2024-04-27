@@ -23,6 +23,27 @@ class UserService {
     }
   }
 
+  // function to delete a user from the contact
+  Future<void> deleteUser(int id) async {
+    try {
+      var headers = {
+        'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
+      };
+      var request = Request('DELETE', Uri.parse('${Apis.deleteContact}/$id/'));
+
+      request.headers.addAll(headers);
+      StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var d = json.decode(await response.stream.bytesToString());
+      } else {
+        Routes.pop();
+        showMessage(message: response.reasonPhrase ?? "", type: "error");
+      }
+    } on ClientException catch (_, e) {
+      debugPrint("Error $e");
+    }
+  }
+
   static Future<List<ContactsModel>> getUsers({String query = ""}) async {
     try {
       var headers = {
@@ -77,7 +98,7 @@ class UserService {
       request.body = json.encode(data);
       request.headers.addAll(headers);
       StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var d = json.decode(await response.stream.bytesToString());
         if (kDebugMode) {
           print(d);
@@ -85,9 +106,10 @@ class UserService {
         showMessage(message: "Added new contact", type: "success");
         Routes.pop();
       } else {
+        Routes.pop();
         showMessage(
-            message: response.reasonPhrase ?? "Something went wrong",
-            type: "error");
+          message: response.reasonPhrase ?? "Something went wrong",
+        );
       }
     } on ClientException catch (_, e) {
       debugPrint("Error $e");

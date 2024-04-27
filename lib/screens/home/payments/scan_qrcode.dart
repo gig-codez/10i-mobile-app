@@ -31,14 +31,13 @@ class _ScanQrCodeState extends State<ScanQrCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Routes.routeTo(Routes.resultPage),
-        child: const Icon(Icons.arrow_forward),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () => Routes.routeTo(Routes.resultPage),
+      //   child: const Icon(Icons.arrow_forward),
+      // ),
       body: Stack(
         children: <Widget>[
           _buildQrView(context),
-
           Positioned(
             top: 40,
             child: Padding(
@@ -86,62 +85,6 @@ class _ScanQrCodeState extends State<ScanQrCode> {
               ),
             ),
           ),
-
-          // Expanded(
-          //   flex: 1,
-          //   child: FittedBox(
-          //     fit: BoxFit.contain,
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       children: <Widget>[
-          //         if (result != null)
-          //           Text(
-          //               'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-          //         else
-          //           const Text('Scan a code'),
-          //         Row(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           crossAxisAlignment: CrossAxisAlignment.center,
-          //           children: <Widget>[
-          //             Container(
-          //               margin: const EdgeInsets.all(8),
-          //               child: ElevatedButton(
-          //                   onPressed: () async {
-          //                     await controller?.toggleFlash();
-          //                     setState(() {});
-          //                   },
-          //                   child: FutureBuilder(
-          //                     future: controller?.getFlashStatus(),
-          //                     builder: (context, snapshot) {
-          //                       return Text('Flash: ${snapshot.data}');
-          //                     },
-          //                   )),
-          //             ),
-          //             Container(
-          //               margin: const EdgeInsets.all(8),
-          //               child: ElevatedButton(
-          //                   onPressed: () async {
-          //                     await controller?.flipCamera();
-          //                     setState(() {});
-          //                   },
-          //                   child: FutureBuilder(
-          //                     future: controller?.getCameraInfo(),
-          //                     builder: (context, snapshot) {
-          //                       if (snapshot.data != null) {
-          //                         return Text(
-          //                             'Camera facing ${describeEnum(snapshot.data!)}');
-          //                       } else {
-          //                         return const Text('loading');
-          //                       }
-          //                     },
-          //                   )),
-          //             )
-          //           ],
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // )
         ],
       ),
     );
@@ -175,12 +118,7 @@ class _ScanQrCodeState extends State<ScanQrCode> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      // setState(() {
-      //   result = scanData;
-      // });
-      // if(scanData.code == '19'){
       Routes.routeTo(Routes.resultPage);
-      // }
     });
   }
 
@@ -188,7 +126,9 @@ class _ScanQrCodeState extends State<ScanQrCode> {
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
+        const SnackBar(
+          content: Text('No Permission'),
+        ),
       );
     }
   }

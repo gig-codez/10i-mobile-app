@@ -28,9 +28,9 @@ class _SplashScreenState extends State<SplashScreen>
         if (token != null) {
           // bool isTokenExpired = await session.isTokenExpired();
           // if (isTokenExpired) {
-          // Routes.replacePage(const LoginScreen());
+          Routes.replacePage(const LoginScreen());
           // } else {
-          Routes.replacePage(const IndexPage());
+          // Routes.replacePage(const IndexPage());
           // }
         } else {
           Routes.replacePage(const OnBoarding());

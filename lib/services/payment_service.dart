@@ -90,7 +90,12 @@ class PaymentService {
 
   // function to perform a transaction
   void executeTransaction(Map<String, dynamic> data) async {
+    context.read<LoaderController>().isLoading = true;
+
     try {
+      var wallet = await getWalletDetails();
+      data.put("wallet", wallet.id);
+      data.put("sender", wallet.user);
       var headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
@@ -102,6 +107,7 @@ class PaymentService {
       );
 
       if (response.statusCode == 200) {
+        context.read<LoaderController>().isLoading = false;
         showDialogWindow(
           DialogWidget(
             title: "Payment Successful\n",
@@ -114,17 +120,9 @@ class PaymentService {
         // showMessage(
         //     message: "Transaction executed successfully.", type: "success");
       } else {
-        print(response.body);
-        showDialogWindow(
-          DialogWidget(
-            title: "Payment Successful\n",
-            subtitle: "\nYour payment has been processed successfully.",
-            onPress: () => Routes.replacePage(
-              const IndexPage(),
-            ),
-          ),
-        );
-        // showMessage(message: "Error in transaction.", type: "error");
+        context.read<LoaderController>().isLoading = false;
+        String msg = json.decode(response.body)['message'];
+        showMessage(message: msg, type: "error");
       }
     } on ClientException catch (_, e) {
       debugPrint("Error $e");
@@ -166,7 +164,7 @@ class PaymentService {
       } else {
         return Future.error(response.reasonPhrase ?? "Something went wrong");
       }
-    } on ClientException catch (_, e) {
+    } on Exception catch (_, e) {
       throw Exception("Error $e");
     }
   }
@@ -179,7 +177,8 @@ class PaymentService {
       };
       var request = Request(
         'GET',
-        Uri.parse("${Apis.bankBranches}/${context.read<TextController>().text.get('id')}/branches"),
+        Uri.parse(
+            "${Apis.bankBranches}/${context.read<TextController>().text.get('id')}/branches"),
       );
       request.headers.addAll(headers);
       StreamedResponse response = await request.send();
@@ -239,6 +238,7 @@ class PaymentService {
 
   Future<void> transferToBank() async {
     try {
+      showLoader(text: "Transfer in process ..");
       var user = await storage.getData("user");
       var wallet = await getWalletDetails();
       var headers = {
@@ -270,22 +270,25 @@ class PaymentService {
         }),
       );
       if (response.statusCode == 200) {
+        Routes.pop();
         showMessage(message: "Transfer successful", type: "success");
         Routes.replaceRouteTo(Routes.transferSuccess);
       } else {
+        Routes.pop();
         return Future.error(response.reasonPhrase ?? "Something went wrong");
       }
     } on ClientException catch (_, e) {
+      Routes.pop();
       throw Exception("Error $e");
     }
   }
 
   void transferToMM() async {
+    showLoader(text: "Transfer in process ..");
     var ref = await storage.getData("transaction");
     var wallet = await getWalletDetails();
     var d = await storage.getData("user");
     try {
-      showLoader(text: "Transfer in process ..");
       var headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
@@ -294,7 +297,8 @@ class PaymentService {
       request.body = json.encode({
         "wallet": wallet.id,
         "withdrawer": wallet.user,
-        "account_bank": context.read<TextController>().text.get('name'),
+        "account_bank": context.read<TextController>().text.get('isp'),
+        // "account_name": context.read<TextController>().text.get('isp'),
         "txt_ref": ref["txRef"],
         "amount": int.parse(context.read<TextController>().text.get('amount')),
         "tax": 0,
@@ -307,6 +311,7 @@ class PaymentService {
         "transaction_notes": "Payment for services",
         "system_notes": "Processed automatically"
       });
+      print(request.body);
       request.headers.addAll(headers);
       StreamedResponse response = await request.send();
 
@@ -317,15 +322,17 @@ class PaymentService {
         Routes.replaceRouteTo(Routes.transferSuccess);
       } else {
         Routes.pop();
+        String txt = await response.stream.bytesToString();
+        print(txt);
         String msg =
-            json.decode(await response.stream.bytesToString())['message'];
+            json.decode(txt)['message'];
 
         if (kDebugMode) {
           print(response.reasonPhrase);
         }
         showMessage(message: msg);
       }
-    } on ClientException catch (_, e) {
+    } on Exception catch (_, e) {
       Routes.pop();
       throw Exception("Error $e");
     }

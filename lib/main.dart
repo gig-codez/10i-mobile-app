@@ -5,6 +5,27 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'exports/exports.dart';
 
+// Platform messages are asynchronous, so we initialize in an async method.
+Future<void> initPlatformState() async {
+  String? initialLink;
+  // Platform messages may fail, so we use a try/catch PlatformException.
+  try {
+    initialLink = await getInitialLink();
+    if (initialLink != null) {
+      UserService.createContactList({
+        'contact': initialLink.split("/").last,
+      });
+    }
+
+    // showMessage(message: 'Initial link: $initialLink');
+  } on Exception {
+    showMessage(message: 'Failed to get initial link.', type: 'success');
+  }
+
+  // If the widget was removed from the tree while the asynchronous platform
+  // message was in flight, we want to discard the reply rather than calling
+}
+
 // global definitions of build context from navigation global key.
 var navigationKey = GlobalKey<NavigatorState>();
 
@@ -33,6 +54,7 @@ Future<void> main() async {
       ),
     );
   }
+  initPlatformState();
 }
 
 class WalletApp extends StatelessWidget {

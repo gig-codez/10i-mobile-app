@@ -1,7 +1,9 @@
 import "/exports/exports.dart";
 
 class SplitMoney extends StatefulWidget {
-  const SplitMoney({super.key});
+  final String money;
+  final List<dynamic> selected;
+  const SplitMoney({super.key, required this.money, required this.selected});
 
   @override
   State<SplitMoney> createState() => _SplitMoneyState();
@@ -13,7 +15,7 @@ class _SplitMoneyState extends State<SplitMoney> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Split \$800 USD",
+          "Split UGX ${widget.money}",
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontWeight: FontWeight.w800,
                 fontSize: 20,
@@ -28,41 +30,31 @@ class _SplitMoneyState extends State<SplitMoney> {
               Expanded(
                 flex: 5,
                 child: ListView.separated(
-                  itemCount: 9,
+                  itemCount: widget.selected.length + 1,
                   separatorBuilder: (BuildContext context, int index) =>
                       const Divider(),
                   itemBuilder: (context, index) => ListTile(
                     leading: index == 0
-                        ? CircleAvatar(
-                            backgroundImage: AssetImage("assets/pngs/dp.png"),
+                        ? const CircleAvatar(
+                            backgroundImage:
+                                AssetImage("assets/pngs/default.jpeg"),
                             radius: 40,
                           )
                         : const CircleAvatar(
-                            backgroundImage: AssetImage("assets/pngs/dp.jpeg"),
+                            backgroundImage:
+                                AssetImage("assets/pngs/default.jpeg"),
                             radius: 40,
                           ),
-                    title: index == 0 ? Text("You") : const Text("John Doe"),
+                    title:
+                        index == 0 ? const Text("You") : const Text("John Doe"),
                     titleTextStyle:
                         Theme.of(context).textTheme.titleMedium!.copyWith(
                               fontWeight: FontWeight.w800,
                               fontSize: 16,
                             ),
-                    trailing: FittedBox(
-                      child: SizedBox(
-                        width: 70,
-                        height: 70,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text("\$100"),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.edit),
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ],
-                        ),
-                      ),
+                    trailing: Text(
+                      "UGX ${(int.parse(widget.money) ~/ (widget.selected.length + 1))}",
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                 ),
@@ -73,7 +65,7 @@ class _SplitMoneyState extends State<SplitMoney> {
                   buttonColor: Theme.of(context).primaryColor,
                   textColor: Colors.white,
                   onPress: () => Routes.pushPageWithRouteAndAnimation(
-                    const ReviewSplit(),
+                    SplitSuccess(amount: widget.money),
                   ),
                   text: "Review",
                 ),

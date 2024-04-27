@@ -20,6 +20,8 @@ export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:google_sign_in/google_sign_in.dart';
 export 'package:flutterwave_standard/flutterwave.dart';
 export 'package:uuid/uuid.dart';
+export 'package:jwt_decoder/jwt_decoder.dart';
+export 'package:uni_links2/uni_links.dart';
 // themes
 export "/themes/themes.dart";
 
@@ -117,6 +119,7 @@ export "/screens/home/split/split_success.dart";
 export '/screens/home/send/index.dart';
 export '/screens/home/send/contacts.dart';
 export '/screens/home/send/send_money.dart';
+export '/screens/home/send/widget/contact_widget.dart';
 // request money
 export "/screens/home/request/index.dart";
 export "/screens/home/request/request_money.dart";

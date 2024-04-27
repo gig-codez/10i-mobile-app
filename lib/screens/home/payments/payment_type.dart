@@ -5,8 +5,9 @@ class PaymentType extends StatefulWidget {
   final String amount;
   final String note;
   final int receiver;
+  final String email;
   const PaymentType(
-      {super.key, this.amount = "0", required this.receiver, this.note = ""});
+      {super.key, this.email = "", this.amount = "0", required this.receiver, this.note = ""});
 
   @override
   State<PaymentType> createState() => _PaymentTypeState();
@@ -90,6 +91,7 @@ class _PaymentTypeState extends State<PaymentType> {
                                           "amount": widget.amount,
                                           "receiver": widget.receiver,
                                           "note": widget.note,
+                                          "email":widget.email,
                                           "description": type.description
                                         };
                                       });

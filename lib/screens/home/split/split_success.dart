@@ -1,7 +1,8 @@
 import "/exports/exports.dart";
 
 class SplitSuccess extends StatefulWidget {
-  const SplitSuccess({super.key});
+  final String? amount;
+  const SplitSuccess({super.key, this.amount});
 
   @override
   State<SplitSuccess> createState() => _SplitSuccessState();
@@ -22,7 +23,7 @@ class _SplitSuccessState extends State<SplitSuccess> {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: "You're splitting a bill of \$800 USD\n",
+                      text: "You're splitting a bill of UGX ${widget.amount}\n",
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             fontWeight: FontWeight.w800,
                             fontSize: 23,
