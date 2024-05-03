@@ -8,6 +8,68 @@ import '../screens/auth/account/scan_selfie.dart';
 import '/exports/exports.dart';
 
 class AuthService {
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: <String>[
+        "email"
+      ]
+  );
+  GoogleSignInAccount? _googleUser;
+
+  // function to handle response from signing in with google
+  void handleGoogleAuth({required Widget child}) async {
+    var controller = Provider.of<LoaderController>(context, listen: false);
+    try {
+      _googleUser = await _googleSignIn.signIn();
+      // start the loader
+      controller.isLoading = true;
+      
+      final GoogleSignInAuthentication? googleAuth = await _googleUser?.authentication;
+      if (googleAuth != null) {
+        // remove loader
+        debugPrint("google => $_googleUser");
+        debugPrint("auth => $googleAuth");
+        // save data to database
+        Response response = await client.post(Uri.parse(Apis.googleAuth),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: json.encode({
+              // "token": googleAuth.accessToken,
+              "email": _googleUser!.email,
+              "google_id": _googleUser!.id,
+              "server_auth_code": "${_googleUser!.serverAuthCode}",
+              "photo_url": _googleUser!.photoUrl
+            }));
+
+        // if status is okay
+        if (response.statusCode == 200) {
+          // remove loader
+          controller.isLoading = false;
+          // store session id
+          SessionService().storeToken(json.decode(response.body)['token']);
+          // store user data
+          StorageService().setData('user', (response.body));
+          showMessage(
+            message: "Authenticated by google successfully",
+            type: 'success',
+          );
+          // route to home screen
+          Routes.replacePage(
+            child,
+          );
+        }
+      } else {
+        controller.isLoading = false;
+        // error
+        showMessage(message: "Invalid Details", type: 'error');
+      }
+    } on Exception catch (e, _) {
+      debugPrint("Error: $e");
+    }
+  }
+  
+  
+  
   // function to handle login
   void login(Map<String, dynamic> data) async {
     var controller = Provider.of<LoaderController>(context, listen: false);
@@ -66,7 +128,7 @@ class AuthService {
       if (response.statusCode == 200) {
         // remove loader
         controller.isLoading = false;
-        print(response.body);
+        debugPrint(response.body);
         // store session id
         SessionService().storeToken(json.decode(response.body)['token']);
         // store user data
@@ -264,7 +326,7 @@ class AuthService {
       } else {
         controller.isLoading = false;
         // error
-        print(response.body);
+        debugPrint(response.body);
         showMessage(message: "Invalid Details", type: 'error');
       }
     } on Exception catch (e, _) {
@@ -298,7 +360,7 @@ class AuthService {
       } else {
         controller.isLoading = false;
         // error
-        print(response.body);
+        debugPrint(response.body);
         showMessage(message: "Invalid Details", type: 'error');
       }
     } on Exception catch (e, _) {
@@ -327,66 +389,12 @@ class AuthService {
         // remove loader
         controller.isLoading = false;
         showMessage(message: "Email verified successfully", type: 'success');
-        // print rsponse
-        print(response.body);
+        // print response
+        debugPrint(response.body);
         // route to login screen
         Routes.replacePage(
           const ReasonsPage(),
         );
-      } else {
-        controller.isLoading = false;
-        // error
-        showMessage(message: "Invalid Details", type: 'error');
-      }
-    } on Exception catch (e, _) {
-      debugPrint("Error: $e");
-    }
-  }
-
-  // function to handle response from signing in with google
-  void handleGoogleAuth({required Widget child}) async {
-    var controller = Provider.of<LoaderController>(context, listen: false);
-    try {
-      GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      // start the loader
-      controller.isLoading = true;
-
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
-      if (googleAuth != null) {
-        // remove loader
-        print("google => $googleUser");
-        print("auth => $googleAuth");
-        // save data to database
-        Response response = await client.post(Uri.parse(Apis.googleAuth),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: json.encode({
-              // "token": googleAuth.accessToken,
-              "email": googleUser!.email,
-              "google_id": googleUser.id,
-              "server_auth_code": "${googleUser.serverAuthCode}",
-              "photo_url": googleUser.photoUrl
-            }));
-
-        // if status is okay
-        if (response.statusCode == 200) {
-          // remove loader
-          controller.isLoading = false;
-          // store session id
-          SessionService().storeToken(json.decode(response.body)['token']);
-          // store user data
-          StorageService().setData('user', (response.body));
-          showMessage(
-            message: "Authenticated by google successfully",
-            type: 'success',
-          );
-          // route to home screen
-          Routes.replacePage(
-            child,
-          );
-        }
       } else {
         controller.isLoading = false;
         // error
@@ -415,7 +423,7 @@ class AuthService {
       }
     } on Exception catch (e) {
       debugPrint("Error: $e");
-      throw e;
+      rethrow;
     }
   }
 
@@ -435,7 +443,7 @@ class AuthService {
       if (response.statusCode == 200) {
         showMessage(message: "Reasons saved successfully", type: 'success');
         // response.
-        print(response.body);
+        debugPrint(response.body);
         // redirect to indentity verification
         Routes.replacePage(
           const VerifyIdentity(),
@@ -464,14 +472,14 @@ class AuthService {
         context.read<LoaderController>().isLoading = false;
         showMessage(message: "Reasons saved successfully", type: 'success');
         // response.
-        print(response.body);
+        debugPrint(response.body);
         // redirect to identity verification
         Routes.replacePage(
           const ScanDocument(),
         );
       } else {
         context.read<LoaderController>().isLoading = false;
-        print(response.body);
+        debugPrint(response.body);
         showMessage(message: "Failed to save reasons", type: 'error');
       }
     } on Exception catch (_, e) {
@@ -635,7 +643,7 @@ class AuthService {
         Routes.replacePage(const CreatePin());
       } else {
         context.read<LoaderController>().isLoading = false;
-        print(response.body);
+        debugPrint(response.body);
         showMessage(message: "Invalid Details", type: 'error');
       }
     } on ClientException catch (_, e) {
