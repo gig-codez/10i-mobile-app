@@ -30,7 +30,7 @@ class _AllContactsSendState extends State<AllContactsSend> {
   @override
   void initState() {
     super.initState();
-    fetchContacts();
+    // fetchContacts();
   }
 
   // ----------------------------
@@ -45,50 +45,62 @@ class _AllContactsSendState extends State<AllContactsSend> {
     super.dispose();
   }
 
+  void _refreshPage() {
+    setState(() {
+      // _updateTime();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: _contactController.stream,
-      builder: (context, snapshot) {
-        var d = snapshot.data ?? [];
-        return snapshot.hasData
-            ? d.isEmpty
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "No Contacts found.",
-                        style: Theme.of(context).textTheme.bodyLarge,
+    return Scaffold(
+      body: FutureBuilder(
+        future: UserService.getContactsList(),
+        builder: (context, snapshot) {
+          var d = snapshot.data ?? [];
+          return snapshot.hasData
+              ? d.isEmpty
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "No Contacts found.",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        const SpaceWidget(space: 0.05),
+                        CustomButton(
+                          icon: Icons.add,
+                          onPress: () => Routes.push(const AddContact()),
+                          text: "Add Contact",
+                        ),
+                        const SpaceWidget(space: 0.05),
+                      ],
+                    )
+                  : ListView.builder(
+                      itemCount: d.length,
+                      itemBuilder: (context, index) => ContactWidget(
+                        id: d[index]['contact'],
+                        contactId: d[index]['id'],
                       ),
-                      const SpaceWidget(space: 0.05),
-                      CustomButton(
-                        icon: Icons.add,
-                        onPress: () => Routes.push(const AddContact()),
-                        text: "Add Contact",
-                      ),
-                      const SpaceWidget(space: 0.05),
-                    ],
-                  )
-                : ListView.builder(
-                    itemCount: d.length,
-                    itemBuilder: (context, index) => ContactWidget(
-                      id: d[index]['contact'],
-                      contactId: d[index]['id'],
+                    )
+              : const Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: CircularProgressIndicator.adaptive(),
                     ),
-                  )
-            : const Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-                  SpaceWidget(space: 0.05),
-                  Text("Loading...")
-                ],
-              );
-      },
+                    SpaceWidget(space: 0.05),
+                    Text("Loading...")
+                  ],
+                );
+        },
+      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _refreshPage,
+      //   child: const Icon(Icons.refresh_rounded),
+      // ),
     );
   }
 }

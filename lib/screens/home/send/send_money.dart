@@ -19,15 +19,17 @@ class _SendMoneyState extends State<SendMoney> {
   @override
   void initState() {
     super.initState();
-    PaymentService().getWalletBalance().then((value) {
-      setState(() {
-        amount = value.walletBalance;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    PaymentService().getWalletBalance().then((value) {
+      if(mounted){
+        setState(() {
+        amount = value.walletBalance;
+      });
+      }
+    });
     // var p = getScannedUser().user;
     return Scaffold(
       appBar: AppBar(
@@ -65,7 +67,13 @@ class _SendMoneyState extends State<SendMoney> {
                     ),
               ),
             ),
-
+            Text(
+              "\n\nAccount balance : $amount\n",
+              style: Theme.of(context).textTheme.bodyLarge!.apply(
+                    fontWeightDelta: 5,
+                    fontSizeDelta: 2,
+                  ),
+            ),
             const SpaceWidget(space: 0.05),
             CommonTextField(
               hintText: "0.00",
@@ -126,7 +134,7 @@ class _SendMoneyState extends State<SendMoney> {
                       receiver: widget.receiverId,
                       amount: amountController.text,
                       note: noteController.text,
-                      email: widget.email ??"",
+                      email: widget.email ?? "",
                     ),
                   );
                 }

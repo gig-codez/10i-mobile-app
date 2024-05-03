@@ -52,7 +52,9 @@ class Apis {
   // split bills
   static String createBill = "$devURL/bills/create/";
   static String getBillTypes = "$devURL/billtypes/";
-  static String getBill = "$devURL/bill";
-  static String updateBill = "$devURL/bill/";
+  static String getSingleBillType = "$devURL/billtypes/";
+  static String getBill = "$devURL/bills";
+  static String updateBill = "$devURL/bills/";
+  static String deleteBill = "$devURL/bills";
   static String userBills = "$devURL/bills/owner";
 }

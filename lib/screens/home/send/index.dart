@@ -50,7 +50,7 @@ class _IndexSendState extends State<IndexSend> with TickerProviderStateMixin {
       ),
       body: const SafeArea(
         child: Padding(
-          padding:EdgeInsets.fromLTRB(
+          padding: EdgeInsets.fromLTRB(
               12.0, 8.0, 12.0, 8.0), //const EdgeInsets.all(8.0),
           child: Center(
             child: AllContactsSend(),

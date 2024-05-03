@@ -62,7 +62,7 @@ class _AddContactState extends State<AddContact> {
                       return snapshot.hasData
                           ? contacts.isEmpty
                               ? Center(
-                                  child: Text("No results found for ${_searchController.text}"),
+                                  child: Text("No results found for $query"),
                                 )
                               : ListView.builder(
                                   itemCount: contacts.length,

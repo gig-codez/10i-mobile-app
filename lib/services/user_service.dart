@@ -25,23 +25,24 @@ class UserService {
 
   // function to delete a user from the contact
   Future<void> deleteUser(int id) async {
+    Routes.pop();
     showLoader(text: "Deleting contact.. ");
     try {
       var headers = {
         'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
       };
       var request = Request('DELETE', Uri.parse('${Apis.deleteContact}/$id/'));
-
       request.headers.addAll(headers);
       StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
-        var d = json.decode(await response.stream.bytesToString());
+      if (response.statusCode == 200 ||
+          response.statusCode == 204 ||
+          response.statusCode == 201) {
+        // Routes.pop();
         showMessage(message: "Contact deleted.", type: "success");
         Routes.pop();
       } else {
         Routes.pop();
-        Routes.pop();
-        showMessage(message: response.reasonPhrase ?? "", type: "error");
+        showMessage(message: "Failed to delete", type: "error");
       }
     } on ClientException catch (_, e) {
       debugPrint("Error $e");
@@ -56,12 +57,12 @@ class UserService {
       var request = Request('GET', Uri.parse('${Apis.contactList}?q=$query'));
       request.headers.addAll(headers);
       StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return contactsModelFromJson(await response.stream.bytesToString());
       } else {
-        return Future.error(response.reasonPhrase ?? "");
+        return [];
       }
-    } on ClientException catch (_, e) {
+    } on Exception catch (_, e) {
       return Future.error("Error $e");
     }
   }
@@ -78,13 +79,13 @@ class UserService {
           'GET', Uri.parse("${Apis.allContacts}${data['user']['id']}/"));
       request.headers.addAll(headers);
       StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var d = json.decode(await response.stream.bytesToString()) as List;
         return d;
       } else {
         return Future.error(response.reasonPhrase ?? "");
       }
-    } on ClientException catch (_, e) {
+    } on Exception catch (_, e) {
       return Future.error("Error $e");
     }
   }
@@ -112,6 +113,7 @@ class UserService {
         }
         showMessage(message: "Added new contact", type: "success");
         Routes.pop();
+        Routes.replacePage(const IndexSend());
       } else {
         Routes.pop();
         showMessage(

@@ -1,3 +1,5 @@
+import "package:teni_app/screens/home/split/bill_name.dart";
+
 import "/exports/exports.dart";
 
 class IndexBills extends StatefulWidget {
@@ -33,26 +35,33 @@ class _IndexBillsState extends State<IndexBills> {
               return snapshot.hasData
                   ? data.isEmpty
                       ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "No Bills yet",
-                              style: Theme.of(context).textTheme.headlineMedium,
+                            Center(
+                              child: Text(
+                                "No Bills yet",
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium,
+                              ),
                             ),
+                            const SpaceWidget(space: 0.09),
                             // outlined button to add a bills
                             OutlinedButton.icon(
-                                onPressed: () => Routes.push(const Split()),
-                                label: const Text("Add a Bill"),
-                                icon: const Icon(Icons.add)),
+                              onPressed: () => Routes.push(
+                                const Split(),
+                              ),
+                              label: const Text("Add a Bill"),
+                              icon: const Icon(Icons.add),
+                            ),
                           ],
                         )
                       : ListView.builder(
                           itemCount: data.length,
                           itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(data[index].billType.toString()),
-                              subtitle: Text(
-                                data[index].amount.toString(),
-                              ),
+                            return BillName(
+                              id: data[index].billType,
+                              amount: data[index].amount.toString(),
+                              billId: data[index].id,
                             );
                           })
                   : const Center(

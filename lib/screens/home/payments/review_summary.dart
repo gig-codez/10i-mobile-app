@@ -203,7 +203,7 @@ class _ReviewSummaryState extends State<ReviewSummary> {
             onPress:context.read<LoaderController>().isLoading? (){}: () {
               var payment = {
                 "receiver": context.read<TextController>().text['receiver'],
-                "txt_ref": "${d['txRef']}",
+                "txt_ref": Uuid().v1(),//"${d['txRef']}",
                 "amount": context.read<TextController>().text['amount'],
                 "tax": 0,
                 "currency": "UGX",

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import "/exports/exports.dart";
 
 import "dart:convert";
@@ -60,18 +62,22 @@ class BillService {
       if (response.statusCode == 200 || response.statusCode == 201) {
         context.read<LoaderController>().isLoading = false;
         var k = json.decode(await response.stream.bytesToString());
-        showMessage(message: "Bill created successfully.", type: "success");
+        showMessage(
+          message: "Bill created successfully.",
+          type: "success",
+        );
         Routes.pushPageWithRouteAndAnimation(
           SplitBill(
             amount: data.get("amount"),
-            billId: int.parse(k.get('id')),
+            billId: int.parse(
+              k['id'].toString(),
+            ),
           ),
         );
       } else {
         print(await response.stream.bytesToString());
         context.read<LoaderController>().isLoading = false;
         showMessage(message: "${response.reasonPhrase}", type: "error");
-        // print();
       }
     } on Exception catch (_, e) {
       context.read<LoaderController>().isLoading = false;
@@ -88,7 +94,7 @@ class BillService {
         'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
       };
       var request =
-          Request('POST', Uri.parse('${Apis.updateBill}$billId/update/'));
+          Request('PUT', Uri.parse('${Apis.updateBill}$billId/update/'));
       request.body = json.encode({
         "split_bill": 'true',
       });
@@ -136,6 +142,58 @@ class BillService {
       }
     } on Exception catch (_, e) {
       return Future.error("Error $_");
+    }
+  }
+
+  Future<String> getBillName(int id) async {
+    try {
+      var headers = {
+        'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
+      };
+      var request =
+          Request('GET', Uri.parse('${Apis.getSingleBillType}${id}/'));
+      request.headers.addAll(headers);
+      StreamedResponse response = await request.send();
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        String res = await response.stream.bytesToString();
+        var result = json.decode(res);
+        return BillTypeModel.fromJson(result).name;
+      } else {
+        return Future.error(response.reasonPhrase ?? "");
+      }
+    } on Exception catch (_, e) {
+      return Future.error("Error $_");
+    }
+  }
+
+// function to delete a bill
+  void deleteBill(int billId) async {
+    var headers = {
+      'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
+    };
+    // first pop off the dialog box
+    Routes.pop();
+    // then show the loader
+    showLoader(text: "Deleting Bill..");
+    try {
+      var request = Request(
+        'DELETE',
+        Uri.parse('${Apis.deleteBill}/$billId/delete/'),
+      );
+      request.headers.addAll(headers);
+      StreamedResponse response = await request.send();
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        Routes.pop();
+        // String rs = (await response.stream.bytesToString());
+        showMessage(message: "Bill deleted successfully", type: "success");
+      } else {
+        String rs = (await response.stream.bytesToString());
+        print(rs);
+        Routes.pop();
+        showMessage(message: response.reasonPhrase ?? "", type: "error");
+      }
+    } on Exception catch (_, e) {
+      debugPrint("Error $_");
     }
   }
 }
