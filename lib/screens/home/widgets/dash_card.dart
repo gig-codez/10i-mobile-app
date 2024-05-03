@@ -23,7 +23,9 @@ class _DashCardState extends State<DashCard> {
   @override
   Widget build(BuildContext context) {
     // Timer.periodic(const Duration(milliseconds: 900), (timer) {
-
+    SessionService().getToken().then((x) {
+      debugPrint(x);
+    });
     // });
 
     return Expanded(

@@ -110,7 +110,8 @@ class Routes {
     deposit: (context) => const Deposit(),
     utility: (context) => const Utilities(),
     invoice: (context) => const Rewards(),
-    splitBill: (context) => const Split(),
+    // split bills
+    splitBill: (context) => const IndexBills(),
     // payment
     paymentInfo: (context) => const PaymentInfo(),
     // transfers

@@ -101,6 +101,8 @@ export '/services/storage_services.dart';
 export '/services/fingerprint_service.dart';
 export '/services/payment_service.dart';
 export '/services/user_service.dart';
+export '/services/bill_service.dart';
+
 // bills
 export "/screens/home/bills/electricity.dart";
 export "/screens/home/bills/water.dart";
@@ -114,7 +116,7 @@ export "/screens/home/split/split.dart";
 export "/screens/home/split/split_money.dart";
 export "/screens/home/split/review_split.dart";
 export "/screens/home/split/split_success.dart";
-
+export "/screens/home/split/index.dart";
 // send money
 export '/screens/home/send/index.dart';
 export '/screens/home/send/contacts.dart';
@@ -144,7 +146,7 @@ export "/widgets/custom_text_field.dart";
 export "/widgets/custom_radio_widget.dart";
 export "/widgets/profile_widget.dart";
 export "/widgets/divider_widget.dart";
-
+export "/widgets/custom_select_widget.dart";
 // helpers
 export "/helpers/helpers.dart";
 
@@ -161,6 +163,8 @@ export "/models/wallet_balance_model.dart";
 export "/models/payment_types.dart";
 export "/models/contacts_model.dart";
 export "/models/single_user.dart";
+export "/models/bill_type_model.dart";
+export "/models/bills_model.dart";
 
 // extension
 export "/extension/extension.dart";

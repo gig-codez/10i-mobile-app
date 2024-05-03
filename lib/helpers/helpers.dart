@@ -32,7 +32,9 @@ void showLoader({String text = ""}) {
             children: [
               Text(
                 text,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.titleMedium!.apply(
+                      fontSizeDelta: 2,
+                    ),
               ),
               const CircularProgressIndicator.adaptive(),
             ],

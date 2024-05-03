@@ -311,7 +311,7 @@ class PaymentService {
         "transaction_notes": "Payment for services",
         "system_notes": "Processed automatically"
       });
-      print(request.body);
+      // print(request.body);
       request.headers.addAll(headers);
       StreamedResponse response = await request.send();
 
@@ -324,8 +324,7 @@ class PaymentService {
         Routes.pop();
         String txt = await response.stream.bytesToString();
         print(txt);
-        String msg =
-            json.decode(txt)['message'];
+        String msg = json.decode(txt)['message'];
 
         if (kDebugMode) {
           print(response.reasonPhrase);

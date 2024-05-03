@@ -48,4 +48,11 @@ class Apis {
   static String contactList = "$devURL/search-users/";
   static String contactListToMM = "$devURL/user-contacts/create/";
   static String singleUser = "$devURL/user-details";
+
+  // split bills
+  static String createBill = "$devURL/bills/create/";
+  static String getBillTypes = "$devURL/billtypes/";
+  static String getBill = "$devURL/bill";
+  static String updateBill = "$devURL/bill/";
+  static String userBills = "$devURL/bills/owner";
 }

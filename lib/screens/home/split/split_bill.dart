@@ -2,7 +2,8 @@ import "/exports/exports.dart";
 
 class SplitBill extends StatefulWidget {
   final String amount;
-  const SplitBill({super.key,required this.amount});
+  final int billId;
+  const SplitBill({super.key, required this.amount, required this.billId });
 
   @override
   State<SplitBill> createState() => _SplitBillState();
@@ -35,7 +36,7 @@ class _SplitBillState extends State<SplitBill> {
                     itemCount: selected.length,
                     itemBuilder: (context, index) => const CircleAvatar(
                       backgroundImage: AssetImage("assets/pngs/default.jpeg"),
-                      radius: 40,
+                      radius: 30,
                     ),
                   ),
                 ),
@@ -64,12 +65,14 @@ class _SplitBillState extends State<SplitBill> {
                               )
                             : ListView.builder(
                                 itemCount: d.length,
-                                itemBuilder: (context, index) =>
-                                    ContactWidget(id: d[index]['contact'],onPress:(){
-                                      setState(() {
-                                        selected.add(d[index]);
-                                      });
-                                    },),
+                                itemBuilder: (context, index) => ContactWidget(
+                                  id: d[index]['contact'],
+                                  onPress: () {
+                                    setState(() {
+                                      selected.add(d[index]);
+                                    });
+                                  },
+                                ),
                               )
                         : const Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,8 +95,9 @@ class _SplitBillState extends State<SplitBill> {
                   textColor: Colors.white,
                   onPress: () => Routes.pushPageWithRouteAndAnimation(
                     SplitMoney(
-                      money:widget.amount,
+                      money: widget.amount,
                       selected: selected,
+                      billId:widget.billId,
                     ),
                   ),
                   text: "Continue",

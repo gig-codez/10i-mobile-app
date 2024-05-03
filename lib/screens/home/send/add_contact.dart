@@ -1,4 +1,5 @@
 import "/exports/exports.dart";
+import "dart:async";
 
 class AddContact extends StatefulWidget {
   const AddContact({super.key});
@@ -8,7 +9,26 @@ class AddContact extends StatefulWidget {
 }
 
 class _AddContactState extends State<AddContact> {
-  List<ContactsModel> contacts = [];
+  String query = "";
+  final StreamController<List<ContactsModel>> _resultController =
+      StreamController<List<ContactsModel>>();
+  void fetchRecords() async {
+    var results = await UserService.getUsers(query: query);
+    _resultController.add(results);
+
+    Timer.periodic(const Duration(milliseconds: 900), (timer) async {
+      results = await UserService.getUsers(query: query);
+      _resultController.add(results);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchRecords();
+  }
+
+  final _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +43,10 @@ class _AddContactState extends State<AddContact> {
               CommonTextField(
                 hintText: "Search name, username or email",
                 fieldColor: Colors.grey.shade200,
-                controller: TextEditingController(),
-                onChanged: (x) {
-                  UserService.getUsers(query: x).then((value) {
-                    print(value.length);
-                    setState(() {
-                      contacts = value;
-                    });
+                controller: _searchController,
+                onChanged: (value) {
+                  setState(() {
+                    query = value;
                   });
                 },
                 radius: 10,
@@ -38,20 +55,34 @@ class _AddContactState extends State<AddContact> {
                 readOnly: false,
               ),
               Flexible(
-                child: ListView.builder(
-                  itemCount: contacts.length,
-                  itemBuilder: (context, index) => ProfileWidget(
-                    titleText:
-                        "${contacts[index].firstName} ${contacts[index].lastName}",
-                    subText: contacts[index].email,
-                    icon: Icons.person,
-                    onPress: () {
-                      UserService.createContactList({
-                        "contact": contacts[index].id,
-                      });
-                    },
-                  ),
-                ),
+                child: StreamBuilder(
+                    stream: _resultController.stream,
+                    builder: (context, snapshot) {
+                      var contacts = snapshot.data ?? [];
+                      return snapshot.hasData
+                          ? contacts.isEmpty
+                              ? Center(
+                                  child: Text("No results found for ${_searchController.text}"),
+                                )
+                              : ListView.builder(
+                                  itemCount: contacts.length,
+                                  itemBuilder: (context, index) =>
+                                      ProfileWidget(
+                                    titleText:
+                                        "${contacts[index].firstName} ${contacts[index].lastName}",
+                                    subText: contacts[index].email,
+                                    icon: Icons.person,
+                                    onPress: () {
+                                      UserService.createContactList({
+                                        "contact": contacts[index].id,
+                                      });
+                                    },
+                                  ),
+                                )
+                          : const Center(
+                              child: CircularProgressIndicator.adaptive(),
+                            );
+                    }),
               ),
             ],
           ),

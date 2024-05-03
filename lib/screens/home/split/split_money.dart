@@ -2,8 +2,13 @@ import "/exports/exports.dart";
 
 class SplitMoney extends StatefulWidget {
   final String money;
+  final int billId;
   final List<dynamic> selected;
-  const SplitMoney({super.key, required this.money, required this.selected});
+  const SplitMoney(
+      {super.key,
+      required this.billId,
+      required this.money,
+      required this.selected});
 
   @override
   State<SplitMoney> createState() => _SplitMoneyState();
@@ -64,10 +69,8 @@ class _SplitMoneyState extends State<SplitMoney> {
                 child: CustomButton(
                   buttonColor: Theme.of(context).primaryColor,
                   textColor: Colors.white,
-                  onPress: () => Routes.pushPageWithRouteAndAnimation(
-                    SplitSuccess(amount: widget.money),
-                  ),
-                  text: "Review",
+                  onPress: () => BillService().updateBill(widget.billId,widget.money),
+                  text: "Split Bill",
                 ),
               ),
               const SpaceWidget(space: 0.06),

@@ -1,6 +1,7 @@
 import "/exports/exports.dart";
 import "add_contact.dart";
 import "dart:async";
+
 class AllContactsSend extends StatefulWidget {
   const AllContactsSend({super.key});
 
@@ -9,32 +10,41 @@ class AllContactsSend extends StatefulWidget {
 }
 
 class _AllContactsSendState extends State<AllContactsSend> {
-  StreamController<List<dynamic>> _contactController = StreamController<List<dynamic>>();
+  // -------------------------------------
+  final StreamController<List<dynamic>> _contactController =
+      StreamController<List<dynamic>>();
+  // -------------------------------------
   Timer? _timer;
-   @override
+  // -------------------------------------
+
+  void fetchContacts() async {
+    var contacts = await UserService.getContactsList();
+    _contactController.add(contacts);
+    _timer = Timer.periodic(const Duration(milliseconds: 800), (timer) async {
+      var contacts = await UserService.getContactsList();
+      _contactController.add(contacts);
+    });
+  }
+
+  // ---------------------------
+  @override
   void initState() {
     super.initState();
     fetchContacts();
   }
-void fetchContacts() async {
-  var contacts = await UserService.getContactsList();
-  _contactController.sink.add(contacts);
-  _timer = Timer.periodic(const Duration(milliseconds:1000),(timer) async {
-    var contacts = await UserService.getContactsList();
-    _contactController.sink.add(contacts);
-  });
-}
 
-@override
-void dispose(){
-   if(_contactController.hasListener){
-    _contactController.close();
+  // ----------------------------
+  @override
+  void dispose() {
+    if (_contactController.hasListener) {
+      _contactController.close();
+    }
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+    super.dispose();
   }
-  if(_timer != null){
-    _timer!.cancel();
-  }
-  super.dispose();
-}
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -62,8 +72,10 @@ void dispose(){
                   )
                 : ListView.builder(
                     itemCount: d.length,
-                    itemBuilder: (context, index) =>
-                        ContactWidget(id: d[index]['contact'],contactId:d[index]['id'],),
+                    itemBuilder: (context, index) => ContactWidget(
+                      id: d[index]['contact'],
+                      contactId: d[index]['id'],
+                    ),
                   )
             : const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
