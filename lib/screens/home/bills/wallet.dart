@@ -153,10 +153,8 @@ class _WalletPageState extends State<WalletPage> {
       var d = await storage.getData("user");
       PaymentService()
           .loadWallet({"txRef": response.txRef, "userId": d['user']['id']});
-      showLoading(response.toString());
     } else {
       Provider.of<LoaderController>(context, listen: false).isLoading = false;
-      showLoading("Transaction failed");
     }
     print("${response.toJson()}");
   }

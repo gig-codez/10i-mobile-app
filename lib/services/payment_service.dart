@@ -21,16 +21,15 @@ class PaymentService {
           'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
         },
       );
-
-      // print("data => $data");
-
-      if (response.statusCode == 200) {
+// 0773995421
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
         Routes.pop();
         showMessage(message: "Payment successful", type: "success");
         Routes.replacePage(
           const IndexPage(),
         );
-        // print(response.body);
       } else {
         showMessage(message: "error ${response.reasonPhrase}");
       }
@@ -91,7 +90,7 @@ class PaymentService {
   // function to perform a transaction
   void executeTransaction(Map<String, dynamic> data) async {
     context.read<LoaderController>().isLoading = true;
-
+    showLoader(text: "Payment in progress");
     try {
       var wallet = await getWalletDetails();
       data.put("wallet", wallet.id);
@@ -100,13 +99,16 @@ class PaymentService {
         'Content-Type': 'application/json',
         'Authorization': 'Basic YnJ1bm9sYWJzMjU2KzE4QGdtYWlsLmNvbTp0ZXN0MTIz'
       };
-      var response = await client.post(
+      var response = await Client().post(
         Uri.parse(Apis.walletTransaction),
         headers: headers,
         body: json.encode(data),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
+        Routes.pop();
         context.read<LoaderController>().isLoading = false;
         showDialogWindow(
           DialogWidget(

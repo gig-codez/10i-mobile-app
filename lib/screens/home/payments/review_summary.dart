@@ -200,25 +200,28 @@ class _ReviewSummaryState extends State<ReviewSummary> {
           ),
           const SpaceWidget(),
           CustomButton(
-            onPress:context.read<LoaderController>().isLoading? (){}: () {
-              var payment = {
-                "receiver": context.read<TextController>().text['receiver'],
-                "txt_ref": Uuid().v1(),//"${d['txRef']}",
-                "amount": context.read<TextController>().text['amount'],
-                "tax": 0,
-                "currency": "UGX",
-                "is_successful": true,
-                "payment_type": 1,
-                "transaction_type": 3,
-                "transaction_category": 2,
-                "transaction_response": "Success",
-                "transaction_notes": "Payment for services",
-                "system_notes": "Processed automatically"
-              };
-              PaymentService().executeTransaction(payment);
-            },
+            onPress: context.read<LoaderController>().isLoading
+                ? () {}
+                : () {
+                    var payment = {
+                      "receiver":
+                          context.read<TextController>().text['receiver'],
+                      "txt_ref": const Uuid().v1(),
+                      "amount": context.read<TextController>().text['amount'],
+                      "tax": 0,
+                      "currency": "UGX",
+                      "is_successful": true,
+                      "payment_type": 1,
+                      "transaction_type": 3,
+                      "transaction_category": 2,
+                      "transaction_response": "Success",
+                      "transaction_notes": "Payment for services",
+                      "system_notes": "Processed automatically"
+                    };
+                    PaymentService().executeTransaction(payment);
+                  },
             text: "Confirm & Send",
-            loading:context.read<LoaderController>().isLoading,
+            loading: context.read<LoaderController>().isLoading,
             buttonColor: Theme.of(context).primaryColor,
             textColor: Colors.white,
           ),

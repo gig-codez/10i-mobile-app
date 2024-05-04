@@ -32,6 +32,7 @@ export "/routes/routes.dart";
 export "/controllers/theme_controller.dart";
 export "/controllers/loader_controller.dart";
 export "/controllers/text_controller.dart";
+export "/controllers/data_controller.dart";
 
 // main
 export "/main.dart";

@@ -74,6 +74,8 @@ PODS:
   - smart_auth (0.0.1):
     - Flutter
   - Toast (4.1.0)
+  - uni_links2 (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/darwin`)
@@ -89,6 +91,7 @@ DEPENDENCIES:
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - smart_auth (from `.symlinks/plugins/smart_auth/ios`)
+  - uni_links2 (from `.symlinks/plugins/uni_links2/ios`)
 
 SPEC REPOS:
   trunk:
@@ -133,6 +136,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   smart_auth:
     :path: ".symlinks/plugins/smart_auth/ios"
+  uni_links2:
+    :path: ".symlinks/plugins/uni_links2/ios"
 
 SPEC CHECKSUMS:
   AppAuth: a13994980c1ec792f7e2e665acd4d4aa6be43240
@@ -161,6 +166,7 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
   smart_auth: 4bedbc118723912d0e45a07e8ab34039c19e04f2
   Toast: ec33c32b8688982cecc6348adeae667c1b9938da
+  uni_links2: fbc37081577fc19c6e0f7e6cdbd3baa150023635
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
