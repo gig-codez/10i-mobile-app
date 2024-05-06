@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAeWOXaX8ttFPfBd_rF6dUygujoguQW8jI',
-    appId: '1:440314809623:android:ab0199663ca15d2d00fb52',
+    appId: '1:440314809623:android:d752b7be339f0a0700fb52',
     messagingSenderId: '440314809623',
     projectId: 'teni-87b1a',
     storageBucket: 'teni-87b1a.appspot.com',
@@ -67,4 +67,5 @@ class DefaultFirebaseOptions {
     iosClientId: '440314809623-nd46u14bt4amcn1eotulc0tb3cuqopmq.apps.googleusercontent.com',
     iosBundleId: 'com.example.walletApp',
   );
+
 }
