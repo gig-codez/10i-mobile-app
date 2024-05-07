@@ -3,7 +3,7 @@ import "/exports/exports.dart";
 class SplitBill extends StatefulWidget {
   final String amount;
   final int billId;
-  const SplitBill({super.key, required this.amount, required this.billId });
+  const SplitBill({super.key, required this.amount, required this.billId});
 
   @override
   State<SplitBill> createState() => _SplitBillState();
@@ -44,46 +44,34 @@ class _SplitBillState extends State<SplitBill> {
               ],
               Expanded(
                 flex: 5,
-                child: FutureBuilder(
-                  future: UserService.getContactsList(),
-                  builder: (context, snapshot) {
-                    var d = snapshot.data ?? [];
-                    return snapshot.hasData
-                        ? d.isEmpty
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "No Contacts found.",
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
-                                  ),
-                                  const SpaceWidget(space: 0.05),
-                                  const SpaceWidget(space: 0.05),
-                                ],
-                              )
-                            : ListView.builder(
-                                itemCount: d.length,
-                                itemBuilder: (context, index) => ContactWidget(
-                                  id: d[index]['contact'],
-                                  onPress: () {
-                                    setState(() {
-                                      selected.add(d[index]);
-                                    });
-                                  },
-                                ),
-                              )
-                        : const Column(
+                child: Consumer<DataController>(
+                  // future: UserService.getContactsList(),
+                  builder: (context, controller, snap) {
+                    var d = controller.contacts;
+                    return d.isEmpty
+                        ? Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Center(
-                                child: CircularProgressIndicator.adaptive(),
+                              Text(
+                                "No Contacts found.",
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
-                              SpaceWidget(space: 0.05),
-                              Text("Loading...")
+                              const SpaceWidget(space: 0.05),
+                              const SpaceWidget(space: 0.05),
                             ],
+                          )
+                        : ListView.builder(
+                            itemCount: d.length,
+                            itemBuilder: (context, index) => ContactWidget(
+                              id: d[index]['contact'],
+                              controller: controller,
+                              onPress: () {
+                                setState(() {
+                                  selected.add(d[index]);
+                                });
+                              },
+                            ),
                           );
                   },
                 ),
@@ -97,7 +85,7 @@ class _SplitBillState extends State<SplitBill> {
                     SplitMoney(
                       money: widget.amount,
                       selected: selected,
-                      billId:widget.billId,
+                      billId: widget.billId,
                     ),
                   ),
                   text: "Continue",

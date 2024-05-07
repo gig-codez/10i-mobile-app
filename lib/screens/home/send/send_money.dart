@@ -26,6 +26,7 @@ class _SendMoneyState extends State<SendMoney> {
     // var p = getScannedUser().user;
     return Scaffold(
       appBar: AppBar(
+        leading: const BackButton(),
         forceMaterialTransparency: true,
         title: Text(
           "Send Money to",
@@ -61,14 +62,27 @@ class _SendMoneyState extends State<SendMoney> {
                       ),
                 ),
               ),
-              Text(
-                "\n\nAccount balance : ${data.balance}\n",
-                style: Theme.of(context).textTheme.bodyLarge!.apply(
-                      fontWeightDelta: 5,
-                      fontSizeDelta: 2,
-                    ),
+              // Chip(
+              //   label: Text(
+              //     "Send Money",
+              //     style: Theme.of(context).textTheme.bodyLarge!.apply(
+              //           fontWeightDelta: 1,
+              //           fontSizeDelta: 2,
+              //         ),
+              //   ),
+              //   backgroundColor: Theme.of(context).primaryColor,
+              // ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 8, 10, 8),
+                child: Text(
+                  "\n\nAccount balance : ${data.balance}",
+                  style: Theme.of(context).textTheme.bodyLarge!.apply(
+                        fontWeightDelta: 5,
+                        fontSizeDelta: 2,
+                      ),
+                ),
               ),
-              const SpaceWidget(space: 0.05),
+              const SpaceWidget(),
               CommonTextField(
                 hintText: "0.00",
                 enableBorder: true,
@@ -79,7 +93,7 @@ class _SendMoneyState extends State<SendMoney> {
                 contentPadding: const EdgeInsets.fromLTRB(5, 9, 5, 2),
                 radius: 15,
               ),
-              Text("\n\t\tAdd a note (optional)\n",
+              Text("\n\t\tAdd a note (optional)",
                   style: Theme.of(context).textTheme.bodyLarge!.apply(
                         fontWeightDelta: 5,
                       )),

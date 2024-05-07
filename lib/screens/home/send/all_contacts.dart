@@ -54,46 +54,34 @@ class _AllContactsSendState extends State<AllContactsSend> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: UserService.getContactsList(),
-        builder: (context, snapshot) {
-          var d = snapshot.data ?? [];
-          return snapshot.hasData
-              ? d.isEmpty
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "No Contacts found.",
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const SpaceWidget(space: 0.05),
-                        CustomButton(
-                          icon: Icons.add,
-                          onPress: () => Routes.push(const AddContact()),
-                          text: "Add Contact",
-                        ),
-                        const SpaceWidget(space: 0.05),
-                      ],
-                    )
-                  : ListView.builder(
-                      itemCount: d.length,
-                      itemBuilder: (context, index) => ContactWidget(
-                        id: d[index]['contact'],
-                        contactId: d[index]['id'],
-                      ),
-                    )
-              : const Column(
+      body: Consumer<DataController>(
+        builder: (context, controller, c) {
+          var d = controller.contacts;
+          return d.isEmpty
+              ? Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Center(
-                      child: CircularProgressIndicator.adaptive(),
+                    Text(
+                      "No Contacts found.",
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
-                    SpaceWidget(space: 0.05),
-                    Text("Loading...")
+                    const SpaceWidget(space: 0.05),
+                    CustomButton(
+                      icon: Icons.add,
+                      onPress: () => Routes.push(const AddContact()),
+                      text: "Add Contact",
+                    ),
+                    const SpaceWidget(space: 0.05),
                   ],
+                )
+              : ListView.builder(
+                  itemCount: d.length,
+                  itemBuilder: (context, index) => ContactWidget(
+                    controller: controller,
+                    id: d[index]['contact'],
+                    contactId: d[index]['id'],
+                  ),
                 );
         },
       ),

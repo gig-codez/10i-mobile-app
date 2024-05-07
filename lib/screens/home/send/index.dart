@@ -35,15 +35,17 @@ class _IndexSendState extends State<IndexSend> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Send Money to",
+          "Select a contact to send to",
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 fontWeight: FontWeight.w600,
-                fontSize: 20,
+                fontSize: 18,
               ),
         ),
         actions: [
           IconButton(
-            onPressed: () => Routes.push(const AddContact()),
+            onPressed: () => Routes.push(
+              const AddContact(),
+            ),
             icon: const Icon(Icons.person_add_alt_1_rounded),
           )
         ],

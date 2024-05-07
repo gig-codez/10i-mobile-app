@@ -31,7 +31,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
       icon: "doc.svg",
     ),
     ServicesModel(
-      label: "Send a Quick Invoice",
+      label: "Send Invoice",
       route: Routes.quickLink,
       icon: "credit.svg",
     ),
@@ -46,7 +46,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
       icon: "split.svg",
     ),
     ServicesModel(
-      label: "Share Payment Info",
+      label: "Share Info",
       route: Routes.paymentInfo,
       icon: "share.svg",
     ),

@@ -81,9 +81,9 @@ class PaymentService {
       } else {
         return Future.error("Failed to fetch wallet details");
       }
-    } on ClientException catch (_, e) {
+    } on Exception catch (_, e) {
       debugPrint("Error $e");
-      return Future.error("Connection error");
+      throw Future.error("Connection error");
     }
   }
 
@@ -285,7 +285,7 @@ class PaymentService {
     }
   }
 
-  void transferToMM() async {
+  Future<void> transferToMM() async {
     showLoader(text: "Transfer in process ..");
     var ref = await storage.getData("transaction");
     var wallet = await getWalletDetails();
@@ -319,7 +319,7 @@ class PaymentService {
 
       if (response.statusCode == 200) {
         Routes.pop();
-        print(await response.stream.bytesToString());
+        debugPrint(await response.stream.bytesToString());
         showMessage(message: "Transfer successful", type: "success");
         Routes.replaceRouteTo(Routes.transferSuccess);
       } else {

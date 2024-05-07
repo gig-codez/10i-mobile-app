@@ -63,7 +63,7 @@ class ProfileWidget extends StatelessWidget {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "$titleText\n",
+                            text: "  $titleText\n",
                             style:
                                 Theme.of(context).textTheme.bodyLarge!.copyWith(
                                       fontWeight: FontWeight.bold,
@@ -72,13 +72,14 @@ class ProfileWidget extends StatelessWidget {
                           ),
                           subText != null
                               ? TextSpan(
-                                  text: "$subText",
+                                  text: "  $subText",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
                                         fontWeight: FontWeight.w300,
                                         fontSize: 14,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                 )
                               : const TextSpan(text: ""),

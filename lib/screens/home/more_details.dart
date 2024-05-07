@@ -8,42 +8,51 @@ class MoreDetails extends StatefulWidget {
 }
 
 class _MoreDetailsState extends State<MoreDetails> {
+  StorageService storage = StorageService();
+  var user;
   @override
   Widget build(BuildContext context) {
+    storage.getData("user").then((value) {
+      user = value['user'];
+    });
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox.square(
-              dimension: 50,
+              dimension: 10,
             ),
             ProfileWidget(
-              titleText: "John Doe",
-              size: 50,
+              titleText: "${user['id']}",
+              size: 40,
               subText: "johndoe@yourdomain.com",
               color: Theme.of(context).primaryColor,
-              icon: Icons.edit,
-              img: "assets/pngs/dp.png",
+              // icon: Icons.edit,
+              img: "assets/pngs/default.jpeg",
               tile: true,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Divider(
-                color: Colors.grey.shade300,
-              ),
-            ),
-            ProfileWidget(
-              titleText: "Personal Info",
-              prefixIcon: "profile.svg",
-              color: Colors.deepOrangeAccent,
-              size: 20,
               onPress: () {
                 Routes.pushPageWithRouteAndAnimation(const PersonalInfo(),
                     type: 'slide');
               },
-              iconSize: 20,
             ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Divider(
+                color: Colors.grey.shade300,
+              ),
+            ),
+            // ProfileWidget(
+            //   titleText: "Personal Info",
+            //   prefixIcon: "profile.svg",
+            //   color: Colors.deepOrangeAccent,
+            //   size: 20,
+            //   onPress: () {
+            //     Routes.pushPageWithRouteAndAnimation(const PersonalInfo(),
+            //         type: 'slide');
+            //   },
+            //   iconSize: 20,
+            // ),
             ProfileWidget(
               titleText: "About",
               color: Theme.of(context).primaryColor,
