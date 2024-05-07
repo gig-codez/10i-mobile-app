@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 // import 'package:wallet_app';
 
 import 'firebase_options.dart';
@@ -34,10 +35,10 @@ BuildContext context = navigationKey.currentContext!;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-// ...
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   runApp(const WalletApp());
   // device stays in portrait.
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

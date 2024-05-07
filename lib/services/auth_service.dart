@@ -25,20 +25,15 @@ class AuthService {
       
       final GoogleSignInAuthentication? googleAuth = await _googleUser?.authentication;
       if (googleAuth != null) {
-        // remove loader
-        debugPrint("google => $_googleUser");
-        debugPrint("auth => $googleAuth");
         // save data to database
         Response response = await client.post(Uri.parse(Apis.googleAuth),
             headers: {
               'Content-Type': 'application/json',
             },
             body: json.encode({
-              // "token": googleAuth.accessToken,
               "email": _googleUser!.email,
               "google_id": _googleUser!.id,
-              "server_auth_code": "${_googleUser!.serverAuthCode}",
-              "photo_url": _googleUser!.photoUrl
+              "id_token": googleAuth.idToken,
             }));
 
         // if status is okay
