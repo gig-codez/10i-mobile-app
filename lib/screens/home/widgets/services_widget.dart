@@ -1,16 +1,16 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 import "/exports/exports.dart";
 
 class ServicesWidget extends StatefulWidget {
-  const ServicesWidget({super.key});
+  const ServicesWidget({Key? key}) : super(key: key);
 
   @override
   State<ServicesWidget> createState() => _ServicesWidgetState();
 }
 
 class _ServicesWidgetState extends State<ServicesWidget> {
-  // services
+  // Services
   List<ServicesModel> services = [
     ServicesModel(
       label: "Send",
@@ -28,12 +28,12 @@ class _ServicesWidgetState extends State<ServicesWidget> {
       icon: "transfer.svg",
     ),
     ServicesModel(
-      label: "Create Invoice",
+      label: "Top Up",
       route: Routes.invoice,
-      icon: "doc.svg",
+      icon: "smartphone.svg",
     ),
     ServicesModel(
-      label: "Send Invoice",
+      label: "Invoice",
       route: Routes.quickLink,
       icon: "credit.svg",
     ),
@@ -43,16 +43,29 @@ class _ServicesWidgetState extends State<ServicesWidget> {
       icon: "bills.svg",
     ),
     ServicesModel(
-      label: "Split Bill",
+      label: "Parking",
       route: Routes.splitBill,
-      icon: "split.svg",
+      icon: "parking.svg",
     ),
     ServicesModel(
-      label: "Share Info",
+      label: "Medicine",
       route: Routes.paymentInfo,
-      icon: "share.svg",
+      icon: "medicine.svg",
     ),
   ];
+
+  // Define list of colors
+  List<Color> containerColors = [
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.yellow,
+    Colors.teal,
+    Colors.indigo,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -72,19 +85,17 @@ class _ServicesWidgetState extends State<ServicesWidget> {
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(
-                          255, 207, 226, 241), // Background color
-                      borderRadius:
-                          BorderRadius.circular(10), // Rounded corners
+                      color: containerColors[index], // Assign color
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SvgPicture.asset(
                         "assets/svgs/${services[index].icon}",
-                        width: 30,
-                        height: 30,
+                        width: 34,
+                        height: 34,
                         // ignore: deprecated_member_use
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -107,12 +118,13 @@ class _ServicesWidgetState extends State<ServicesWidget> {
   }
 }
 
-// services model
+// Services model
 class ServicesModel {
   final String label;
   final String icon;
   final String route;
-// services constructor
+
+  // Services constructor
   ServicesModel({
     required this.label,
     required this.icon,
