@@ -25,19 +25,19 @@ class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildTabItem(
-              index: 0, icon: const Icon(Icons.home, size: 28), label: 'Home'),
+              index: 0, icon: const Icon(Icons.home, size: 26), label: 'Home'),
           buildTabItem(
               index: 1,
-              icon: const Icon(Icons.history, size: 28),
+              icon: const Icon(Icons.history, size: 26),
               label: 'Activity'),
           const SizedBox(width: 16), // Empty space for floating button
           buildTabItem(
               index: 2,
-              icon: const Icon(Icons.downloading, size: 28),
+              icon: const Icon(Icons.downloading, size: 26),
               label: 'Invoice'),
           buildTabItem(
               index: 3,
-              icon: const Icon(Icons.settings, size: 28),
+              icon: const Icon(Icons.settings, size: 26),
               label: 'More'),
         ],
       ),
@@ -61,7 +61,7 @@ class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
           ],
         ),
         Positioned(
-          top: 35, // Adjust the positioning of the label
+          top: 33, // Adjust the positioning of the label
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(

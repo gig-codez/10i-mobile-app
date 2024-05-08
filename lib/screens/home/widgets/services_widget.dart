@@ -1,3 +1,5 @@
+import "package:flutter/material.dart";
+
 import "/exports/exports.dart";
 
 class ServicesWidget extends StatefulWidget {
@@ -59,7 +61,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
         itemCount: services.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
-          mainAxisSpacing: 2,
+          mainAxisSpacing: 3,
         ),
         itemBuilder: (context, index) {
           return Column(
@@ -68,13 +70,22 @@ class _ServicesWidgetState extends State<ServicesWidget> {
                 onClick: () => Routes.routeTo(services[index].route),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: CircleAvatar(
-                    radius: 20,
-                    child: SvgPicture.asset(
-                      "assets/svgs/${services[index].icon}",
-                      width: 20,
-                      height: 20,
-                      color: Theme.of(context).primaryColor,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(
+                          255, 207, 226, 241), // Background color
+                      borderRadius:
+                          BorderRadius.circular(10), // Rounded corners
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgPicture.asset(
+                        "assets/svgs/${services[index].icon}",
+                        width: 30,
+                        height: 30,
+                        // ignore: deprecated_member_use
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ),
                 ),
@@ -86,6 +97,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
                     .textTheme
                     .labelSmall!
                     .copyWith(fontWeight: FontWeight.w600),
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           );
