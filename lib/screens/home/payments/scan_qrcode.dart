@@ -1,21 +1,22 @@
-// ignore_for_file: deprecated_member_use
-
 import 'dart:developer';
 import 'dart:io';
 
 import "/exports/exports.dart";
 
 class ScanQrCode extends StatefulWidget {
-  const ScanQrCode({super.key});
+  const ScanQrCode({Key? key}) : super(key: key);
 
   @override
   State<ScanQrCode> createState() => _ScanQrCodeState();
 }
 
 class _ScanQrCodeState extends State<ScanQrCode> {
+  bool isScanningMode = true;
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+  bool isFlashOn = false;
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
@@ -37,7 +38,7 @@ class _ScanQrCodeState extends State<ScanQrCode> {
       // ),
       body: Stack(
         children: <Widget>[
-          _buildQrView(context),
+          isScanningMode ? _buildQrView(context) : _buildQrDisplay(context),
           Positioned(
             top: 40,
             child: Padding(
@@ -49,19 +50,32 @@ class _ScanQrCodeState extends State<ScanQrCode> {
                     children: [
                       BackButton(
                         color: Colors.white,
-                        // icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Routes.pop();
                         },
                       ),
-                      const SizedBox()
+                      const SizedBox(),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isFlashOn = !isFlashOn;
+                            controller!.toggleFlash();
+                          });
+                        },
+                        icon: Icon(
+                          isFlashOn ? Icons.flash_on : Icons.flash_off,
+                          color: Colors.white,
+                        ),
+                      ),
                     ],
                   ),
                   Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: "Scan QR Code",
+                          text: isScanningMode
+                              ? "Scan QR Code"
+                              : "QR Code Display",
                           style:
                               Theme.of(context).textTheme.titleLarge!.copyWith(
                                     fontWeight: FontWeight.w900,
@@ -70,8 +84,9 @@ class _ScanQrCodeState extends State<ScanQrCode> {
                                   ),
                         ),
                         TextSpan(
-                          text:
-                              "\nPlace the camera box at the QR Code to scan.",
+                          text: isScanningMode
+                              ? "\nPlace the camera box at the QR Code to scan."
+                              : "\nYour QR code is displayed below.",
                           style: Theme.of(context).textTheme.bodyMedium!.apply(
                                 fontSizeFactor: 1.2,
                                 color: Colors.white,
@@ -87,18 +102,23 @@ class _ScanQrCodeState extends State<ScanQrCode> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            isScanningMode = !isScanningMode;
+          });
+        },
+        child: Icon(isScanningMode ? Icons.qr_code_scanner : Icons.qr_code),
+      ),
     );
   }
-  // helper mthods
 
   Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
             MediaQuery.of(context).size.height < 400)
         ? 150.0
         : 300.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
+
     return QRView(
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
@@ -111,6 +131,10 @@ class _ScanQrCodeState extends State<ScanQrCode> {
           cutOutSize: scanArea),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
+  }
+
+  Widget _buildQrDisplay(BuildContext context) {
+    return PaymentInfo();
   }
 
   void _onQRViewCreated(QRViewController controller) {
