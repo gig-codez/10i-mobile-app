@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 
 import '../intro/widgets/social_widget.dart';
@@ -169,7 +170,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   loading: controller.isLoading,
                   onPress: controller.isLoading
                       ? () {}
-                      : () {
+                      : () async {
                           if (!formKey.currentState!.validate()) {
                             showMessage(
                                 message: "Please fill all required fields");
@@ -184,6 +185,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                   "password": passwordController.text,
                                   "password_confirmation":
                                       confirmPasswordController.text,
+                                  "fcm_token": await FirebaseMessaging.instance.getToken()
                                 },
                               );
                             }
