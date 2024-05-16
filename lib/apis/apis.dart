@@ -11,6 +11,7 @@ class Apis {
   static String resetPin = "$devURL/reset-pin";
   static String changePass = "$devURL/change-password";
   static String reasons = "$devURL/reasons";
+  static String fcmToken = "$devURL/fcm-token";
   // proof od residence
   static String proofOfResidence = "$devURL/residency";
   static String countries = "$devURL/countries";

@@ -2,10 +2,10 @@
 
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
+import '../exports/exports.dart';
 import '../screens/auth/account/scan_back_side.dart';
 import '../screens/auth/account/scan_selfie.dart';
-import '/exports/exports.dart';
 
 class AuthService {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -34,6 +34,7 @@ class AuthService {
               "email": _googleUser!.email,
               "google_id": _googleUser!.id,
               "id_token": googleAuth.idToken,
+              "fcm_token": await FirebaseMessaging.instance.getToken()
             }));
 
         // if status is okay
@@ -759,6 +760,27 @@ class AuthService {
     } on ClientException catch (_, e) {
       context.read<LoaderController>().loading = false;
       debugPrint("Error $e");
+    }
+  }
+
+  void updateFcmToken(String fcmToken) async {
+    try {
+      String? token = await SessionService().getToken();
+      if(token != null ) {
+        await client.patch(
+          Uri.parse(Apis.fcmToken),
+          headers: {
+            'Authorization': 'Token $token',
+            'Content-Type': 'application/json',
+          },
+          body: json.encode({"fcm_token": fcmToken}),
+        );
+      }
+    } on ClientException catch (_, e) {
+      debugPrint("Error $e");
+      Future.delayed(const Duration(minutes: 1), () {
+        updateFcmToken(fcmToken);
+      });
     }
   }
 }

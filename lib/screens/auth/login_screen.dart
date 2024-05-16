@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 
 import '/exports/exports.dart';
@@ -113,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textColor: Colors.white,
                 loading: controller.isLoading,
                 text: "Sign In",
-                onPress: () {
+                onPress: () async {
                   if (!formValue.currentState!.validate()) {
                     // Routes.routeTo(Routes.homePage);
                     showMessage(
@@ -122,6 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     AuthService().login({
                       "email": emailController.text,
                       "password": passwordController.text,
+                      "fcm_token": await FirebaseMessaging.instance.getToken()
                     });
                   }
                   // Routes.routeTo(Routes.homePage)

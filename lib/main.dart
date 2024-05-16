@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-// import 'package:wallet_app';
-
+import 'package:teni_app/firebase_api.dart';
 import 'firebase_options.dart';
 import 'exports/exports.dart';
 
@@ -38,13 +37,15 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  FirebaseAnalytics.instance;
+  FirebaseApi.init();
+
   runApp(const WalletApp());
   // device stays in portrait.
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // layout settings for android
   if (Platform.isAndroid) {
-    // app fits screen pxiels
+    // app fits screen pixels
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.edgeToEdge,
       overlays: [],

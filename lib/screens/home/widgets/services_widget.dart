@@ -1,14 +1,16 @@
+import 'package:flutter/material.dart';
+
 import "/exports/exports.dart";
 
 class ServicesWidget extends StatefulWidget {
-  const ServicesWidget({super.key});
+  const ServicesWidget({Key? key}) : super(key: key);
 
   @override
   State<ServicesWidget> createState() => _ServicesWidgetState();
 }
 
 class _ServicesWidgetState extends State<ServicesWidget> {
-  // services
+  // Services
   List<ServicesModel> services = [
     ServicesModel(
       label: "Send",
@@ -26,12 +28,12 @@ class _ServicesWidgetState extends State<ServicesWidget> {
       icon: "transfer.svg",
     ),
     ServicesModel(
-      label: "Create Invoice",
+      label: "Top Up",
       route: Routes.invoice,
-      icon: "doc.svg",
+      icon: "smartphone.svg",
     ),
     ServicesModel(
-      label: "Send Invoice",
+      label: "Invoice",
       route: Routes.quickLink,
       icon: "credit.svg",
     ),
@@ -41,16 +43,29 @@ class _ServicesWidgetState extends State<ServicesWidget> {
       icon: "bills.svg",
     ),
     ServicesModel(
-      label: "Split Bill",
+      label: "Parking",
       route: Routes.splitBill,
-      icon: "split.svg",
+      icon: "parking.svg",
     ),
     ServicesModel(
-      label: "Share Info",
+      label: "Medicine",
       route: Routes.paymentInfo,
-      icon: "share.svg",
+      icon: "medicine.svg",
     ),
   ];
+
+  // Define list of colors
+  List<Color> containerColors = [
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.yellow,
+    Colors.teal,
+    Colors.indigo,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -59,7 +74,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
         itemCount: services.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
-          mainAxisSpacing: 2,
+          mainAxisSpacing: 3,
         ),
         itemBuilder: (context, index) {
           return Column(
@@ -68,13 +83,20 @@ class _ServicesWidgetState extends State<ServicesWidget> {
                 onClick: () => Routes.routeTo(services[index].route),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: CircleAvatar(
-                    radius: 20,
-                    child: SvgPicture.asset(
-                      "assets/svgs/${services[index].icon}",
-                      width: 20,
-                      height: 20,
-                      color: Theme.of(context).primaryColor,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: containerColors[index], // Assign color
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgPicture.asset(
+                        "assets/svgs/${services[index].icon}",
+                        width: 34,
+                        height: 34,
+                        // ignore: deprecated_member_use
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -86,6 +108,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
                     .textTheme
                     .labelSmall!
                     .copyWith(fontWeight: FontWeight.w600),
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           );
@@ -95,12 +118,13 @@ class _ServicesWidgetState extends State<ServicesWidget> {
   }
 }
 
-// services model
+// Services model
 class ServicesModel {
   final String label;
   final String icon;
   final String route;
-// services constructor
+
+  // Services constructor
   ServicesModel({
     required this.label,
     required this.icon,
