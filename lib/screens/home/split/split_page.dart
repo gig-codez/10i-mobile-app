@@ -1,14 +1,14 @@
 import "/exports/exports.dart";
 import "bill_types.dart";
 
-class Split extends StatefulWidget {
-  const Split({super.key});
+class SplitPage extends StatefulWidget {
+  const SplitPage({super.key});
 
   @override
-  State<Split> createState() => _SplitState();
+  State<SplitPage> createState() => _SplitPageState();
 }
 
-class _SplitState extends State<Split> {
+class _SplitPageState extends State<SplitPage> {
   String text = "Select bill type";
   final amountController = TextEditingController();
   int billType = 0;

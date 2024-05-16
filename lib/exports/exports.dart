@@ -113,7 +113,7 @@ export "/screens/home/bills/success_payment.dart";
 
 // split bills
 export "/screens/home/split/split_bill.dart";
-export "/screens/home/split/split.dart";
+export "/screens/home/split/split_page.dart";
 export "/screens/home/split/split_money.dart";
 export "/screens/home/split/review_split.dart";
 export "/screens/home/split/split_success.dart";

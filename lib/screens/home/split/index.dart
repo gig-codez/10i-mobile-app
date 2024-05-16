@@ -24,7 +24,7 @@ class _IndexBillsState extends State<IndexBills> {
           actions: [
             IconButton(
               icon: const Icon(Icons.add),
-              onPressed: () => Routes.push(const Split()),
+              onPressed: () => Routes.push(const SplitPage()),
             )
           ]),
       body: SafeArea(
@@ -48,7 +48,7 @@ class _IndexBillsState extends State<IndexBills> {
                             // outlined button to add a bills
                             OutlinedButton.icon(
                               onPressed: () => Routes.push(
-                                const Split(),
+                                const SplitPage(),
                               ),
                               label: const Text("Add a Bill"),
                               icon: const Icon(Icons.add),
