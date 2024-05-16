@@ -33,10 +33,17 @@ BuildContext context = navigationKey.currentContext!;
 // ---------------------------------------------------------------
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isIOS) {
+    await Firebase.initializeApp(
+      name: "swisspe",
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } else {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   FirebaseAnalytics.instance;
   FirebaseApi.init();
 

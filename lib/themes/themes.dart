@@ -4,7 +4,7 @@ class AppTheme {
   // global texttheme from google fonts
   static final TextTheme _textTheme = GoogleFonts.poppinsTextTheme();
   // app color
-  static const Color _primaryColor = Color.fromARGB(255, 34, 89, 240);
+  static const Color _primaryColor = Color.fromARGB(255, 43, 99, 255);
   // defining themes
   static ThemeData darkTheme = ThemeData(
     textTheme: _textTheme,
