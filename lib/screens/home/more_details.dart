@@ -2,6 +2,8 @@
 
 import 'dart:async';
 
+import 'package:teni_app/screens/home/widgets/theme_widget.dart';
+
 import '/exports/exports.dart';
 
 class MoreDetails extends StatefulWidget {
@@ -33,9 +35,11 @@ class _MoreDetailsState extends State<MoreDetails> {
               space: 0.092,
             ),
             ProfileWidget(
-              titleText: "${user['first_name']} ${user['last_name']}",
-              size: 40,
-              subText: "${user['email']}",
+              titleText: user == null
+                  ? ""
+                  : "${user['first_name']} ${user['last_name']}",
+              size: 30,
+              subText: user == null ? " " : "${user['email']}",
               color: Theme.of(context).primaryColor,
               // icon: Icons.edit,
               img: "assets/pngs/default.jpeg",
@@ -56,7 +60,16 @@ class _MoreDetailsState extends State<MoreDetails> {
               prefixIcon: "profile.svg",
               color: Colors.deepOrangeAccent,
               size: 20,
-              onPress: () {},
+              onPress: () {
+                // modal bottom sheet
+                showModalBottomSheet(
+                  showDragHandle: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const ThemeWidget();
+                  },
+                );
+              },
               iconSize: 20,
             ),
             ProfileWidget(

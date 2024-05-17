@@ -22,6 +22,8 @@ export 'package:flutterwave_standard/flutterwave.dart';
 export 'package:uuid/uuid.dart';
 export 'package:jwt_decoder/jwt_decoder.dart';
 export 'package:uni_links2/uni_links.dart';
+export 'package:auto_size_text/auto_size_text.dart';
+
 // themes
 export "/themes/themes.dart";
 

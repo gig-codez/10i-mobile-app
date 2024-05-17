@@ -59,7 +59,7 @@ class ProfileWidget extends StatelessWidget {
                             )
                           : null,
                     ),
-                    Text.rich(
+                    AutoSizeText.rich(
                       TextSpan(
                         children: [
                           TextSpan(
@@ -78,7 +78,7 @@ class ProfileWidget extends StatelessWidget {
                                       .bodyMedium!
                                       .copyWith(
                                         fontWeight: FontWeight.w300,
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                 )
@@ -124,7 +124,7 @@ class ProfileWidget extends StatelessWidget {
                           )
                         : null,
                   ),
-                  title: Text(
+                  title: AutoSizeText(
                     titleText,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           fontWeight: FontWeight.w800,

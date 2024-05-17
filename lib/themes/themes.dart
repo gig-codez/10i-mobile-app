@@ -7,7 +7,7 @@ class AppTheme {
   static const Color _primaryColor = Color.fromARGB(255, 43, 99, 255);
   // defining themes
   static ThemeData darkTheme = ThemeData(
-    textTheme: _textTheme,
+    textTheme: _textTheme.apply(displayColor: Colors.white),
     colorScheme: ColorScheme.fromSeed(
       seedColor: _primaryColor,
       brightness: Brightness.dark,

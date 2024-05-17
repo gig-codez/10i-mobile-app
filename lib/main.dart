@@ -88,16 +88,18 @@ class WalletApp extends StatelessWidget {
         ),
       ],
       builder: (context, widget) {
-        return MaterialApp(
-          navigatorKey: navigationKey,
-          title: '10i App',
-          debugShowCheckedModeBanner: false,
-          themeMode: ThemeMode.system,
-          theme: AppTheme.lightTheme,
-          // darkTheme: AppTheme.darkTheme,
-          initialRoute: Routes.splash,
-          routes: Routes.routes,
-        );
+        return Consumer<ThemeController>(builder: (context, controller, c) {
+          return MaterialApp(
+            navigatorKey: navigationKey,
+            title: '10i App',
+            debugShowCheckedModeBanner: false,
+            themeMode: controller.themeMode,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            initialRoute: Routes.splash,
+            routes: Routes.routes,
+          );
+        });
       },
     );
   }

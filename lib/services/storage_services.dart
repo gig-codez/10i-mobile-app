@@ -36,6 +36,11 @@ class StorageService {
     return json.decode(prefs.get(key) as String);
   }
 
+  Future<String> getString(String key) async {
+    final SharedPreferences prefs = await sharedPreferences;
+    return (prefs.getString(key) as String);
+  }
+
   void removeData(String field) async {
     if (_sharedPreferences != null) {
       await _sharedPreferences?.remove(field);
