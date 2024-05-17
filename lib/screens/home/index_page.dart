@@ -17,7 +17,7 @@ class _IndexPageState extends State<IndexPage> {
 
   final List<Widget> _pages = const [
     HomeScreen(),
-    ActivityPage(),
+    IndexActivity(),
     AnalyticsPage(),
     // Invoices(),
     MoreDetails(),
@@ -57,22 +57,25 @@ class _IndexPageState extends State<IndexPage> {
         onChangedTab: (newIndex) {
           setState(() {
             _index = newIndex;
-            pageController.jumpToPage(newIndex); // Update the pageController
+            pageController.animateToPage(
+              newIndex,
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.bounceOut,
+            ); // Update the pageController
           });
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Routes.routeTo(Routes.qrCode),
-        child: Icon(
+        onPressed: () => Routes.routeTo(Routes.paymentInfo),
+        backgroundColor: Theme.of(context).primaryColor,
+        shape: const CircleBorder(),
+        child: const Icon(
           Icons.qr_code,
           size: 30,
           color: Colors.white,
         ),
-        backgroundColor: Theme.of(context).primaryColor,
-        shape: CircleBorder(),
       ),
-
       // bottomNavigationBar: BottomAppBar(
       //   shape: CircularNotchedRectangle(),
       //   notchMargin: 6.0, // Adjust notch margin as needed

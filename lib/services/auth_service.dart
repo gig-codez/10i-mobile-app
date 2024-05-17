@@ -8,11 +8,7 @@ import '../screens/auth/account/scan_back_side.dart';
 import '../screens/auth/account/scan_selfie.dart';
 
 class AuthService {
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-      scopes: <String>[
-        "email"
-      ]
-  );
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>["email"]);
   GoogleSignInAccount? _googleUser;
 
   // function to handle response from signing in with google
@@ -22,8 +18,9 @@ class AuthService {
       _googleUser = await _googleSignIn.signIn();
       // start the loader
       controller.isLoading = true;
-      
-      final GoogleSignInAuthentication? googleAuth = await _googleUser?.authentication;
+
+      final GoogleSignInAuthentication? googleAuth =
+          await _googleUser?.authentication;
       if (googleAuth != null) {
         // save data to database
         Response response = await client.post(Uri.parse(Apis.googleAuth),
@@ -63,9 +60,7 @@ class AuthService {
       debugPrint("Error: $e");
     }
   }
-  
-  
-  
+
   // function to handle login
   void login(Map<String, dynamic> data) async {
     var controller = Provider.of<LoaderController>(context, listen: false);
@@ -96,8 +91,7 @@ class AuthService {
       } else {
         controller.isLoading = false;
         // error
-        showMessage(
-            message: json.decode(response.body)['auth'][0], type: 'error');
+        showMessage(message: "Invalid credentials", type: 'error');
       }
     } on ClientException catch (e, _) {
       debugPrint("Error: $e");
@@ -676,7 +670,7 @@ class AuthService {
   }
 
   // set wallet pin
-  setWalletPin(Map<String, dynamic> data) async {
+  void setWalletPin(Map<String, dynamic> data) async {
     try {
       String? token = await SessionService().getToken();
       context.read<LoaderController>().isLoading = true;
@@ -766,7 +760,7 @@ class AuthService {
   void updateFcmToken(String fcmToken) async {
     try {
       String? token = await SessionService().getToken();
-      if(token != null ) {
+      if (token != null) {
         await client.patch(
           Uri.parse(Apis.fcmToken),
           headers: {

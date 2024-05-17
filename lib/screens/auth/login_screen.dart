@@ -51,11 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 titleText: "Email *",
                 enableSuffix: false,
                 readOnly: controller.isLoading,
-                contentPadding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 16,
-                  bottom: 10,
+                contentPadding: const EdgeInsets.all(
+                  10,
                 ),
                 keyboardType: TextInputType.emailAddress,
                 controller: emailController,
@@ -78,15 +75,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 isObscureText: !passShowHide,
                 controller: passwordController,
                 readOnly: controller.isLoading,
-                contentPadding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 16,
-                  bottom: 10,
+                contentPadding: const EdgeInsets.all(
+                  10,
                 ),
                 enableSuffix: true,
                 suffixIcon:
-                    passShowHide ? Icons.remove_red_eye  : Icons.visibility_off ,
+                    passShowHide ? Icons.remove_red_eye : Icons.visibility_off,
                 onTapSuffix: () {
                   setState(() {
                     passShowHide = !passShowHide;

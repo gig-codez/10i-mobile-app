@@ -40,6 +40,11 @@ class FirebaseApi {
         final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
         if (apnsToken != null) {
           // APNS token is available, make FCM plugin API requests...
+          String? token = await FirebaseMessaging.instance.getToken();
+          if (token != null) {
+            print("Token => $token");
+            AuthService().updateFcmToken(token);
+          }
         }
       }
 
@@ -51,7 +56,6 @@ class FirebaseApi {
       });
 
       debugPrint(await FirebaseMessaging.instance.getToken());
-
       FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
           alert: true, badge: true, sound: true);
       initPushNotifications();

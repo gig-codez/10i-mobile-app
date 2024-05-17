@@ -106,6 +106,7 @@ class _OnBoardingState extends State<OnBoarding> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.61,
               child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
                 controller: pageController,
                 children: List.generate(
                   _slides.length,

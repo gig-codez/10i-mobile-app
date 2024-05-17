@@ -32,13 +32,15 @@ class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
               label: 'Activity'),
           const SizedBox(width: 16), // Empty space for floating button
           buildTabItem(
-              index: 2,
-              icon: const Icon(Icons.downloading, size: 26),
-              label: 'Invoice'),
+            index: 2,
+            icon: const Icon(Icons.downloading, size: 26),
+            label: 'Invoice',
+          ),
           buildTabItem(
-              index: 3,
-              icon: const Icon(Icons.settings, size: 26),
-              label: 'More'),
+            index: 3,
+            icon: const Icon(Icons.settings, size: 26),
+            label: 'More',
+          ),
         ],
       ),
     );
@@ -55,7 +57,9 @@ class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
             IconButton(
               onPressed: () => widget.onChangedTab(index),
               icon: icon,
-              color: widget.index == index ? Colors.blue : Colors.grey,
+              color: widget.index == index
+                  ? Theme.of(context).colorScheme.primary
+                  : Colors.grey,
               padding: EdgeInsets.zero,
             ),
           ],
@@ -67,7 +71,9 @@ class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
             child: Text(
               label,
               style: TextStyle(
-                color: widget.index == index ? Colors.blue : Colors.grey,
+                color: widget.index == index
+                    ? Theme.of(context).colorScheme.primary
+                    : Colors.grey,
                 fontSize: 12, // Adjust the font size of the label
               ),
             ),

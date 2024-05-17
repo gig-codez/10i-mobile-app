@@ -1,3 +1,7 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
+import 'dart:async';
+
 import '/exports/exports.dart';
 
 class MoreDetails extends StatefulWidget {
@@ -13,20 +17,25 @@ class _MoreDetailsState extends State<MoreDetails> {
   @override
   Widget build(BuildContext context) {
     storage.getData("user").then((value) {
-      user = value['user'];
+      if (value is Map<String, dynamic>) {
+        var x = value.get('user');
+        print(x);
+        user = (x);
+      }
+      // user = value['user'];
     });
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox.square(
-              dimension: 10,
+            const SpaceWidget(
+              space: 0.092,
             ),
             ProfileWidget(
-              titleText: "${user['id']}",
+              titleText: "${user['first_name']} ${user['last_name']}",
               size: 40,
-              subText: "johndoe@yourdomain.com",
+              subText: "${user['email']}",
               color: Theme.of(context).primaryColor,
               // icon: Icons.edit,
               img: "assets/pngs/default.jpeg",
@@ -42,17 +51,14 @@ class _MoreDetailsState extends State<MoreDetails> {
                 color: Colors.grey.shade300,
               ),
             ),
-            // ProfileWidget(
-            //   titleText: "Personal Info",
-            //   prefixIcon: "profile.svg",
-            //   color: Colors.deepOrangeAccent,
-            //   size: 20,
-            //   onPress: () {
-            //     Routes.pushPageWithRouteAndAnimation(const PersonalInfo(),
-            //         type: 'slide');
-            //   },
-            //   iconSize: 20,
-            // ),
+            ProfileWidget(
+              titleText: "App Theme",
+              prefixIcon: "profile.svg",
+              color: Colors.deepOrangeAccent,
+              size: 20,
+              onPress: () {},
+              iconSize: 20,
+            ),
             ProfileWidget(
               titleText: "About",
               color: Theme.of(context).primaryColor,

@@ -92,6 +92,13 @@ export "/screens/home/quick_link/quick_link.dart";
 export "/screens/home/services/deposit.dart";
 export "../screens/home/bills/utilities.dart";
 export "/screens/home/services/reward.dart";
+
+// screen => activity
+export "/screens/home/activity/index_activity.dart";
+export "/screens/home/activity/received_activity.dart";
+export "/screens/home/activity/sent_activity.dart";
+export "/screens/home/activity/all_activity.dart";
+export "/screens/home/activity/activity_detail.dart";
 // widgets
 export "/screens/home/services/widget/payment_sumary.dart";
 

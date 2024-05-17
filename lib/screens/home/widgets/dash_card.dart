@@ -14,9 +14,11 @@ class _DashCardState extends State<DashCard> {
   void initState() {
     super.initState();
     PaymentService().getWalletBalance().then((value) {
-      setState(() {
-        balance = value.walletBalance;
-      });
+      if (mounted) {
+        setState(() {
+          balance = value.walletBalance;
+        });
+      }
     });
   }
 
