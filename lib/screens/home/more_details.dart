@@ -21,8 +21,11 @@ class _MoreDetailsState extends State<MoreDetails> {
     storage.getData("user").then((value) {
       if (value is Map<String, dynamic>) {
         var x = value.get('user');
-        print(x);
-        user = (x);
+        if (mounted) {
+          setState(() {
+            user = (x);
+          });
+        }
       }
       // user = value['user'];
     });
