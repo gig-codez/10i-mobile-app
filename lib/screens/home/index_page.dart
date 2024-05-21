@@ -36,44 +36,83 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   toolbarHeight: 0,
-      //   backgroundColor: Theme.of(context).primaryColor.withAlpha(230),
-      // ),
-      body: PageView.builder(
-        controller: pageController,
-        itemCount: _pages.length,
-        itemBuilder: (context, index) {
-          return _pages[index];
-        },
-        onPageChanged: (index) {
-          setState(() {
-            _index = index;
-          });
-        },
+      appBar: AppBar(
+        toolbarHeight: 0,
+        backgroundColor: Color.fromRGBO(18, 64, 118, 1),
       ),
-      bottomNavigationBar: TabBarMaterialWidget(
-        index: _index, // Pass 'index' to TabBarMaterialWidget
-        onChangedTab: (newIndex) {
-          setState(() {
-            _index = newIndex;
-            pageController.animateToPage(
-              newIndex,
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.bounceOut,
-            ); // Update the pageController
-          });
-        },
+      body: SafeArea(
+        child: PageView.builder(
+          controller: pageController,
+          itemCount: _pages.length,
+          itemBuilder: (context, index) {
+            return _pages[index];
+          },
+          onPageChanged: (index) {
+            setState(() {
+              _index = index;
+            });
+          },
+        ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // bottomNavigationBar: Container(
+
+      // // margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      // decoration: BoxDecoration(
+      //   borderRadius: BorderRadius.circular(30),
+      //       // boxShadow: [
+      //       //   BoxShadow(
+      //       //     // spreadRadius: 0.5,
+      //       //     blurRadius: 5,
+      //       //     offset: Offset(0, -3), // Shadow at the top position of shadow
+      //       //   ),
+      //       // ],
+      //     ),
+      //     child: ClipRRect(
+      //         borderRadius: BorderRadius.circular(30),
+      //         child: MyBottomNavigationBar(
+      //           index: _index, // Pass 'index' to TabBarMaterialWidget
+      //           onChangedTab: (newIndex) {
+      //             setState(() {
+      //               _index = newIndex;
+      //               pageController
+      //                   .jumpToPage(newIndex); // Update the pageController
+      //             });
+      //           },
+      //         ))),
+      bottomNavigationBar: Container(
+        // margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: TabBarMaterialWidget(
+            index: _index, // Pass 'index' to TabBarMaterialWidget
+            onChangedTab: (newIndex) {
+              setState(() {
+                _index = newIndex;
+                pageController
+                    .jumpToPage(newIndex); // Update the pageController
+              });
+            },
+          ),
+        ),
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () => Routes.routeTo(Routes.paymentInfo),
-        backgroundColor: Theme.of(context).primaryColor,
         shape: const CircleBorder(),
         child: const Icon(
           Icons.qr_code,
           size: 30,
           color: Colors.white,
+        ),
+        backgroundColor: Color.fromRGBO(
+          18,
+          64,
+          118,
+          1,
         ),
       ),
       // bottomNavigationBar: BottomAppBar(

@@ -28,30 +28,25 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: Theme.of(context).primaryColor.withAlpha(230),
+        backgroundColor: Color.fromRGBO(18, 64, 118, 1),
       ),
-      body: const Stack(
+      body: Stack(
         children: [
-          Column(
-            children: [
-              DashCard(),
-              Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
+          Container(
+            color: Color.fromRGBO(18, 64, 118, 1),
+            child: const Column(
+              children: [
+                DashCard(),
+                Expanded(
+                  flex: 3,
                   child: ServicesWidget(),
-                  //
                 ),
-              ),
-              Divider(),
-              Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                Expanded(
+                  flex: 3,
                   child: RecentActivities(),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

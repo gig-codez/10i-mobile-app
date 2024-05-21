@@ -38,7 +38,7 @@ class _DashCardState extends State<DashCard> {
         flex: 2,
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor.withAlpha(230),
+            color: Color.fromRGBO(18, 64, 118, 1),
           ),
           child: Column(
             children: [
@@ -50,7 +50,7 @@ class _DashCardState extends State<DashCard> {
                     child: Row(
                       children: [
                         CircleAvatar(
-                          backgroundImage: AssetImage("assets/pngs/dp.png"),
+                          backgroundImage: AssetImage("assets/pngs/avatar.png"),
                           radius: 24,
                         ),
                       ],
