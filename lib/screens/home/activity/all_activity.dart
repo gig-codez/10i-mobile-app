@@ -19,17 +19,27 @@ class _AllActivityState extends State<AllActivity> {
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text("All Activity $index"),
-                subtitle: Text("All Activity $index"),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ActivityDetail(),
-                    ),
-                  );
-                },
+              return Container(
+                margin: EdgeInsets.symmetric(vertical: 3.0, horizontal: 6),
+                child: ListTile(
+                  tileColor: Colors.white,
+                  title: Text(
+                    "All Activity $index",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  subtitle: Text(
+                    "All Activity $index",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ActivityDetail(),
+                      ),
+                    );
+                  },
+                ),
               );
             },
           ),

@@ -28,12 +28,12 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: Color.fromRGBO(18, 64, 118, 1),
+        backgroundColor: Color.fromRGBO(17, 66, 50, 1),
       ),
       body: Stack(
         children: [
           Container(
-            color: Color.fromRGBO(18, 64, 118, 1),
+            color: Color.fromRGBO(17, 66, 50, 1),
             child: const Column(
               children: [
                 DashCard(),

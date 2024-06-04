@@ -38,7 +38,7 @@ class _DashCardState extends State<DashCard> {
         flex: 2,
         child: Container(
           decoration: BoxDecoration(
-            color: Color.fromRGBO(18, 64, 118, 1),
+            color: Color.fromRGBO(17, 66, 50, 1),
           ),
           child: Column(
             children: [

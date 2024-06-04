@@ -70,7 +70,7 @@ class _ServicesWidgetState extends State<ServicesWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Color.fromRGBO(210, 235, 192, 1),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30.0),
           topRight: Radius.circular(30.0),

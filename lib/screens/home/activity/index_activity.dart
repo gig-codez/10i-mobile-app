@@ -27,9 +27,12 @@ class _IndexActivityState extends State<IndexActivity>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(197, 235, 170, 1),
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(17, 66, 50, 1),
         title: const Text("Activity"),
         bottom: TabBar(
+          labelColor: Colors.white,
           controller: tabController,
           tabs: const [
             Tab(

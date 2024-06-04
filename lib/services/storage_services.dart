@@ -38,7 +38,12 @@ class StorageService {
 
   Future<String> getString(String key) async {
     final SharedPreferences prefs = await sharedPreferences;
-    return (prefs.getString(key) as String);
+    if (prefs.containsKey(key)) {
+      return prefs.getString(key) ?? "";
+    } else {
+      // Handle the case where the key doesn't exist
+      return ""; // Or return a default value
+    }
   }
 
   void removeData(String field) async {

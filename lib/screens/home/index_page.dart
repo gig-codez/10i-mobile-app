@@ -36,9 +36,10 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(197, 235, 170, 1),
       appBar: AppBar(
         toolbarHeight: 0,
-        backgroundColor: Color.fromRGBO(18, 64, 118, 1),
+        backgroundColor: Color.fromRGBO(17, 66, 50, 1),
       ),
       body: SafeArea(
         child: PageView.builder(
@@ -82,10 +83,12 @@ class _IndexPageState extends State<IndexPage> {
       bottomNavigationBar: Container(
         // margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         decoration: BoxDecoration(
+          color: Color.fromRGBO(210, 235, 192, 1),
           borderRadius: BorderRadius.circular(30),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
           child: TabBarMaterialWidget(
             index: _index, // Pass 'index' to TabBarMaterialWidget
             onChangedTab: (newIndex) {
@@ -109,9 +112,9 @@ class _IndexPageState extends State<IndexPage> {
           color: Colors.white,
         ),
         backgroundColor: Color.fromRGBO(
-          18,
-          64,
-          118,
+          17,
+          66,
+          50,
           1,
         ),
       ),

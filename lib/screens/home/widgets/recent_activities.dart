@@ -12,7 +12,7 @@ class _RecentActivitiesState extends State<RecentActivities> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Color.fromRGBO(210, 235, 192, 1),
       ),
       child: Column(
         children: [

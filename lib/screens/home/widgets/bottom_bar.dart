@@ -20,9 +20,9 @@ class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: Color.fromRGBO(
-        18,
-        64,
-        118,
+        17,
+        66,
+        50,
         1,
       ),
       shape: const CircularNotchedRectangle(),
@@ -53,13 +53,13 @@ class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
             children: [
               Icon(
                 icon,
-                color: widget.index == index ? Colors.blue : Colors.grey,
+                color: widget.index == index ? Colors.white : Colors.grey,
                 size: 26,
               ),
               Text(
                 label,
                 style: TextStyle(
-                  color: widget.index == index ? Colors.blue : Colors.grey,
+                  color: widget.index == index ? Colors.white : Colors.grey,
                   fontSize: 12, // Adjust the font size of the label
                 ),
               )
